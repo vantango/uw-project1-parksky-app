@@ -55,9 +55,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	var lastFMKey = "a723aea02ace235108c8be962d7c5aa8";
-	var spotifyKey = "";
 
-	var region = "India";
+	var region = "Russia";
 	$("#country").text(region);
 
 	function getLastFMArtistsByRegion(region) {
@@ -88,21 +87,22 @@ $(document).ready(function() {
 	}
 
 	function getSpotifyArtistByRegion(region) {
-		/**
-		 * France Top 50: 37i9dQZEVXbIPWwFssbupI
-		 */
-		var queryURL = "https://open.spotify.com/user/spotify/playlist/37i9dQZEVXbIPWwFssbupI";
-
 		$("#country").empty().text(`${region}: Spotify`);
 		$("#artists").text("Spotify Search NOT Working Yet :(");
 
-	// 	// $.ajax({
- //  //     url: queryURL,
- //  //     method: "GET"
- //  //   }).then(function(response) {
- //  //   	console.log(response);
- //  //   });
-	// }
+		/**
+		 * France Top 50: 37i9dQZEVXbIPWwFssbupI
+		 */
+
+		// var queryURL = "https://open.spotify.com/user/spotify/playlist/37i9dQZEVXbIPWwFssbupI";
+
+		// $.ajax({
+  //     url: queryURL,
+  //     method: "GET"
+  //   }).then(function(response) {
+  //   	console.log(response);
+  //   });
+	}
 
 	$("#ToggleSpotifyLastFM").click(function(e) {
 		e.preventDefault();
