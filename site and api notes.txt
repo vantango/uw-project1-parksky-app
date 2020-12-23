@@ -17,7 +17,7 @@ WIKIPEDIA API == YES :)
 [Intro] `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exintro=&titles=${searchTerm}`
 
 NASA NEOWs (Asteroids)
-https://api.nasa.gov/neo/rest/v1/feed?start_date=2020-12-20&end_date=2020-12-25&api_key=DEMO_KEY
+https://api.nasa.gov/neo/rest/v1/feed?api_key=N01Hr2ayL4UxV02RoD6VdGP5LdG57n6nRc9hZwfk&start_date=2020-12-20&end_date=2020-12-25
 
 *NOT AN API* but gets us our charts :)
 STAR CHARTS using the star-chart code from https://github.com/ytliu0/starCharts (forked to my repo so we can make edits). Has a GPL-3.0 License, allowing even commercial use so we're "legal" here.
