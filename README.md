@@ -1,2 +1,2 @@
-# uw-project1-regional-music-app
-Music application that provides user with most popular music and artists based on the local region that they are in.
+# uw-project1-parksky-app
+Look up U.S. National Parks and view park details as well as a star chart and other astronomical info.
