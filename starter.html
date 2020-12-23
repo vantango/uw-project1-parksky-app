@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>STAR CHART DEMO</title>
+	
+	<link rel="stylesheet" href="css/styles.css">
+	<!-- required for starCharts to work -->
+	<script src="jquery-3.3.1.min.js"></script>
+  <script src="core_min.js"></script>
+  <script src="sseph_min.js"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script src="sidereal_min.js"></script>
+</head>
+<body>
+	<header></header>
+	<div id="details">
+		<button id="parkinfo"></button>
+	</div>
+<!-- star chart canvas -->
+<div class="canvaswrapper">
+  <canvas id="loc1" width="800" height="800">
+    CANVAS NOT SUPPORTED IN THIS BROWSER!
+  </canvas>
+  <div id="tip1" class="tip">
+    <div class="close" onclick="closePopup('tip1')">&#10005;</div>
+    <div id="tip1text"></div>
+  </div>
+</div>
+<button id="starinfo"></button>
+</body>
+</html>
