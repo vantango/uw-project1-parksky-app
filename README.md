@@ -1,2 +1,2 @@
-# uw-project1-regional-music-app
-Music application that provides user with most popular music and artists based on the local region that they are in.
+# uw-project1-parksky-app
+Allows a user to search for a national park for a given visitation date in the US. It not only displays general information and a brief summary for each park, but it also presents the user with a star chart and for what the night sky will look like at that park on a specific date, any near earth objects that will be passing the Earth on the specified date, and the weather forecast for that day.
