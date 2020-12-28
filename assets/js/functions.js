@@ -20,6 +20,7 @@ function displayData(parkCode, displayStarChart=false, displayStarDetails=false,
     if(displayParkInfo) {
     	// display park info (box on home page)
     	$("#parkName").html(`${data.fullName} Info`);
+    	$("#entranceFees").empty();
     	
     	// generates rows and cells for entrance Fees block (div)
     	for(var i in data.entranceFees) {

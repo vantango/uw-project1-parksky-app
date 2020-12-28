@@ -1,3 +1,3 @@
 $(document).ready(function() {
-	// handle changing selection
+	// display additional star data?
 });
