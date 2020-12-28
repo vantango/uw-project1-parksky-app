@@ -1,0 +1,48 @@
+.columns {
+	margin: 0;
+}
+
+main.columns:not(:last-child) {
+	margin-bottom: 0;
+}
+
+aside .table {
+	margin-left: 4rem;
+}
+
+.table.has-text-white th {
+	color: white;
+	text-align: center;
+}
+
+.table.has-background-dark td {
+	background-color: #363636;
+}
+
+.table.has-background-dark.is-striped tr:nth-child(2) {
+	background-color: #4e4e4e;
+}
+
+.table tbody td {
+	padding: 0;
+}
+
+#entranceFees tr td,
+#entrancePasses tr td,
+#operatingHours tr td,
+#weather {
+	border: 0;
+	padding: 0.25rem 1rem;
+}
+
+#entranceFees tr:nth-child(2n+1),
+#entrancePasses tr:nth-child(1n+2),
+#operatingHours tr:nth-child(1n+2) {
+	border-top: 2px solid white;
+}
+
+#entranceFees tr:nth-child(2n+1) td,
+#entrancePasses tr:nth-child(1n+2) td,
+#operatingHours tr:nth-child(1n+2) td {
+	background-color: red;
+}

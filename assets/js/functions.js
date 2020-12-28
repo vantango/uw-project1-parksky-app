@@ -95,7 +95,7 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
 
         var tdEmail = $("<td>");
         tdEmail.text(data.contacts.emailAddresses[i].emailAddress);
-
+       
         row1.append(tdEmail);
         $("#contactInfo").append(row1);
       }
