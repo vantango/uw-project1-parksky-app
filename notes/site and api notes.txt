@@ -8,6 +8,29 @@ User searches for Arcadia Nat. park RETURNS
 PARK INFO API TEST (successful)
 https://developer.nps.gov/api/v1/parks?api_key=0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg&parkCode=acad
 
+PARK LIST
+acad = Acadia National Park
+yell = Yellowstone National Park
+samo = Santa Monica Mountains National Recreation Area
+arch = Arches National Park
+badl = Badlands National Park
+bisc = Biscayne National Park
+brca = Bryce Canyon
+cany = Canyonlands National Park
+npsa = National Park of American Samoa
+dena = Denali National Park & Preserve
+
+Activity ID | Name
+D37A0003-8317-4F04-8FB0-4CF0A272E195 | Stargazing (doesn't exist anymore)
+13A57703-BB1A-41A2-94B8-53B692EB7238 | Astronomy
+A59947B7-3376-49B4-AD02-C0423E08C5F7 | Camping
+
+** Below are on the Wikipedia List, but I can't figure out code **
+- American Samoa
+- Big Bend
+- Black Canyon of the Gunnison
+
+
 STAR API TEST (?)
 HYPATIA == NO :( requires auth-token
 https://hypatiacatalog.com/hypatia/api/v2/star2c8ecfb029c72e8915190710134e2c39

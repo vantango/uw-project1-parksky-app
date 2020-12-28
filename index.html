@@ -3,95 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/png">
+    <title>Park&starf;Sky</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <link rel="stylesheet" href="style.css" />
+    <!-- Font Awesome Pro (Angel) -->
+    <script src="https://kit.fontawesome.com/9338ddc728.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!--  -->
+    <link rel="stylesheet" href="assets/css/starChart.css" />
 </head>
 <body>
-
-    <script src= script.js></script>
-</body>
-</html>
-<!--Nav-->
-<nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="index.html">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/NASA_Worm_logo.svg/1200px-NASA_Worm_logo.svg.png" width="112" height="28">
-      </a>
-  
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
+	<!-- Site Header -->
+  <section class="hero is-dark">
+  	<!-- hero header: for the navbar; sticks to top -->
+    <div class="hero-head">
+    	<nav class="navbar">
+    		<div class="container">
+	    		<div class="navbar-brand">
+	    			<a href="#" class="navbar-item">
+	    				<img src="assets/img/ParkSky Logo 1.png" alt="ParkSky Logo">
+	    			</a>
+	    			<span class="navbar-burger" data-target="navbarMenuHeroA">
+	    				<span></span>
+	    				<span></span>
+	    				<span></span>
+	    			</span>
+	    		</div>
+	    		<div id="navbarMenuHeroA" class="navbar-menu">
+	    			<div class="navbar-end">
+	    				<a href="#" class="navbar-item is-active">Home</a>
+	    				<span class="navbar-item">
+	    					<a href="#" class="button is-danger is-inverted">
+	    						<span class="icon">
+	    							<i class="fab fa-github"></i>
+	    						</span>
+	    						<span>Github</span>
+	    					</a>
+	    				</span>
+	    			</div>
+	    		</div>
+	    	</div>
+	    	</nav>
     </div>
-  
-    <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" href="index.html">
-          Home
-        </a>
-  
-        <a class="navbar-item">
-          Documentation
-        </a>
-  
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            More
-          </a>
-  
-          <div class="navbar-dropdown">
-            <a class="navbar-item">
-              About
-            </a>
-            <a class="navbar-item">
-              Jobs
-            </a>
-            <a class="navbar-item">
-              Contact
-            </a>
-            <hr class="navbar-divider">
-            <a class="navbar-item">
-              Report an issue
-            </a>
-          </div>
-        </div>
-      </div>
-  
-      <div class="navbar-end">
-        <div class="navbar-item">
-            <div class="search-container">
-                <form action="/action_page.php">
-                  <input type="text" placeholder="Search.." name="search">
-                  <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
-              </div>
-        </div>
-      </div>
-    </div>
-  </nav>
-<!---->
-  <section class="section">
-    <div class="container">
-      <img src="starrynight.jpg" >
-      <h1 class="title">
-        Hello World
-      </h1>
-      <p class="subtitle">
-        My first website with <strong>Bulma</strong>!
-      </p>
+    <!-- Hero content -->
+    <!-- <div class="hero-body">
+    	<div class="container has-text-centered">
+    		<h1 class="title">Park&starf;Sky</h1>
+    		<h2>The Stars of Our Parks</h2>
+    	</div>
+    </div> -->
+    <!-- Hero footer; sticks to bottom  -->
+    <div class="hero-foot">
+    	<form id="searchParks" class="has-text-centered py-5">
+    		<div class="field">
+    			<p class="control has-icons-left">
+    				<span class="select">
+    					<select name="searchParksSelect" id="searchParksSelect">
+    						<option value="cany" selected>Canyonlands National Park</option>
+								<option value="acad">Acadia National Park</option>
+								<option value="brca">Bryce Canyon National Park</option>
+								<option value="badl">Badlands National Park</option>
+								<option value="arch">Arches National Park</option>
+								<option value="bibe">Big Bend National Park</option>
+								<option value="chis">Channel Islands National Park</option>
+								<option value="care">Capitol Reef National Park</option>
+								<option value="cave">Carlsbad Caverns National Park</option>
+								<option value="deva">Death Valley National Park</option>
+								<option value="crla">Crater Lake National Park</option>
+								<option value="drto">Dry Tortugas National Park</option>
+								<option value="grba">Great Basin National Park</option>
+								<option value="glac">Glacier National Park</option>
+								<option value="grsm">Great Smoky Mountains National Park</option>
+								<option value="grca">Grand Canyon National Park</option>
+								<option value="isro">Isle Royale National Park</option>
+								<option value="jeff">Gateway Arch National Park</option>
+								<option value="ever">Everglades National Park</option>
+								<option value="jotr">Joshua Tree National Park</option>
+								<option value="kefj">Kenai Fjords National Park</option>
+								<option value="lavo">Lassen Volcanic National Park</option>
+								<option value="mora">Mount Rainier National Park</option>
+								<option value="maca">Mammoth Cave National Park</option>
+								<option value="meve">Mesa Verde National Park</option>
+								<option value="olym">Olympic National Park</option>
+								<option value="pefo">Petrified Forest National Park</option>
+								<option value="shen">Shenandoah National Park</option>
+								<option value="sagu">Saguaro National Park</option>
+								<option value="pinn">Pinnacles National Park</option>
+								<option value="thro">Theodore Roosevelt National Park</option>
+								<option value="romo">Rocky Mountain National Park</option>
+								<option value="voya">Voyageurs National Park</option>
+								<option value="yose">Yosemite National Park</option>
+								<option value="yell">Yellowstone National Park</option>
+								<option value="bisc">Biscayne National Park</option>
+								<option value="zion">Zion National Park</option>
+								<option value="blca">Black Canyon Of The Gunnison National Park</option>
+								<option value="hosp">Hot Springs National Park</option>
+								<option value="havo">Hawai'i Volcanoes National Park</option>
+								<option value="noca">North Cascades National Park</option>
+								<option value="indu">Indiana Dunes National Park</option>
+								<option value="kova">Kobuk Valley National Park</option>
+								<option value="whsa">White Sands National Park</option>
+								<option value="wica">Wind Cave National Park</option>
+								<option value="cong">Congaree National Park</option>
+								<option value="grte">Grand Teton National Park</option>
+								<option value="cuva">Cuyahoga Valley National Park</option>
+								<option value="gumo">Guadalupe Mountains National Park</option>
+								<option value="hale">Haleakal&#257; National Park</option>
+							</select>
+    				</span>
+    			</p>
+    		</div>
+    	</form>
     </div>
   </section>
-
-  <footer class="footer">
+  <!-- Main -->
+  <main class="columns has-text-white">
+  	<aside id="parkInfoContainer" class="column is-3">
+  		<table id="parkInfo">
+				<thead>
+					<tr>
+						<th id="parkName"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- Fees -->
+					<tr>
+						<th>Entrance Fees</th>
+					</tr>
+					<tr>
+						<td>
+							<div id="entranceFees"></div>
+						</td>
+					</tr>
+					<!-- Passes -->
+					<tr>
+						<th>Entrance Passes</th>
+					</tr>
+					<tr>
+						<td>
+							<div id="entrancePasses"></div>
+						</td>
+					</tr>
+					<!-- Operating Hours -->
+					<tr>
+						<th>Operating Hours</th>
+					</tr>
+					<tr>
+						<td>
+							<div id="operatingHours"></div>
+						</td>
+					</tr>
+					<!-- Weather -->
+					<tr>
+						<th>Weather Info</th>
+					</tr>
+					<tr>
+						<td id="weather"></td>
+					</tr>
+				</tbody>
+			</table>
+  	</aside>
+  	<div id="starChartContainer" class="column">
+  		<table class="has-text-white">
+        <tr>
+          <td colspan="2" id="place1" class="has-text-centered is-size-4"></td>
+        </tr>
+        <tr>
+          <td><strong>Latitude:</strong></td>
+          <td id="lat1"></td>
+        </tr>
+        <tr>
+          <td><strong>Longitude:</strong></td>
+          <td id="long1"></td>
+        </tr>
+        <tr>
+          <td><strong>Time:</strong></td>
+          <td id="time1"></td>
+        </tr>
+        <tr>
+          <td><strong>Sidereal Time:</strong></td>
+          <td id="siderealTime1"></td>
+        </tr>
+      </table>
+      <div class="canvaswrapper">
+        <canvas id="loc1" width="800" height="800">
+          CANVAS NOT SUPPORTED IN THIS BROWSER!
+        </canvas>
+        <div id="tip1" class="tip">
+          <div class="close" onclick="closePopup('tip1')">&#10005;</div>
+          <div id="tip1text"></div>
+        </div>
+      </div>
+      <canvas id="legend" width="500" height="110">
+        CANVAS NOT SUPPORTED IN THIS BROWSER!
+      </canvas>
+  	</div>
+  </main>
+  <!-- Site Footer -->
+  <footer class="footer is-dark has-text-white">
     <div class="content has-text-centered">
       <p>
-        <strong>Bulma</strong> by Aleks, Angel and Jessica.
+        <strong>Park<small>&starf;</small>Sky</strong> by Aleks, Angel and Jessica.
       </br>
         UW Coding Bootcamp
     </p>
     </div>
   </footer>
-  </body>
+
+  <!-- jQuery -->
+  <script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+  <!-- dayjs -->
+	<script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+
+	<!-- starChart -->
+	<script src="assets/js/starChart/core_min.js"></script>
+	<script src="assets/js/starChart/sseph_min.js"></script>
+	<script src="assets/js/starChart/src/brightStars.js"></script>
+	<script src="assets/js/starChart/src/riseSetTimes.js"></script>
+	<script src="assets/js/starChart/src/sidereal.js"></script>
+
+	<!--
+	Team Scripts
+		* FUNCTIONS is for the functions that can be called
+		* script.js has where "setup" functionality (e.g. the search dropdown) is handled
+		* starChart.js is where the star chart related functions are called
+		* parkData.js is where the park data from both NPS & Wikipedia is handled
+	-->
+	<script src="assets/js/functions.js"></script>
+	<script src="assets/js/script.js"></script>
+	<script src="assets/js/starChart.js"></script>
+	<!-- <script src="assets/js/parkData.js"></script> -->
+</body>
 </html>

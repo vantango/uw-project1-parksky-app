@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>STAR CHART DEMO</title>
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <link rel="stylesheet" href="assets/css/starChart.css">
+</head>
+<body>
+<div id="wrapper">
+    <header class="site-header">
+      <h1 class="title is-size-1 has-text-white has-text-centered pt-5">STAR CHART</h1>
+    </header>
+    <main class="site-main container">
+    	<table>
+    		<thead>
+    			<tr>
+    				<th colspan="2"></th>
+    			</tr>
+    		</thead>
+    	</table>
+      <!-- <table class="has-text-white">
+        <tr>
+          <td colspan="2" id="place1" class="has-text-centered is-size-4"></td>
+        </tr>
+        <tr>
+          <td><strong>Latitude:</strong></td>
+          <td id="lat1"></td>
+        </tr>
+        <tr>
+          <td><strong>Longitude:</strong></td>
+          <td id="long1"></td>
+        </tr>
+        <tr>
+          <td><strong>Time:</strong></td>
+          <td id="time1"></td>
+        </tr>
+        <tr>
+          <td><strong>Sidereal Time:</strong></td>
+          <td id="siderealTime1"></td>
+        </tr>
+      </table>
+      <div class="canvaswrapper">
+        <canvas id="loc1" width="800" height="800">
+          CANVAS NOT SUPPORTED IN THIS BROWSER!
+        </canvas>
+        <div id="tip1" class="tip">
+          <div class="close" onclick="closePopup('tip1')">&#10005;</div>
+          <div id="tip1text"></div>
+        </div>
+      </div>
+      <canvas id="legend" width="500" height="110">
+        CANVAS NOT SUPPORTED IN THIS BROWSER!
+      </canvas> -->
+    </main>
+</div>
+
+<!-- jquery -->
+<!-- <script src="jquery-3.3.1.min.js"></script> -->
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+<!-- dayjs -->
+<script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+<!-- starChart -->
+<script src="assets/js/starChart/core_min.js"></script>
+<script src="assets/js/starChart/sseph_min.js"></script>
+<script src="assets/js/starChart/src/brightStars.js"></script>
+<script src="assets/js/starChart/src/riseSetTimes.js"></script>
+<script src="assets/js/starChart/src/sidereal.js"></script>
+<!-- calling starChart -->
+<script>
+  var parks = ["acad","arch","badl","bibe","brca","cany","care","cave","chis","crla","deva","drto","ever","glac","grba","grca","grsm","isro","jeff","jotr","kefj","lavo","maca","meve","mora","olym","pefo","pinn","romo","sagu","shen","thro","voya","yell","yose","zion","bisc","blca","cong","cuva","grte","gumo","hale","havo","hosp","indu","kova","noca","whsa","wica"];
+	
+  getParkData(parks[4]);
+
+  function getParkData(parkCode) {
+  	$.ajax({
+	    url: `https://developer.nps.gov/api/v1/parks?api_key=0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg&parkCode=${parkCode}`,
+	    method: "GET"
+	  }).then(function(res) {
+	    // console.log(res.data[0]);
+
+	    var data = res.data[0];
+	    //getStarChart(data);
+
+	  });
+  }
+
+  function getStarChart(data) {
+  	var startHere = {
+      place1in: { value: data.fullName },
+      lat1in: { value: data.latitude },
+      long1in: { value: data.longitude },
+      year1in: { value: dayjs().year() },
+      month1in: { value: dayjs().month() + 1 }, // expects 1-12
+      day1in: { value: dayjs().date() }, // .day() == M/T/W/etc.
+      hour1in: { value: 21 }, // dayjs().hour()
+      minute1in: { value: 0 }, // dayjs().minute()
+      second1in: { value: 0 }, // dayjs().second()
+      tz1in: { value: parseInt(dayjs().format("Z")) },
+      drawOptions: {
+        showPlanets: true,
+        showEquator: true,
+        showEcliptic: false,
+        showMilkyWay: true,
+        showConLines: false,
+        showConLab: false,
+        showDayNight: false
+      }
+    }
+
+    changeLocationsAndTimes(startHere);
+  }
+</script>
+</body>
+</html>
