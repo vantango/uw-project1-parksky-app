@@ -1,19 +1,6 @@
-/*body {
-  background-color: black;
-  color: white;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}*/
-table th,
+body { position: relative; }
+
 strong { color: inherit; }
-
-table {
-  margin: 2rem auto;
-  color: white;
-}
-
-td { padding: 0.25rem 1rem; }
 
 canvas {
   display: block;
@@ -26,9 +13,39 @@ canvas {
   margin-top: 4rem;
 }
 
+.canvaswrapper {
+	position: relative;
+}
+
 .tip {
+    /*font-size: 0.85em;*/
+    position:absolute;
+    background-color:black;
+    /*left:-200px;*/
+    /*top:100px;*/
+    display:none;
+}
+
+.tip::after {
+	font-family: "Font Awesome 5 Pro";
+	content: "\f111";
+	font-weight: 400;
 	position: absolute;
-	display: none;
-	background-color: black;
-	border: 2px solid white;
+	right: -10px;
+	top: -10px;
+}
+
+.tip table, .tip th, .tip td {
+   /*font-size: 0.85em; */
+    margin:0px;
+    padding:2px;
+    color: white;
+}
+
+.close {
+    position:absolute;
+    top:1px;
+    right:1px;
+    border: 1px solid black;
+    cursor: pointer;
 }
