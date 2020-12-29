@@ -1,3 +1,5 @@
+strong { color: inherit; }
+
 #searchParks .field.is-grouped {
 	margin: 0 auto;
 	text-align: center;

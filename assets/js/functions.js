@@ -12,11 +12,6 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
 
     }
 
-    if (displayStarDetails) {
-      // display additional details about the sky chart/stars visible/etc.
-      // for the starchart page.
-    }
-
     if (displayParkInfo) {
       // display park info (box on home page)
       $("#parkName").html(`${data.fullName} Info`);
@@ -113,6 +108,11 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
 
       // adds the weather description to the #weather td
       $("#weather").text(data.weatherInfo);
+    }
+
+    if (displayStarDetails) {
+      // display additional details about the sky chart/stars visible/etc.
+      // for the starchart page.
     }
 
     if (displayParkDetails) {
