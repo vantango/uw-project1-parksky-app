@@ -192,36 +192,8 @@
 				</tbody>
 			</table>
   	</aside>
-  	<div id="starChartContainer" class="column">
-  		<table class="has-text-white">
-        <tr>
-          <td colspan="2" id="place1" class="has-text-centered is-size-4" style="display: none;"></td>
-        </tr>
-        <tr>
-          <td><strong>Latitude:</strong></td>
-          <td id="lat1"></td>
-          <td><strong>Longitude:</strong></td>
-          <td id="long1"></td>
-        </tr>
-        <tr>
-          <td><strong>Time:</strong></td>
-          <td id="time1"></td>
-          <td><strong>Sidereal Time:</strong></td>
-          <td id="siderealTime1"></td>
-        </tr>
-      </table>
-      <div class="canvaswrapper">
-        <canvas id="loc1" width="800" height="800">
-          CANVAS NOT SUPPORTED IN THIS BROWSER!
-        </canvas>
-        <div id="tip1" class="tip">
-          <div class="close" onclick="closePopup('tip1')">&#10005;</div>
-          <div id="tip1text"></div>
-        </div>
-      </div>
-      <canvas id="legend" width="500" height="110">
-        CANVAS NOT SUPPORTED IN THIS BROWSER!
-      </canvas>
+  	<div id="galleryContainer" class="column">
+  		<div class="fotorama" data-auto="false"></div>
   	</div>
   </main>
   <!-- Site Footer -->
@@ -258,8 +230,11 @@
 	-->
 	<script src="assets/js/functions.js"></script>
 	<script src="assets/js/script.js"></script>
-	<script src="assets/js/starChart.js"></script>
-	<!-- <script src="assets/js/parkData.js"></script> -->
+	<!-- <script src="assets/js/starChart.js"></script> -->
+	<!-- Fotorama from CDNJS, 19 KB -->
+	<link  href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+	<script src="assets/js/parkDetails.js"></script>
 </body>
 
 </html>
