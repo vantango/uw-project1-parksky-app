@@ -11,7 +11,7 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
     saveLocalStorage(saveData);
 
     if (displayStarChart) {
-      getStarChart(data,null);
+      getStarChart(data, null);
 
     }
 
@@ -98,7 +98,7 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
 
         var tdEmail = $("<td>");
         tdEmail.text(data.contacts.emailAddresses[i].emailAddress);
-       
+
         row1.append(tdEmail);
         $("#contactInfo").append(row1);
       }
@@ -119,16 +119,46 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
     }
 
     if (displayParkDetails) {
+      $(".fotorama").remove()
+      $("#galleryContainer").append("<div class='fotorama'></div>")
       // display extra details about parks, incl. Wikipedia "summary"
       // for the parkinfo page.
+
+      var images = [
+        // { img: 'https://picsum.photos/seed/rabbit/600/400', thumb: 'https://picsum.photos/seed/rabbit/600/400', caption: 'Rabbit' },
+        // { img: 'https://picsum.photos/seed/bear/600/400', thumb: 'https://picsum.photos/seed/bear/600/400', caption: "Bear" },
+        // { img: 'https://picsum.photos/seed/cougar/600/400', thumb: 'https://picsum.photos/seed/cougar/600/400', caption: "Cougar" },
+        // { img: 'https://picsum.photos/seed/rattlesnake/600/400', thumb: 'https://picsum.photos/seed/rattlesnake/600/400', caption: "Rattlesnake" },
+      ]
+
+      for (var i in data.images) {
+        var imgObj = {
+          img: data.images[i].url,
+          thumb: data.images[i].url,
+          caption: data.images[i].caption,
+        }
+
+        images.push(imgObj);
+
+      }
+      console.log(data)
+      $(".fotorama").fotorama({
+        data: images,
+        nav: "thumbs",
+        loop: true,
+        fit: "scaledown",
+        maxwidth: 1000,
+        minwidth: 1000,
+      });
+
     }
   });
 }
 
-function getStarChart(data, date=null) {
-	if(date === null) {
-		date = dayjs($("#visitDate").val());
-	}
+function getStarChart(data, date = null) {
+  if (date === null) {
+    date = dayjs($("#visitDate").val());
+  }
 
   var startHere = {
     place1in: { value: data.fullName },
@@ -156,32 +186,32 @@ function getStarChart(data, date=null) {
 }
 
 function getWikipediaExtract(title) {
-	var queryURL = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exintro=&titles=${title}`;
-	// generator=search&gsrlimit=5&gsrsearch
+  var queryURL = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exintro=&titles=${title}`;
+  // generator=search&gsrlimit=5&gsrsearch
 
-	$.ajax({
+  $.ajax({
     url: queryURL,
     method: "GET"
-  }).then(function(res) {
-  	// console.log(res);
-  	var pages = res.query.pages;
-  	// console.log(res.query.pages);
+  }).then(function (res) {
+    // console.log(res);
+    var pages = res.query.pages;
+    // console.log(res.query.pages);
 
-  	for(var i in res.query.pages) {
-  		$("#extract").append(pages[i].extract);
-  	}
+    for (var i in res.query.pages) {
+      $("#extract").append(pages[i].extract);
+    }
   });
 }
 
-function saveLocalStorage(data=[]) {
-	var localData = JSON.parse(localStorage.getItem('parksky-data'));
+function saveLocalStorage(data = []) {
+  var localData = JSON.parse(localStorage.getItem('parksky-data'));
 
-	if((data === null || data.length === 0) && localData === null) {
-		data = ["acad", "44.409286", "-68.247501", dayjs().format("YYYY-MM-DD")];
+  if ((data === null || data.length === 0) && localData === null) {
+    data = ["acad", "44.409286", "-68.247501", dayjs().format("YYYY-MM-DD")];
 
-	} else if (localData !== null && (data === null || data.length === 0)) {
-		data = localData;
-	}
-	
-	localStorage.setItem('parksky-data', JSON.stringify(data));
+  } else if (localData !== null && (data === null || data.length === 0)) {
+    data = localData;
+  }
+
+  localStorage.setItem('parksky-data', JSON.stringify(data));
 }

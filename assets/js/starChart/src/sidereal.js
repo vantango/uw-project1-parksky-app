@@ -570,7 +570,7 @@ function getSidereal(GMST, long) {
 // longitudes and latitudes)
 function starChart(drawOptions = null) {
 	$("#loc1").on("click", function(event) {
-		console.log(event);
+		// console.log(event);
 		displayPopup(event, 1);
 	});
 
@@ -1676,7 +1676,7 @@ function displayPopup(e, loc) {
       displayPopupPlanet(tip, para);
     }
 
-    $(tipId).css("left", (tip.x + 3) + "px");
+    $(tipId).css("left", (tip.x - 125) + "px");
     $(tipId).css("top", (tip.y + 3) + "px");
     $(tipId).show();
   }
