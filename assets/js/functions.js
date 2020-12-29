@@ -5,10 +5,10 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
     method: "GET"
   }).then(function (res) {
     var data = res.data[0];
-    console.log(data);
+    // console.log(data);
 
     if (displayStarChart) {
-      getStarChart(data);
+      getStarChart(data,null);
 
     }
 
@@ -122,18 +122,22 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
   });
 }
 
-function getStarChart(data) {
+function getStarChart(data, date=null) {
+	if(date === null) {
+		date = dayjs($("#visitDate").val());
+	}
+
   var startHere = {
     place1in: { value: data.fullName },
     lat1in: { value: data.latitude },
     long1in: { value: data.longitude },
-    year1in: { value: dayjs().year() },
-    month1in: { value: dayjs().month() + 1 }, // expects 1-12
-    day1in: { value: dayjs().date() }, // .day() == M/T/W/etc.
+    year1in: { value: date.year() },
+    month1in: { value: date.month() + 1 }, // expects 1-12
+    day1in: { value: date.date() }, // .day() == M/T/W/etc.
     hour1in: { value: 21 }, // dayjs().hour()
     minute1in: { value: 0 }, // dayjs().minute()
     second1in: { value: 0 }, // dayjs().second()
-    tz1in: { value: parseInt(dayjs().format("Z")) },
+    tz1in: { value: parseInt(date.format("Z")) },
     drawOptions: {
       showPlanets: true,
       showEquator: true,
