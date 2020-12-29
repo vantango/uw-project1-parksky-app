@@ -5,7 +5,10 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
     method: "GET"
   }).then(function (res) {
     var data = res.data[0];
-    // console.log(data);
+
+    var saveData = [data.parkCode, data.latitude, data.longitude, $("#visitDate").val()];
+    // console.log(saveData);
+    saveLocalStorage(saveData);
 
     if (displayStarChart) {
       getStarChart(data,null);
@@ -150,4 +153,35 @@ function getStarChart(data, date=null) {
   }
 
   changeLocationsAndTimes(startHere);
+}
+
+function getWikipediaExtract(title) {
+	var queryURL = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exintro=&titles=${title}`;
+	// generator=search&gsrlimit=5&gsrsearch
+
+	$.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function(res) {
+  	// console.log(res);
+  	var pages = res.query.pages;
+  	// console.log(res.query.pages);
+
+  	for(var i in res.query.pages) {
+  		$("#extract").append(pages[i].extract);
+  	}
+  });
+}
+
+function saveLocalStorage(data=[]) {
+	var localData = JSON.parse(localStorage.getItem('parksky-data'));
+
+	if((data === null || data.length === 0) && localData === null) {
+		data = ["acad", "44.409286", "-68.247501", dayjs().format("YYYY-MM-DD")];
+
+	} else if (localData !== null && (data === null || data.length === 0)) {
+		data = localData;
+	}
+	
+	localStorage.setItem('parksky-data', JSON.stringify(data));
 }
