@@ -1,3 +1,13 @@
+#searchParks .field.is-grouped {
+	margin: 0 auto;
+	text-align: center;
+	justify-content: center;
+}
+
+#searchParks .field > div {
+	display: inline-block;
+}
+
 .columns {
 	margin: 0;
 }
@@ -6,11 +16,12 @@ main.columns:not(:last-child) {
 	margin-bottom: 0;
 }
 
-aside .table {
+#parkInfo {
 	margin-left: 4rem;
 }
 
-.table.has-text-white th {
+#parkName,
+#parkInfo tbody tr > th {
 	color: white;
 	text-align: center;
 }
@@ -39,10 +50,17 @@ aside .table {
 #entrancePasses tr:nth-child(1n+2),
 #operatingHours tr:nth-child(1n+2) {
 	border-top: 2px solid white;
+	width: 100%;
 }
 
 #entranceFees tr:nth-child(2n+1) td,
 #entrancePasses tr:nth-child(1n+2) td,
 #operatingHours tr:nth-child(1n+2) td {
 	background-color: red;
+}
+
+input[type="date"] {
+	flex: 1;
+	height: 100%;
+	font-size: 1rem;
 }

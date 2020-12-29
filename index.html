@@ -10,13 +10,13 @@
 	<!-- Font Awesome Pro (Angel) -->
 	<script src="https://kit.fontawesome.com/9338ddc728.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="assets/css/style.css" />
-	<!--  -->
+	<!-- styling specifically for star chart & associated table -->
 	<link rel="stylesheet" href="assets/css/starChart.css" />
 </head>
 
 <body>
 	<!-- Site Header -->
-	<section class="hero is-dark">
+	<section class="hero has-background-black">
 		<!-- hero header: for the navbar; sticks to top -->
 		<div class="hero-head">
 			<nav class="navbar">
@@ -33,9 +33,9 @@
 					</div>
 					<div id="navbarMenuHeroA" class="navbar-menu">
 						<div class="navbar-end">
-							<a href="#" class="navbar-item is-active">Home</a>
+							<a href="#" class="navbar-item has-text-white has-background-primary">Home</a>
 							<span class="navbar-item">
-								<a href="#" class="button is-danger is-inverted">
+								<a href="https://github.com/vantango/uw-project1-parksky-app" class="button is-danger">
 									<span class="icon">
 										<i class="fab fa-github"></i>
 									</span>
@@ -57,8 +57,8 @@
 		<!-- Hero footer; sticks to bottom  -->
 		<div class="hero-foot">
 			<form id="searchParks" class="has-text-centered py-5">
-				<div class="field">
-					<p class="control has-icons-left">
+				<div class="field is-grouped">
+					<div class="control has-icons-left">
 						<span class="select">
 							<select name="searchParksSelect" id="searchParksSelect">
 								<option value="cany" selected>Canyonlands National Park</option>
@@ -113,14 +113,17 @@
 								<option value="hale">Haleakal&#257; National Park</option>
 							</select>
     				</span>
-    			</p>
+    			</div>
+    			<div class="control">
+    				<input id="visitDate" type="date">
+    			</div>
     		</div>
     	</form>
     </div>
   </header>
 	<!-- Main -->
-	<main class="columns has-text-white">
-		<aside id="parkInfoContainer" class="column is-3">
+	<main class="columns has-background-dark has-text-white">
+		<aside id="parkInfoContainer" class="column is-4">
 			<table id="parkInfo">
 				<thead>
 					<tr>
@@ -177,21 +180,17 @@
   	<div id="starChartContainer" class="column">
   		<table class="has-text-white">
         <tr>
-          <td colspan="2" id="place1" class="has-text-centered is-size-4"></td>
+          <td colspan="2" id="place1" class="has-text-centered is-size-4" style="display: none;"></td>
         </tr>
         <tr>
           <td><strong>Latitude:</strong></td>
           <td id="lat1"></td>
-        </tr>
-        <tr>
           <td><strong>Longitude:</strong></td>
           <td id="long1"></td>
         </tr>
         <tr>
           <td><strong>Time:</strong></td>
           <td id="time1"></td>
-        </tr>
-        <tr>
           <td><strong>Sidereal Time:</strong></td>
           <td id="siderealTime1"></td>
         </tr>
