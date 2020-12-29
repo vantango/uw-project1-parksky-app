@@ -6,7 +6,7 @@ $("document").ready(function() {
 	var prevData = JSON.parse(localStorage.getItem('parksky-data')) || null;
 	var parkCode, date;
 
-	if(prevData === null) {
+	if(prevData === null || prevData[0] === "abli") {
 		parkCode = "acad";
 		date = dayjs().format("YYYY-MM-DD");
 		saveLocalStorage(null);
@@ -22,13 +22,13 @@ $("document").ready(function() {
 	$("#visitDate").val(date);
 
 	if(currentPage.includes("index")) {
-		displayData($(this).val(), true, false, true, false);
+		displayData(parkCode, true, false, true, false);
 		
 	} else if(currentPage.includes("starchart")) {
-		displayData($(this).val(), true, true, false, false);
+		displayData(parkCode, true, true, false, false);
 
 	} else {
-		displayData($(this).val(), false, false, true, true);
+		displayData(parkCode, false, false, true, true);
 	}
 
 	// on park change, update both parkInfo and star chart
