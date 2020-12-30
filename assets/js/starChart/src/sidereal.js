@@ -50,6 +50,13 @@ milkyLoc[1] = {
   coalsack: coalsack()
 };
 
+// (visible) brightest stars array
+var visibleBrightestStars = [];
+// visible constellations array
+var visibleConstellations = [];
+// maximum magnitude for listing visible stars
+var maxMagVisibleStars = 5.5; // 4.6 is light pollution (probably in a city); 6.5 is middle-of-nowhere moonless night (and probably excellent vision) -- 7.4 is mid-19th century Athens Observatory mad scientist
+
 // Initial setup
 function init() {
   var iplookup = false;
@@ -836,7 +843,14 @@ function drawStarsPlanets(Canvas, objects, pDraw, LST, lat) {
     Ctx.fillStyle = "black";
   }
   for (i = 1; i < n; i++) {
+  	// continue skips current iteration of loop and 
+  	// jumps to the i++ expression (in this case)
     if (objects.stars[i].mag > magLimit) { continue; }
+    // adds stars to array for displaying on page (if desired)
+    if(objects.stars[i].mag < maxMagVisibleStars) {
+    	// console.log(objects.stars[i].name, objects.stars[i].mag);
+    	visibleBrightestStars.push(objects.stars[i]);
+    }
 
     coord = ra_dec_to_xy_above(objects.stars[i], LST,
       cosLat, sinLat, gpara);
@@ -863,7 +877,7 @@ function drawStarsPlanets(Canvas, objects, pDraw, LST, lat) {
       }
     }
   }
-
+  
   if (tipsEnabled) {
     newStar.length = 0;
   }

@@ -1,17 +1,16 @@
-function displayData(parkCode, displayStarChart = false, displayStarDetails = false, displayParkInfo = true, displayParkDetails = false) {
+function displayData(parkCode, date, displayStarChart = false, displayStarDetails = false, displayParkInfo = true, displayParkDetails = false) {
 
   $.ajax({
     url: `https://developer.nps.gov/api/v1/parks?api_key=0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg&parkCode=${parkCode}`,
     method: "GET"
   }).then(function (res) {
     var data = res.data[0];
-    console.log(parkCode);
 
     var saveData = [data.parkCode, data.latitude, data.longitude, $("#visitDate").val()];
     saveLocalStorage(saveData);
 
     if (displayStarChart) {
-      getStarChart(data, null);
+      getStarChart(data, dayjs(date));
 
     }
 
@@ -68,18 +67,39 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
       // generates rows and cells for daily operating hours
       $("#operatingHours").empty();
 
+      // loops through all operating hours
+      // each operating hours includes an exceptions object
       for (var i in data.operatingHours) {
         var row1 = $("<tr>");
         var row2 = $("<tr>");
+        var scheduleName = data.operatingHours[i].name;
+        var exceptions = data.operatingHours[i].exceptions;
+        var date = $("#visitDate").val();
+        var schedule = data.operatingHours[i].standardHours;
 
         var tdHours = $("<td>");
         // tdHours.text(JSON.stringify(data.operatingHours[i].standardHours));
 
-        for (var dayName in data.operatingHours[i].standardHours) {
+        if(exceptions.length > 0) {
+        	for(var ex in exceptions) {
+        		var startDate = exceptions[ex].startDate;
+        		var endDate = exceptions[ex].endDate;
+
+        		// console.log(date, startDate);
+        		if(date >= startDate && date <= endDate) {
+        			schedule = exceptions[ex].exceptionHours;
+        			scheduleName += `: ${exceptions[ex].name}`;
+        		}
+        	}
+        }
+
+        for (var dayName in schedule) {
           var hourSpan = $("<p>");
-          hourSpan.text(`${dayName}: ${data.operatingHours[i].standardHours[dayName]}`);
+          hourSpan.text(`${dayName}: ${schedule[dayName]}`);
           tdHours.append(hourSpan);
         }
+
+        tdHours.prepend(`<strong>${scheduleName}</strong>`);
 
         var tdDesc = $("<td>", { colspan: "2" });
         tdDesc.text(data.operatingHours[i].description);
@@ -95,23 +115,26 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
 
       for (var i in data.contacts.emailAddresses) {
         var row1 = $("<tr>");
+        var email = data.contacts.emailAddresses[i].emailAddress;
 
         var tdEmail = $("<td>");
-        tdEmail.text(data.contacts.emailAddresses[i].emailAddress);
+        tdEmail.html(`<strong>Email:</strong> <a href='mailto:${email}'>${email}</a>`);
 
         row1.append(tdEmail);
-        $("#contactInfo").append("Email: ", row1);
+        $("#contactInfo").append(row1);
       }
 
       // generates row and cell for park phone number
       for (var i in data.contacts.phoneNumbers) {
         var row2 = $("<tr>");
+        var phoneType = data.contacts.phoneNumbers[i].type;
+        var phone = formatPhoneNumber(data.contacts.phoneNumbers[i].phoneNumber);
 
         var tdPhone = $("<td>");
-        tdPhone.text(data.contacts.phoneNumbers[i].phoneNumber);
+        tdPhone.html(`<strong>${phoneType}:</strong> ${phone}`);
 
         row2.append(tdPhone);
-        $("#contactInfo").append("Phone: ", row2);
+        $("#contactInfo").append(row2);
       }
 
       // generates row and cell for park address
@@ -183,7 +206,7 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
 
       getWikipediaExtract(title, data.description);
       $(".fotorama").remove()
-      $("#galleryContainer").append("<div class='fotorama'></div>")
+      $("#galleryContainer #extract").before("<div class='fotorama'></div>")
       // display extra details about parks, incl. Wikipedia "summary"
       // for the parkinfo page.
 
@@ -215,9 +238,7 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
 }
 
 function getStarChart(data, date) {
-  if (date === null) {
-    date = dayjs($("#visitDate").val());
-  }
+	
 
   var startHere = {
     place1in: { value: data.fullName },
@@ -235,8 +256,8 @@ function getStarChart(data, date) {
       showEquator: true,
       showEcliptic: false,
       showMilkyWay: true,
-      showConLines: false,
-      showConLab: false,
+      showConLines: true,
+      showConLab: true,
       showDayNight: false
     }
   }
@@ -287,4 +308,16 @@ function saveLocalStorage(data = []) {
   }
 
   localStorage.setItem('parksky-data', JSON.stringify(data));
+}
+
+// formatPhoneNumber function copy-pasted from:
+// https://stackoverflow.com/a/8358141
+function formatPhoneNumber(phoneNumberString) {
+  var cleaned = ('' + phoneNumberString).replace(/\D/g, '')
+  var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
+  if (match) {
+    var intlCode = (match[1] ? '+1 ' : '')
+    return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('')
+  }
+  return null
 }
