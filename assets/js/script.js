@@ -53,7 +53,7 @@ $("document").ready(function() {
 		// save to localStorage
 		saveLocalStorage(prevData);
 		
-		if(currentPage.includes("index") || currentPage.includes("starchart")) {
+		if(currentPage.includes("index") || currentPage.includes("starchart") || !currentPage.includes("parkinfo")) {
 			// get the star chart!
 			getStarChart({
 				fullName: "n/a",
@@ -61,6 +61,8 @@ $("document").ready(function() {
 				longitude: prevData[2],
 				date: dayjs(date)
 			});
+		} else {
+			displayData(parkCode, false, false, true, false);
 		}
 	});
 });
