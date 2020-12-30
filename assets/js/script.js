@@ -21,26 +21,27 @@ $("document").ready(function() {
 	$("#searchParksSelect").val(parkCode);
 	$("#visitDate").val(date);
 
-	if(currentPage.includes("index")) {
-		displayData(parkCode, true, false, true, false);
-		
-	} else if(currentPage.includes("starchart")) {
+	if(currentPage.includes("starchart")) {
 		displayData(parkCode, true, true, false, false);
 
-	} else {
+	} else if(currentPage.includes("parkinfo")) {
 		displayData(parkCode, false, false, true, true);
+
+	} else {
+		displayData(parkCode, true, false, true, false);
+
 	}
 
 	// on park change, update both parkInfo and star chart
 	$("#searchParksSelect").change(function() {
-		if(currentPage.includes("index")) {
-			displayData($(this).val(), true, false, true, false);
-
-		} else if(currentPage.includes("starchart")) {
+		if(currentPage.includes("starchart")) {
 			displayData($(this).val(), true, true, false, false);
 
-		} else {
+		} else if(currentPage.includes("parkinfo")) {
 			displayData($(this).val(), false, false, true, true);
+
+		} else {
+			displayData($(this).val(), true, false, true, false);
 		}
 	});
 

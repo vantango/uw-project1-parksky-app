@@ -1676,7 +1676,7 @@ function displayPopup(e, loc) {
       displayPopupPlanet(tip, para);
     }
 
-    $(tipId).css("left", (tip.x - 125) + "px");
+    $(tipId).css("left", (tip.x - 145) + "px");
     $(tipId).css("top", (tip.y + 3) + "px");
     $(tipId).show();
   }
