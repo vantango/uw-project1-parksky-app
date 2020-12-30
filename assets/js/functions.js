@@ -9,6 +9,8 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
     var saveData = [data.parkCode, data.latitude, data.longitude, $("#visitDate").val()];
     saveLocalStorage(saveData);
 
+    getAlerts(parkCode);
+
     if (displayStarChart) {
       getStarChart(data, dayjs(date));
 
@@ -80,17 +82,17 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
         var tdHours = $("<td>");
         // tdHours.text(JSON.stringify(data.operatingHours[i].standardHours));
 
-        if(exceptions.length > 0) {
-        	for(var ex in exceptions) {
-        		var startDate = exceptions[ex].startDate;
-        		var endDate = exceptions[ex].endDate;
+        if (exceptions.length > 0) {
+          for (var ex in exceptions) {
+            var startDate = exceptions[ex].startDate;
+            var endDate = exceptions[ex].endDate;
 
-        		// console.log(date, startDate);
-        		if(date >= startDate && date <= endDate) {
-        			schedule = exceptions[ex].exceptionHours;
-        			scheduleName += `: ${exceptions[ex].name}`;
-        		}
-        	}
+            // console.log(date, startDate);
+            if (date >= startDate && date <= endDate) {
+              schedule = exceptions[ex].exceptionHours;
+              scheduleName += `: ${exceptions[ex].name}`;
+            }
+          }
         }
 
         for (var dayName in schedule) {
@@ -238,7 +240,7 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
 }
 
 function getStarChart(data, date) {
-	
+
 
   var startHere = {
     place1in: { value: data.fullName },
@@ -320,4 +322,60 @@ function formatPhoneNumber(phoneNumberString) {
     return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('')
   }
   return null
+}
+
+function getAlerts(parkCode) {
+  $.ajax({
+    url: `https://developer.nps.gov/api/v1/alerts?api_key=0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg&parkCode=${parkCode}`,
+    method: "GET"
+  }).then(function (res) {
+    console.log(res)
+
+    $(".fas.fa-exclamation-triangle").remove()
+    if (res.data.length > 0) {
+      var icon = $("<i>", { class: "fas fa-exclamation-triangle" });
+      $("#searchParks").after(icon);
+
+      // -- ALERTS --
+      fetch("../../templates/alerts.html")
+        .then(response => {
+          return response.text();
+        })
+        .then(data => {
+          $("body").append(data);
+          $(".modal-content").empty();
+          for (var i in res.data) {
+            var alert = res.data[i];
+            var message = $("<article>", { class: "message" });
+            var messageHeader = $("<div>", { class: "message-header" });
+            var messageBody = $("<div>", { class: "message-body" });
+            messageHeader.text(alert.title);
+            messageBody.text(alert.description);
+            message.append(messageHeader, messageBody);
+
+            // applies color to alert depending on type
+            if (alert.type === "Park Closure") {
+              message.addClass("is-danger");
+              messageHeader.prepend("<i class='fas fa-do-not-enter'></i> ")
+            } else if (alert.type === "Caution") {
+              message.addClass("is-warning");
+              messageHeader.prepend("<i class='fas fa-hand-paper'></i> ")
+            } else {
+              message.addClass("is-info");
+              messageHeader.prepend("<i class='fas fa-info-circle'></i> ")
+            }
+            $(".modal-content").append(message);
+          }
+
+          // adds click functionality to modal
+          $(icon).click(function () {
+            $(".modal").addClass("is-active");
+          })
+
+          $(".modal-close, .modal-background").click(function () {
+            $(".modal").removeClass("is-active");
+          })
+        });
+    }
+  })
 }
