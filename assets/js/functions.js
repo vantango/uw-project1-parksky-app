@@ -119,17 +119,13 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
     }
 
     if (displayParkDetails) {
+      getWikipediaExtract(data.fullName);
       $(".fotorama").remove()
       $("#galleryContainer").append("<div class='fotorama'></div>")
       // display extra details about parks, incl. Wikipedia "summary"
       // for the parkinfo page.
 
-      var images = [
-        // { img: 'https://picsum.photos/seed/rabbit/600/400', thumb: 'https://picsum.photos/seed/rabbit/600/400', caption: 'Rabbit' },
-        // { img: 'https://picsum.photos/seed/bear/600/400', thumb: 'https://picsum.photos/seed/bear/600/400', caption: "Bear" },
-        // { img: 'https://picsum.photos/seed/cougar/600/400', thumb: 'https://picsum.photos/seed/cougar/600/400', caption: "Cougar" },
-        // { img: 'https://picsum.photos/seed/rattlesnake/600/400', thumb: 'https://picsum.photos/seed/rattlesnake/600/400', caption: "Rattlesnake" },
-      ]
+      var images = [];
 
       for (var i in data.images) {
         var imgObj = {
@@ -195,6 +191,7 @@ function getWikipediaExtract(title) {
   }).then(function (res) {
     // console.log(res);
     var pages = res.query.pages;
+    $("#extract").empty()
     // console.log(res.query.pages);
 
     for (var i in res.query.pages) {
