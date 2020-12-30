@@ -12,7 +12,6 @@
 	<link rel="stylesheet" href="assets/css/style.css" />
 	<!-- styling specifically for star chart & associated table -->
 	<link rel="stylesheet" href="assets/css/starChart.css" />
-	<script src="assets/js/fetch.js"></script>
 </head>
 
 <body>
@@ -20,94 +19,39 @@
 	<header id="site-header"></header>
 	<!-- Main -->
 	<main class="columns">
-		<aside id="parkInfoContainer" class="column is-4">
-			<table id="parkInfo">
-				<thead>
-					<tr>
-						<th id="parkName"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<!-- Fees -->
-					<tr>
-						<th>Entrance Fees</th>
-					</tr>
-					<tr>
-						<td>
-							<div id="entranceFees"></div>
-						</td>
-					</tr>
-					<!-- Passes -->
-					<tr>
-						<th>Entrance Passes</th>
-					</tr>
-					<tr>
-						<td>
-							<div id="entrancePasses"></div>
-						</td>
-					</tr>
-					<!-- Operating Hours -->
-					<tr>
-						<th>Operating Hours</th>
-					</tr>
-					<tr>
-						<td>
-							<div id="operatingHours"></div>
-						</td>
-					</tr>
-					<!-- Contact Info -->
-					<tr>
-						<th>Contact Information</th>
-					</tr>
-					<tr>
-						<td>
-							<div id="contactInfo"></div>
-						</td>
-					</tr>
-					<!-- Weather -->
-					<tr>
-						<th>Weather Info</th>
-					</tr>
-					<tr>
-						<td id="weather"></td>
-					</tr>
-				</tbody>
-			</table>
-  	</aside>
+		<aside id="parkInfoContainer" class="column is-4"></aside>
   	<div id="starChartContainer">
-
-	  <div class="starcolumn">
-  		<table class="has-text-white">
-        <tr>
-          <td colspan="2" id="place1" class="has-text-centered is-size-4" style="display: none;"></td>
-        </tr>
-        <tr>
-          <td><strong>Latitude:</strong></td>
-          <td id="lat1"></td>
-          <td><strong>Longitude:</strong></td>
-          <td id="long1"></td>
-		</tr>
-		
-        <tr>
-          <td><strong>Time:</strong></td>
-          <td id="time1"></td>
-          <td><strong>Sidereal Time:</strong></td>
-          <td id="siderealTime1"></td>
-        </tr>
-	  </table>
-	  </div>
-      <div class="canvaswrapper">
-        <canvas id="loc1" width="800" height="800">
-          CANVAS NOT SUPPORTED IN THIS BROWSER!
-        </canvas>
-        <div id="tip1" class="tip">
-          <div class="close" onclick="closePopup('tip1')">&#10005;</div>
-          <div id="tip1text"></div>
-        </div>
-      </div>
-      <canvas id="legend" width="500" height="110">
-        CANVAS NOT SUPPORTED IN THIS BROWSER!
-      </canvas>
+		  <div class="starchart-data">
+	  		<table class="has-text-white">
+	        <tr>
+	          <td colspan="2" id="place1" class="has-text-centered is-size-4" style="display: none;"></td>
+	        </tr>
+	        <tr>
+	          <td><strong>Latitude:</strong></td>
+	          <td id="lat1"></td>
+	          <td><strong>Longitude:</strong></td>
+	          <td id="long1"></td>
+					</tr>
+	        <tr>
+	          <td><strong>Time:</strong></td>
+	          <td id="time1"></td>
+	          <td><strong>Sidereal Time:</strong></td>
+	          <td id="siderealTime1"></td>
+	        </tr>
+		  	</table>
+		  </div>
+	    <div class="canvaswrapper">
+	      <canvas id="loc1" width="800" height="800">
+	        CANVAS NOT SUPPORTED IN THIS BROWSER!
+	      </canvas>
+	      <div id="tip1" class="tip">
+	        <div class="close" onclick="closePopup('tip1')">&#10005;</div>
+	        <div id="tip1text"></div>
+	      </div>
+	    </div>
+	    <canvas id="legend" width="500" height="110">
+	      CANVAS NOT SUPPORTED IN THIS BROWSER!
+	    </canvas>
   	</div>
   </main>
   <!-- Site Footer -->
@@ -136,8 +80,6 @@
 	-->
 	<script src="assets/js/functions.js"></script>
 	<script src="assets/js/script.js"></script>
-	<script src="assets/js/starChart.js"></script>
-	<!-- <script src="assets/js/parkData.js"></script> -->
 </body>
 
 </html>

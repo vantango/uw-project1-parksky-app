@@ -1,17 +1,16 @@
-function displayData(parkCode, displayStarChart = false, displayStarDetails = false, displayParkInfo = true, displayParkDetails = false) {
+function displayData(parkCode, date, displayStarChart = false, displayStarDetails = false, displayParkInfo = true, displayParkDetails = false) {
 
   $.ajax({
     url: `https://developer.nps.gov/api/v1/parks?api_key=0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg&parkCode=${parkCode}`,
     method: "GET"
   }).then(function (res) {
     var data = res.data[0];
-    console.log(parkCode);
 
     var saveData = [data.parkCode, data.latitude, data.longitude, $("#visitDate").val()];
     saveLocalStorage(saveData);
 
     if (displayStarChart) {
-      getStarChart(data, null);
+      getStarChart(data, dayjs(date));
 
     }
 
@@ -111,7 +110,7 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
         $("#operatingHours").append(row1, row2);
       }
 
-      // generates row and cell for email address
+      // generates row and cell for park email address
       $("#contactInfo").empty();
 
       for (var i in data.contacts.emailAddresses) {
@@ -119,13 +118,13 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
         var email = data.contacts.emailAddresses[i].emailAddress;
 
         var tdEmail = $("<td>");
-        tdEmail.html(`<a href='mailto:${email}'>${email}</a>`);
+        tdEmail.html(`<strong>Email:</strong> <a href='mailto:${email}'>${email}</a>`);
 
         row1.append(tdEmail);
         $("#contactInfo").append(row1);
       }
 
-      // generates row and cell for phone number
+      // generates row and cell for park phone number
       for (var i in data.contacts.phoneNumbers) {
         var row2 = $("<tr>");
         var phoneType = data.contacts.phoneNumbers[i].type;
@@ -138,55 +137,72 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
         $("#contactInfo").append(row2);
       }
 
+      // generates row and cell for park address
+      for (var i in data.addresses) {
+        var row3 = $("<tr>");
+
+        var tdAddress = $("<td>");
+        tdAddress.append(`<strong>${data.addresses[i].type} Address: </strong>`, "<br>");
+        tdAddress.append(data.addresses[i].line1, "<br>");
+        tdAddress.append(data.addresses[i].city, ", ");
+        tdAddress.append(data.addresses[i].stateCode, " ");
+        tdAddress.append(data.addresses[i].postalCode);
+
+        console.log(tdAddress);
+
+        row3.append(tdAddress);
+        $("#contactInfo").append(row3);
+      }
+
       // adds the weather description to the #weather td
       $("#weather").text(data.weatherInfo);
     }
 
     if (displayParkDetails) {
-    	var title = data.fullName;
+      var title = data.fullName;
 
-    	if(parkCode === "wrst") {
-    		title = "Wrangell–St._Elias_National_Park_and_Preserve";
-    	}
-    	if(parkCode === "hale") {
-    		title = "Haleakalā_National_Park";
-    	}
-    	if(parkCode === "glac") {
-    		title = "Glacier_National_Park_(U.S.)";
-    	}
-    	if(parkCode === "gaar") {
-    		title = "Gates_of_the_Arctic_National_Park_and_Preserve";
-    	}
-    	if(parkCode === "dena") {
-    		title = "Denali_National_Park_and_Preserve";
-    	}
-    	if(parkCode === "glba") {
-    		title = "Glacier_Bay_National_Park_and_Preserve";
-    	}
-    	// black canyon
-    	if(parkCode === "blca") {
-    		title = "Black_Canyon_of_the_Gunnison_National_Park";
-    	}
-    	// great sand dunes
-    	if(parkCode === "grsa") {
-    		title = "Great_Sand_Dunes_National_Park_and_Preserve";
-    	}
-    	// hawai'i volcanoes
-    	if(parkCode === "havo") {
-    		title = "Hawaiʻi_Volcanoes_National_Park";
-    	}
-    	// lake clark
-    	if(parkCode === "lacl") {
-    		title = "Lake_Clark_National_Park_and_Preserve";
-    	}
-    	// katmai
-    	if(parkCode === "katm") {
-    		title = "Katmai_National_Park_and_Preserve";
-    	}
-    	// sequoia and kings canyon
-    	if(parkCode === "seki") {
-    		title = "Sequoia_and_Kings_Canyon_National_Parks";
-    	}
+      if (parkCode === "wrst") {
+        title = "Wrangell–St._Elias_National_Park_and_Preserve";
+      }
+      if (parkCode === "hale") {
+        title = "Haleakalā_National_Park";
+      }
+      if (parkCode === "glac") {
+        title = "Glacier_National_Park_(U.S.)";
+      }
+      if (parkCode === "gaar") {
+        title = "Gates_of_the_Arctic_National_Park_and_Preserve";
+      }
+      if (parkCode === "dena") {
+        title = "Denali_National_Park_and_Preserve";
+      }
+      if (parkCode === "glba") {
+        title = "Glacier_Bay_National_Park_and_Preserve";
+      }
+      // black canyon
+      if (parkCode === "blca") {
+        title = "Black_Canyon_of_the_Gunnison_National_Park";
+      }
+      // great sand dunes
+      if (parkCode === "grsa") {
+        title = "Great_Sand_Dunes_National_Park_and_Preserve";
+      }
+      // hawai'i volcanoes
+      if (parkCode === "havo") {
+        title = "Hawaiʻi_Volcanoes_National_Park";
+      }
+      // lake clark
+      if (parkCode === "lacl") {
+        title = "Lake_Clark_National_Park_and_Preserve";
+      }
+      // katmai
+      if (parkCode === "katm") {
+        title = "Katmai_National_Park_and_Preserve";
+      }
+      // sequoia and kings canyon
+      if (parkCode === "seki") {
+        title = "Sequoia_and_Kings_Canyon_National_Parks";
+      }
 
       getWikipediaExtract(title, data.description);
       $(".fotorama").remove()
@@ -206,7 +222,7 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
         images.push(imgObj);
 
       }
-      
+
       $(".fotorama").fotorama({
         data: images,
         nav: "thumbs",
@@ -222,9 +238,7 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
 }
 
 function getStarChart(data, date) {
-  if (date === null) {
-    date = dayjs($("#visitDate").val());
-  }
+	
 
   var startHere = {
     place1in: { value: data.fullName },
@@ -261,17 +275,17 @@ function getWikipediaExtract(title, desc) {
     // console.log(res);
     $("#extract").empty();
 
-    if(!res.query.pages.hasOwnProperty("-1")) {
-    	var pages = res.query.pages;
-	    // console.log(res.query.pages);
+    if (!res.query.pages.hasOwnProperty("-1")) {
+      var pages = res.query.pages;
+      // console.log(res.query.pages);
 
-	    for (var i in res.query.pages) {
-	      if(res.query.pages[i].extract !== "") {
-	      	$("#extract").append(pages[i].extract);
-	      }
-	    }
-    } else if(!res.query.pages.hasOwnProperty("-1")) {
-    	$("#extract").html(desc);
+      for (var i in res.query.pages) {
+        if (res.query.pages[i].extract !== "") {
+          $("#extract").append(pages[i].extract);
+        }
+      }
+    } else if (!res.query.pages.hasOwnProperty("-1")) {
+      $("#extract").html(desc);
     }
 
     $("#description").text(desc);

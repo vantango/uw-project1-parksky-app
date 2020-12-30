@@ -12,7 +12,6 @@
 	<link rel="stylesheet" href="assets/css/style.css" />
 	<!-- styling specifically for star chart & associated table -->
 	<link rel="stylesheet" href="assets/css/starChart.css" />
-	<script src="assets/js/fetch.js"></script>
 </head>
 
 <body>
@@ -20,59 +19,8 @@
 	<header id="site-header"></header>
 	<!-- Main -->
 	<main class="columns has-background-dark has-text-white">
-		<aside id="parkInfoContainer" class="column is-4">
-			<table id="parkInfo">
-				<thead>
-					<tr>
-						<th id="parkName"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<!-- Fees -->
-					<tr>
-						<th>Entrance Fees</th>
-					</tr>
-					<tr>
-						<td>
-							<div id="entranceFees"></div>
-						</td>
-					</tr>
-					<!-- Passes -->
-					<tr>
-						<th>Entrance Passes</th>
-					</tr>
-					<tr>
-						<td>
-							<div id="entrancePasses"></div>
-						</td>
-					</tr>
-					<!-- Operating Hours -->
-					<tr>
-						<th>Operating Hours</th>
-					</tr>
-					<tr>
-						<td>
-							<div id="operatingHours"></div>
-						</td>
-					</tr>
-					<!-- Contact Info -->
-					<tr>
-						<th>Contact Information</th>
-					</tr>
-					<tr>
-						<td>
-							<div id="contactInfo"></div>
-						</td>
-					</tr>
-					<!-- Weather -->
-					<tr>
-						<th>Weather Info</th>
-					</tr>
-					<tr>
-						<td id="weather"></td>
-					</tr>
-				</tbody>
-			</table>
+		<aside id="starInfoContainer" class="column is-4">
+			<table id="starInfo"></table>
   	</aside>
   	<div id="starChartContainer" class="column">
   		<table class="has-text-white">
@@ -132,8 +80,6 @@
 	-->
 	<script src="assets/js/functions.js"></script>
 	<script src="assets/js/script.js"></script>
-	<script src="assets/js/starChart.js"></script>
-	<!-- <script src="assets/js/parkData.js"></script> -->
 </body>
 
 </html>
