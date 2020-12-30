@@ -848,7 +848,7 @@ function drawStarsPlanets(Canvas, objects, pDraw, LST, lat) {
     if (objects.stars[i].mag > magLimit) { continue; }
     // adds stars to array for displaying on page (if desired)
     if(objects.stars[i].mag < maxMagVisibleStars) {
-    	console.log(objects.stars[i].name, objects.stars[i].mag);
+    	// console.log(objects.stars[i].name, objects.stars[i].mag);
     	visibleBrightestStars.push(objects.stars[i]);
     }
 

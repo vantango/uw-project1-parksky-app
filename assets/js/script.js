@@ -1,25 +1,52 @@
 $("document").ready(function() {
-	$("#visitDate").val(dayjs().format("YYYY-MM-DD"));
+	var prevData, parkCode, date, currentPage;
+	// inserting HTML from a file
+// https://css-tricks.com/the-simplest-ways-to-handle-html-includes/
+// -- HEADER --
+fetch("../../templates/header.html")
+	.then(response => {
+		return response.text()
+	})
+	.then(data => {
+		$("#site-header").html(data);
+		prevData = JSON.parse(localStorage.getItem('parksky-data')) || null;
 
-	var currentPage = window.location.pathname;
+		if(prevData === null || prevData[0] === "abli") {
+			parkCode = "acad";
+			date = dayjs().format("YYYY-MM-DD");
+			saveLocalStorage(null);
+			prevData = JSON.parse(localStorage.getItem('parksky-data'));
 
-	var prevData = JSON.parse(localStorage.getItem('parksky-data')) || null;
-	var parkCode, date;
+		} else {
+			parkCode = prevData[0];
+			date = prevData[3];
+			
+		}
 
-	if(prevData === null || prevData[0] === "abli") {
-		parkCode = "acad";
-		date = dayjs().format("YYYY-MM-DD");
-		saveLocalStorage(null);
-		prevData = JSON.parse(localStorage.getItem('parksky-data'));
+		currentPage = window.location.pathname;
 
-	} else {
-		parkCode = prevData[0];
-		date = prevData[3];
-		
-	}
+		$("#searchParksSelect").val(parkCode);
+		$("#visitDate").val(date);
+	});
 
-	$("#searchParksSelect").val(parkCode);
-	$("#visitDate").val(date);
+// -- INFOBOXES --
+fetch("../../templates/infobox-park.html")
+	.then(response => {
+		return response.text()
+	})
+	.then(data => {
+		$("#parkInfoContainer").html(data);
+	});
+
+// -- FOOTER --
+fetch("../../templates/footer.html")
+	.then(response => {
+		return response.text()
+	})
+	.then(data => {
+		$("#site-footer").html(data);
+	});
+
 
 	if(currentPage.includes("starchart")) {
 		displayData(parkCode, true, true, false, false);

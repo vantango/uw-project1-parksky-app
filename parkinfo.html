@@ -10,233 +10,49 @@
   <!-- Font Awesome Pro (Angel) -->
   <script src="https://kit.fontawesome.com/9338ddc728.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="assets/css/style.css" />
-
   <!-- styling specifically for star chart & associated table -->
   <link rel="stylesheet" href="assets/css/starChart.css" />
+  <script src="assets/js/fetch.js"></script>
 </head>
 
 <body>
   <!-- Site Header -->
-  <section class="hero has-background-black">
-    <!-- hero header: for the navbar; sticks to top -->
-    <div class="hero-head">
-      <nav class="navbar">
-        <div class="container">
-          <div class="navbar-brand">
-            <a href="#" class="navbar-item">
-              <img src="assets/img/ParkSky Logo 1.png" alt="ParkSky Logo">
-            </a>
-            <span class="navbar-burger" data-target="navbarMenuHeroA">
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-          </div>
-          <div id="navbarMenuHeroA" class="navbar-menu">
-            <div class="navbar-end">
-              <a href="#" class="navbar-item has-text-white has-background-primary">Home</a>
-              <a href="parkinfo.html" class="navbar-item has-text-white has-background-info is-active">Park Details</a>
-              <a href="starchart.html" class="navbar-item has-text-white has-background-info">Star Chart</a>
-              <span class="navbar-item">
-                <a href="https://github.com/vantango/uw-project1-parksky-app" class="button is-danger">
-                  <span class="icon">
-                    <i class="fab fa-github"></i>
-                  </span>
-                  <span>Github</span>
-                </a>
-              </span>
-            </div>
-          </div>
-        </div>
-      </nav>
+	<header id="site-header"></header>
+  <!-- Main -->
+  <main class="columns has-background-dark has-text-white">
+    <aside id="parkInfoContainer" class="column is-4"></aside>
+    <div id="galleryContainer" class="column">
+      <div class="has-background-dark has-text-white px-6 py-4 is-size-5" id="description"></div>
+      <div class="fotorama" data-auto="false"></div>
+      <div id="extract"></div>
     </div>
-    <!-- Hero content -->
-    <!-- <div class="hero-body">
-    	<div class="container has-text-centered">
-    		<h1 class="title">Park&starf;Sky</h1>
-    		<h2>The Stars of Our Parks</h2>
-    	</div>
-    </div> -->
-    <!-- Hero footer; sticks to bottom  -->
-    <div class="hero-foot">
-      <form id="searchParks" class="has-text-centered py-5">
-        <div class="field is-grouped">
-          <div class="control has-icons-left">
-            <span class="select">
-              <select name="searchParksSelect" id="searchParksSelect">
-                <option value="acad" selected>Acadia National Park</option>
-								<option value="arch">Arches National Park</option>
-								<option value="badl">Badlands National Park</option>
-								<option value="bibe">Big Bend National Park</option>
-								<option value="bisc">Biscayne National Park</option>
-								<option value="blca">Black Canyon of the Gunnison National Park</option>
-								<option value="brca">Bryce Canyon National Park</option>
-								<option value="cany">Canyonlands National Park</option>
-								<option value="care">Capitol Reef National Park</option>
-								<option value="cave">Carlsbad Caverns National Park</option>
-								<option value="chis">Channel Islands National Park</option>
-								<option value="cong">Congaree National Park</option>
-								<option value="crla">Crater Lake National Park</option>
-								<option value="cuva">Cuyahoga Valley National Park</option>
-								<option value="dena">Denali National Park</option>
-								<option value="deva">Death Valley National Park</option>
-								<option value="drto">Dry Tortugas National Park</option>
-								<option value="ever">Everglades National Park</option>
-								<option value="jeff">Gateway Arch National Park</option>
-								<option value="gaar">Gates of the Arctic National Park</option>
-								<option value="glba">Glacier Bay National Park</option>
-								<option value="glac">Glacier National Park</option>
-								<option value="grca">Grand Canyon National Park</option>
-								<option value="grte">Grand Teton National Park</option>
-								<option value="grba">Great Basin National Park</option>
-								<option value="grsa">Great Sand Dunes National Park</option>
-								<option value="grsm">Great Smoky Mountains National Park</option>
-								<option value="gumo">Guadalupe Mountains National Park</option>
-								<option value="hale">Haleakal&#257; National Park</option>
-								<option value="havo">Hawai'i Volcanoes National Park</option>
-								<option value="hosp">Hot Springs National Park</option>
-								<option value="indu">Indiana Dunes National Park</option>
-								<option value="isro">Isle Royale National Park</option>
-								<option value="jotr">Joshua Tree National Park</option>
-								<option value="katm">Katmai National Park</option>
-								<option value="kefj">Kenai Fjords National Park</option>
-								<!-- <option value="kica">King's Canyon National Park</option> NOTHING FROM API -->
-								<option value="kova">Kobuk Valley National Park</option>
-								<option value="lacl">Lake Clark National Park</option>
-								<option value="lavo">Lassen Volcanic National Park</option>
-								<option value="maca">Mammoth Cave National Park</option>
-								<option value="meve">Mesa Verde National Park</option>
-								<option value="mora">Mount Rainier National Park</option>
-								<option value="npsa">National Park of American Samoa</option>
-								<option value="noca">North Cascades National Park</option>
-								<option value="olym">Olympic National Park</option>
-								<option value="pefo">Petrified Forest National Park</option>
-								<option value="pinn">Pinnacles National Park</option>
-								<option value="redw">Redwood National Park</option>
-								<option value="romo">Rocky Mountain National Park</option>
-								<option value="sagu">Saguaro National Park</option>
-								<option value="seki">Sequoia and Kings Canyon National Parks</option>
-								<option value="shen">Shenandoah National Park</option>
-								<option value="thro">Theodore Roosevelt National Park</option>
-								<option value="viis">Virgin Islands National Park</option>
-								<option value="voya">Voyageurs National Park</option>
-								<option value="whsa">White Sands National Park</option>
-								<option value="wica">Wind Cave National Park</option>
-								<option value="wrst">Wrangell-Saint Elias National Park</option>
-								<option value="yell">Yellowstone National Park</option>
-								<option value="yose">Yosemite National Park</option>
-								<option value="zion">Zion National Park</option>
-              </select>
-            </span>
-          </div>
-          <div class="control">
-            <!-- can't set "today's date in HTML", it would be static -->
-            <input id="visitDate" type="date">
-          </div>
-        </div>
-      </form>
-    </div>
-    </header>
-    <!-- Main -->
-    <main class="columns has-background-dark has-text-white">
-      <aside id="parkInfoContainer" class="column is-4">
-        <table id="parkInfo">
-          <thead>
-            <tr>
-              <th id="parkName"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Fees -->
-            <tr>
-              <th>Entrance Fees</th>
-            </tr>
-            <tr>
-              <td>
-                <div id="entranceFees"></div>
-              </td>
-            </tr>
-            <!-- Passes -->
-            <tr>
-              <th>Entrance Passes</th>
-            </tr>
-            <tr>
-              <td>
-                <div id="entrancePasses"></div>
-              </td>
-            </tr>
-            <!-- Operating Hours -->
-            <tr>
-              <th>Operating Hours</th>
-            </tr>
-            <tr>
-              <td>
-                <div id="operatingHours"></div>
-              </td>
-            </tr>
-            <!-- Contact Info -->
-            <tr>
-              <th>Contact Information</th>
-            </tr>
-            <tr>
-              <td>
-                <div id="contactInfo"></div>
-              </td>
-            </tr>
-            <!-- Weather -->
-            <tr>
-              <th>Weather Info</th>
-            </tr>
-            <tr>
-              <td id="weather"></td>
-            </tr>
-          </tbody>
-        </table>
-      </aside>
-      <div id="galleryContainer" class="column">
-      	<div class="has-background-dark has-text-white px-6 py-4 is-size-5" id="description"></div>
-        <div class="fotorama" data-auto="false"></div>
-        <div id="extract"></div>
-      </div>
-    </main>
-    <!-- Site Footer -->
-    <footer class="footer has-background-black has-text-white">
-      <div class="content has-text-centered">
-        <p>
-          <strong>Park<small>&starf;</small>Sky</strong> by Aleks, Angel and Jessica.
-          </br>
-          UW Coding Bootcamp
-        </p>
-      </div>
-    </footer>
-
-    <!-- jQuery for Fotorama-->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
-      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-
-    <!-- dayjs -->
-    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-
-    <!-- starChart -->
-    <!-- <script src="assets/js/starChart/core_min.js"></script>
+  </main>
+  <!-- Site Footer -->
+  <footer id="site-footer" class="footer"></footer>
+  
+  <!-- jQuery for Fotorama-->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <!-- dayjs -->
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <!-- starChart -->
+  <!-- <script src="assets/js/starChart/core_min.js"></script>
     <script src="assets/js/starChart/sseph_min.js"></script>
     <script src="assets/js/starChart/src/brightStars.js"></script>
     <script src="assets/js/starChart/src/riseSetTimes.js"></script>
     <script src="assets/js/starChart/src/sidereal.js"></script> -->
-
-    <!--
+  <!--
 	Team Scripts
 		* FUNCTIONS is for the functions that can be called
 		* script.js has where "setup" functionality (e.g. the search dropdown) is handled
 		* starChart.js is where the star chart related functions are called
 		* parkData.js is where the park data from both NPS & Wikipedia is handled
 	-->
-    <script src="assets/js/functions.js"></script>
-    <script src="assets/js/script.js"></script>
-    <!-- <script src="assets/js/starChart.js"></script> -->
-    <!-- Fotorama from CDNJS, 19 KB -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+  <script src="assets/js/functions.js"></script>
+  <script src="assets/js/script.js"></script>
+  <!-- <script src="assets/js/starChart.js"></script> -->
+  <!-- Fotorama from CDNJS, 19 KB -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
 </body>
 
 </html>

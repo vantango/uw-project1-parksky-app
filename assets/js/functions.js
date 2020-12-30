@@ -190,7 +190,7 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
 
       getWikipediaExtract(title, data.description);
       $(".fotorama").remove()
-      $("#galleryContainer").prepend("<div class='fotorama'></div>")
+      $("#galleryContainer #extract").before("<div class='fotorama'></div>")
       // display extra details about parks, incl. Wikipedia "summary"
       // for the parkinfo page.
 
