@@ -119,7 +119,52 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
     }
 
     if (displayParkDetails) {
-      getWikipediaExtract(data.fullName);
+    	var title = data.fullName;
+
+    	if(parkCode === "wrst") {
+    		title = "Wrangell–St._Elias_National_Park_and_Preserve";
+    	}
+    	if(parkCode === "hale") {
+    		title = "Haleakalā_National_Park";
+    	}
+    	if(parkCode === "glac") {
+    		title = "Glacier_National_Park_(U.S.)";
+    	}
+    	if(parkCode === "gaar") {
+    		title = "Gates_of_the_Arctic_National_Park_and_Preserve";
+    	}
+    	if(parkCode === "dena") {
+    		title = "Denali_National_Park_and_Preserve";
+    	}
+    	if(parkCode === "glba") {
+    		title = "Glacier_Bay_National_Park_and_Preserve";
+    	}
+    	// black canyon
+    	if(parkCode === "blca") {
+    		title = "Black_Canyon_of_the_Gunnison_National_Park";
+    	}
+    	// great sand dunes
+    	if(parkCode === "grsa") {
+    		title = "Great_Sand_Dunes_National_Park_and_Preserve";
+    	}
+    	// hawai'i volcanoes
+    	if(parkCode === "havo") {
+    		title = "Hawaiʻi_Volcanoes_National_Park";
+    	}
+    	// lake clark
+    	if(parkCode === "lacl") {
+    		title = "Lake_Clark_National_Park_and_Preserve";
+    	}
+    	// katmai
+    	if(parkCode === "katm") {
+    		title = "Katmai_National_Park_and_Preserve";
+    	}
+    	// sequoia and kings canyon
+    	if(parkCode === "seki") {
+    		title = "Sequoia_and_Kings_Canyon_National_Parks";
+    	}
+
+      getWikipediaExtract(title, data.description);
       $(".fotorama").remove()
       $("#galleryContainer").append("<div class='fotorama'></div>")
       // display extra details about parks, incl. Wikipedia "summary"
@@ -131,7 +176,7 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
         var imgObj = {
           img: data.images[i].url,
           thumb: data.images[i].url,
-          caption: data.images[i].caption,
+          caption: `${data.images[i].caption} <span class='credit'>${data.images[i].credit}</span>`,
         }
 
         images.push(imgObj);
@@ -181,22 +226,35 @@ function getStarChart(data, date = null) {
   changeLocationsAndTimes(startHere);
 }
 
-function getWikipediaExtract(title) {
+function getWikipediaExtract(title, desc) {
   var queryURL = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exintro=&titles=${title}`;
-  // generator=search&gsrlimit=5&gsrsearch
 
   $.ajax({
     url: queryURL,
     method: "GET"
   }).then(function (res) {
-    // console.log(res);
-    var pages = res.query.pages;
-    $("#extract").empty()
-    // console.log(res.query.pages);
+    console.log(res);
+    $("#extract").empty();
 
-    for (var i in res.query.pages) {
-      $("#extract").append(pages[i].extract);
+    if(!res.query.pages.hasOwnProperty("-1")) {
+    	var pages = res.query.pages;
+	    // console.log(res.query.pages);
+
+	    for (var i in res.query.pages) {
+	      if(res.query.pages[i].extract !== "") {
+	      	$("#extract").append(pages[i].extract);
+	      }
+	    }
+    } else if(!res.query.pages.hasOwnProperty("-1")) {
+    	$("#extract").html(desc);
     }
+
+    $("#description").text(desc);
+    // if($("#extract").is(":empty")) {
+    // 	$("#extract").html(desc);
+    // } else {
+    // 	$("#description").
+    // }
   });
 }
 
