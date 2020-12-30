@@ -1,13 +1,13 @@
 function displayData(parkCode, displayStarChart = false, displayStarDetails = false, displayParkInfo = true, displayParkDetails = false) {
-  // console.log(parkCode);
+
   $.ajax({
     url: `https://developer.nps.gov/api/v1/parks?api_key=0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg&parkCode=${parkCode}`,
     method: "GET"
   }).then(function (res) {
     var data = res.data[0];
+    console.log(parkCode);
 
     var saveData = [data.parkCode, data.latitude, data.longitude, $("#visitDate").val()];
-    // console.log(saveData);
     saveLocalStorage(saveData);
 
     if (displayStarChart) {
@@ -206,10 +206,10 @@ function getWikipediaExtract(title) {
 function saveLocalStorage(data = []) {
   var localData = JSON.parse(localStorage.getItem('parksky-data'));
 
-  if ((data === null || data.length === 0) && localData === null) {
+  if ((data === null || data.length === 0) || localData === null || localData[0] === "abli") {
     data = ["acad", "44.409286", "-68.247501", dayjs().format("YYYY-MM-DD")];
 
-  } else if (localData !== null && (data === null || data.length === 0)) {
+  } else if ((localData !== null && localData[0] !== "abli") && (data === null || data.length === 0)) {
     data = localData;
   }
 
