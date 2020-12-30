@@ -16,39 +16,38 @@
 
 <body>
 	<!-- Site Header -->
-	<section class="hero has-background-black">
-		<!-- hero header: for the navbar; sticks to top -->
-		<div class="hero-head">
-			<nav class="navbar">
-				<div class="container">
-					<div class="navbar-brand">
-						<a href="#" class="navbar-item">
-							<img src="assets/img/ParkSky Logo 1.png" alt="ParkSky Logo">
-						</a>
-						<span class="navbar-burger" data-target="navbarMenuHeroA">
-							<span></span>
-							<span></span>
-							<span></span>
-						</span>
-					</div>
-					<div id="navbarMenuHeroA" class="navbar-menu">
-						<div class="navbar-end">
-							<a href="#" class="navbar-item has-text-white has-background-primary is-active">Home</a>
-							<a href="parkinfo.html" class="navbar-item has-text-white has-background-info">Park Details</a>
-							<a href="starchart.html" class="navbar-item has-text-white has-background-info">Star Chart</a>
-							<span class="navbar-item">
-								<a href="https://github.com/vantango/uw-project1-parksky-app" class="button is-danger">
-									<span class="icon">
-										<i class="fab fa-github"></i>
-									</span>
-									<span>Github</span>
-								</a>
-							</span>
-						</div>
-					</div>
-				</div>
-			</nav>
-		</div>
+
+	<nav class="level">
+		<p class="level-item has-text-centered">
+            <a class="navbar-item" href="index.html">
+				Home
+				</a>
+		</p>
+		<p class="level-item has-text-centered">
+            <a class="navbar-item" href="https://github.com/vantango/uw-project1-parksky-app">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span> &nbsp; Github
+              </a>
+		</p>
+		<p class="level-item has-text-centered">
+		<a class="navbar-brand" href="index.html">
+		  <img src="logot.png" alt="Park Sky" width= "300">
+		</a>
+		</p>
+		<p class="level-item has-text-centered">
+            <a class="navbar-item" href="parkinfo.html">
+				Park Info
+				</a>
+		</p>
+		<p class="level-item has-text-centered">
+            <a class="navbar-item" href="starchart.html">
+				Star Chart
+				</a>
+		</p>
+	  </nav>
+
+
 		<!-- Hero content -->
 		<!-- <div class="hero-body">
     	<div class="container has-text-centered">
@@ -57,8 +56,10 @@
     	</div>
     </div> -->
 		<!-- Hero footer; sticks to bottom  -->
-		<div class="hero-foot">
+
+		<div class="hero-body">
 			<form id="searchParks" class="has-text-centered py-5">
+				<p><strong>Select your park:</strong></p></br>
 				<div class="field is-grouped">
 					<div class="control has-icons-left">
 						<span class="select">
@@ -134,10 +135,10 @@
     			</div>
     		</div>
     	</form>
-    </div>
+	</div>
   </header>
 	<!-- Main -->
-	<main class="columns has-background-dark has-text-white">
+	<main class="columns">
 		<aside id="parkInfoContainer" class="column is-4">
 			<table id="parkInfo">
 				<thead>
@@ -192,7 +193,9 @@
 				</tbody>
 			</table>
   	</aside>
-  	<div id="starChartContainer" class="column">
+  	<div id="starChartContainer">
+
+	  <div class="starcolumn">
   		<table class="has-text-white">
         <tr>
           <td colspan="2" id="place1" class="has-text-centered is-size-4" style="display: none;"></td>
@@ -202,14 +205,16 @@
           <td id="lat1"></td>
           <td><strong>Longitude:</strong></td>
           <td id="long1"></td>
-        </tr>
+		</tr>
+		
         <tr>
           <td><strong>Time:</strong></td>
           <td id="time1"></td>
           <td><strong>Sidereal Time:</strong></td>
           <td id="siderealTime1"></td>
         </tr>
-      </table>
+	  </table>
+	  </div>
       <div class="canvaswrapper">
         <canvas id="loc1" width="800" height="800">
           CANVAS NOT SUPPORTED IN THIS BROWSER!
@@ -225,7 +230,7 @@
   	</div>
   </main>
   <!-- Site Footer -->
-  <footer class="footer has-background-black has-text-white">
+  <footer class="footer">
     <div class="content has-text-centered">
       <p>
         <strong>Park<small>&starf;</small>Sky</strong> by Aleks, Angel and Jessica.
