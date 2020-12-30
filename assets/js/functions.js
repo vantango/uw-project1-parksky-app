@@ -182,7 +182,7 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
         images.push(imgObj);
 
       }
-      console.log(data)
+      
       $(".fotorama").fotorama({
         data: images,
         nav: "thumbs",
@@ -193,10 +193,11 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
       });
 
     }
-  });
+
+  }); // end of .then()
 }
 
-function getStarChart(data, date = null) {
+function getStarChart(data, date) {
   if (date === null) {
     date = dayjs($("#visitDate").val());
   }
@@ -233,7 +234,7 @@ function getWikipediaExtract(title, desc) {
     url: queryURL,
     method: "GET"
   }).then(function (res) {
-    console.log(res);
+    // console.log(res);
     $("#extract").empty();
 
     if(!res.query.pages.hasOwnProperty("-1")) {
