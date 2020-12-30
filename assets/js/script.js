@@ -6,7 +6,7 @@ $("document").ready(function() {
 	var prevData = JSON.parse(localStorage.getItem('parksky-data')) || null;
 	var parkCode, date;
 
-	if(prevData === null) {
+	if(prevData === null || prevData[0] === "abli") {
 		parkCode = "acad";
 		date = dayjs().format("YYYY-MM-DD");
 		saveLocalStorage(null);
@@ -21,26 +21,27 @@ $("document").ready(function() {
 	$("#searchParksSelect").val(parkCode);
 	$("#visitDate").val(date);
 
-	if(currentPage.includes("index")) {
-		displayData($(this).val(), true, false, true, false);
-		
-	} else if(currentPage.includes("starchart")) {
-		displayData($(this).val(), true, true, false, false);
+	if(currentPage.includes("starchart")) {
+		displayData(parkCode, true, true, false, false);
+
+	} else if(currentPage.includes("parkinfo")) {
+		displayData(parkCode, false, false, true, true);
 
 	} else {
-		displayData($(this).val(), false, false, true, true);
+		displayData(parkCode, true, false, true, false);
+
 	}
 
 	// on park change, update both parkInfo and star chart
 	$("#searchParksSelect").change(function() {
-		if(currentPage.includes("index")) {
-			displayData($(this).val(), true, false, true, false);
-
-		} else if(currentPage.includes("starchart")) {
+		if(currentPage.includes("starchart")) {
 			displayData($(this).val(), true, true, false, false);
 
-		} else {
+		} else if(currentPage.includes("parkinfo")) {
 			displayData($(this).val(), false, false, true, true);
+
+		} else {
+			displayData($(this).val(), true, false, true, false);
 		}
 	});
 

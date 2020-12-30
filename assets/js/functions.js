@@ -1,13 +1,13 @@
 function displayData(parkCode, displayStarChart = false, displayStarDetails = false, displayParkInfo = true, displayParkDetails = false) {
-  // console.log(parkCode);
+
   $.ajax({
     url: `https://developer.nps.gov/api/v1/parks?api_key=0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg&parkCode=${parkCode}`,
     method: "GET"
   }).then(function (res) {
     var data = res.data[0];
+    console.log(parkCode);
 
     var saveData = [data.parkCode, data.latitude, data.longitude, $("#visitDate").val()];
-    // console.log(saveData);
     saveLocalStorage(saveData);
 
     if (displayStarChart) {
@@ -119,29 +119,70 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
     }
 
     if (displayParkDetails) {
+    	var title = data.fullName;
+
+    	if(parkCode === "wrst") {
+    		title = "Wrangell–St._Elias_National_Park_and_Preserve";
+    	}
+    	if(parkCode === "hale") {
+    		title = "Haleakalā_National_Park";
+    	}
+    	if(parkCode === "glac") {
+    		title = "Glacier_National_Park_(U.S.)";
+    	}
+    	if(parkCode === "gaar") {
+    		title = "Gates_of_the_Arctic_National_Park_and_Preserve";
+    	}
+    	if(parkCode === "dena") {
+    		title = "Denali_National_Park_and_Preserve";
+    	}
+    	if(parkCode === "glba") {
+    		title = "Glacier_Bay_National_Park_and_Preserve";
+    	}
+    	// black canyon
+    	if(parkCode === "blca") {
+    		title = "Black_Canyon_of_the_Gunnison_National_Park";
+    	}
+    	// great sand dunes
+    	if(parkCode === "grsa") {
+    		title = "Great_Sand_Dunes_National_Park_and_Preserve";
+    	}
+    	// hawai'i volcanoes
+    	if(parkCode === "havo") {
+    		title = "Hawaiʻi_Volcanoes_National_Park";
+    	}
+    	// lake clark
+    	if(parkCode === "lacl") {
+    		title = "Lake_Clark_National_Park_and_Preserve";
+    	}
+    	// katmai
+    	if(parkCode === "katm") {
+    		title = "Katmai_National_Park_and_Preserve";
+    	}
+    	// sequoia and kings canyon
+    	if(parkCode === "seki") {
+    		title = "Sequoia_and_Kings_Canyon_National_Parks";
+    	}
+
+      getWikipediaExtract(title, data.description);
       $(".fotorama").remove()
       $("#galleryContainer").append("<div class='fotorama'></div>")
       // display extra details about parks, incl. Wikipedia "summary"
       // for the parkinfo page.
 
-      var images = [
-        // { img: 'https://picsum.photos/seed/rabbit/600/400', thumb: 'https://picsum.photos/seed/rabbit/600/400', caption: 'Rabbit' },
-        // { img: 'https://picsum.photos/seed/bear/600/400', thumb: 'https://picsum.photos/seed/bear/600/400', caption: "Bear" },
-        // { img: 'https://picsum.photos/seed/cougar/600/400', thumb: 'https://picsum.photos/seed/cougar/600/400', caption: "Cougar" },
-        // { img: 'https://picsum.photos/seed/rattlesnake/600/400', thumb: 'https://picsum.photos/seed/rattlesnake/600/400', caption: "Rattlesnake" },
-      ]
+      var images = [];
 
       for (var i in data.images) {
         var imgObj = {
           img: data.images[i].url,
           thumb: data.images[i].url,
-          caption: data.images[i].caption,
+          caption: `${data.images[i].caption} <span class='credit'>${data.images[i].credit}</span>`,
         }
 
         images.push(imgObj);
 
       }
-      console.log(data)
+      
       $(".fotorama").fotorama({
         data: images,
         nav: "thumbs",
@@ -152,10 +193,11 @@ function displayData(parkCode, displayStarChart = false, displayStarDetails = fa
       });
 
     }
-  });
+
+  }); // end of .then()
 }
 
-function getStarChart(data, date = null) {
+function getStarChart(data, date) {
   if (date === null) {
     date = dayjs($("#visitDate").val());
   }
@@ -185,31 +227,45 @@ function getStarChart(data, date = null) {
   changeLocationsAndTimes(startHere);
 }
 
-function getWikipediaExtract(title) {
+function getWikipediaExtract(title, desc) {
   var queryURL = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exintro=&titles=${title}`;
-  // generator=search&gsrlimit=5&gsrsearch
 
   $.ajax({
     url: queryURL,
     method: "GET"
   }).then(function (res) {
     // console.log(res);
-    var pages = res.query.pages;
-    // console.log(res.query.pages);
+    $("#extract").empty();
 
-    for (var i in res.query.pages) {
-      $("#extract").append(pages[i].extract);
+    if(!res.query.pages.hasOwnProperty("-1")) {
+    	var pages = res.query.pages;
+	    // console.log(res.query.pages);
+
+	    for (var i in res.query.pages) {
+	      if(res.query.pages[i].extract !== "") {
+	      	$("#extract").append(pages[i].extract);
+	      }
+	    }
+    } else if(!res.query.pages.hasOwnProperty("-1")) {
+    	$("#extract").html(desc);
     }
+
+    $("#description").text(desc);
+    // if($("#extract").is(":empty")) {
+    // 	$("#extract").html(desc);
+    // } else {
+    // 	$("#description").
+    // }
   });
 }
 
 function saveLocalStorage(data = []) {
   var localData = JSON.parse(localStorage.getItem('parksky-data'));
 
-  if ((data === null || data.length === 0) && localData === null) {
+  if ((data === null || data.length === 0) || localData === null || localData[0] === "abli") {
     data = ["acad", "44.409286", "-68.247501", dayjs().format("YYYY-MM-DD")];
 
-  } else if (localData !== null && (data === null || data.length === 0)) {
+  } else if ((localData !== null && localData[0] !== "abli") && (data === null || data.length === 0)) {
     data = localData;
   }
 

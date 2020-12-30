@@ -24,16 +24,18 @@ canvas {
     /*left:-200px;*/
     /*top:100px;*/
     display:none;
+    padding: 0.5rem;
+    border: 2px solid yellow;
 }
 
-.tip::after {
+/*.tip::after {
 	font-family: "Font Awesome 5 Pro";
 	content: "\f111";
 	font-weight: 400;
 	position: absolute;
 	right: -10px;
 	top: -10px;
-}
+}*/
 
 .tip table, .tip th, .tip td {
    /*font-size: 0.85em; */
