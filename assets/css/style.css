@@ -8,10 +8,6 @@
 	display: inline-block;
 }
 
-.columns {
-	margin: 0;
-}
-
 main.columns:not(:last-child) {
 	margin-bottom: 0;
 }
@@ -25,9 +21,10 @@ main.columns:not(:last-child) {
 	color: white;
 	text-align: center;
 }
-
-.table.has-background-dark td {
-	background-color: #363636;
+.hero-body,
+.columns{
+	background-color: #3E3E3F;
+	color: white;
 }
 
 .table.has-background-dark.is-striped tr:nth-child(2) {
@@ -43,7 +40,7 @@ main.columns:not(:last-child) {
 #operatingHours tr td,
 #weather {
 	border: 0;
-	padding: 0.25rem 1rem;
+	padding: 0.30rem 1rem;
 }
 
 #entranceFees tr:nth-child(2n+1),
@@ -51,16 +48,32 @@ main.columns:not(:last-child) {
 #operatingHours tr:nth-child(1n+2) {
 	border-top: 2px solid white;
 	width: 100%;
+
 }
 
 #entranceFees tr:nth-child(2n+1) td,
 #entrancePasses tr:nth-child(1n+2) td,
 #operatingHours tr:nth-child(1n+2) td {
-	background-color: red;
+	background-color:#787472;
 }
 
 input[type="date"] {
 	flex: 1;
 	height: 100%;
 	font-size: 1rem;
+}
+
+.level{
+	padding: 10px;
+}
+
+.starcolumn{
+	display: flex;
+	justify-content:center;
+
+	}
+
+.canvaswrapper{
+	padding: 25px 50px 25px 150px;
+
 }
