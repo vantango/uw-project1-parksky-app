@@ -363,11 +363,9 @@ function getAlerts(parkCode) {
   }).then(function (res) {
     // console.log(res);
 
-    $("#parkAlerts span").text(res.data.length);
-
     // IF we get at least one (1) alert
     if (res.data.length > 0) {
-    	$("#parkAlerts span").text(res.data.length);
+    	$("#parkAlerts span").text(res.data.length).css({"background-color": "crimson"});
     	// sort alerts: Park Closure > Caution > Info
     	res.data.sort(compareAlertTypes);
 
@@ -419,7 +417,7 @@ function getAlerts(parkCode) {
           });
         });
     } else {
-    	$("#parkAlerts span").text(0);
+    	$("#parkAlerts span").text(0).css({"background-color": "dimgray"});
     }
   });
 
@@ -500,7 +498,10 @@ function getNEOs() {
         });
     }
 
-    $("#neoAlerts span").text(res.element_count);
+    $("#neoAlerts span").text(res.element_count).css({"background-color": "dimgray"});
+    if(res.element_count > 0) {
+    	$("#neoAlerts span").css({"background-color": "crimson"});
+    }
   });
 
   // spinner!

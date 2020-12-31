@@ -52,24 +52,12 @@ table.table {
 }
 
 .tip {
-    /*font-size: 0.85em;*/
     position:absolute;
     background-color:black;
-    /*left:-200px;*/
-    /*top:100px;*/
     display:none;
     padding: 0.5rem;
     border: 2px solid yellow;
 }
-
-/*.tip::after {
-	font-family: "Font Awesome 5 Pro";
-	content: "\f111";
-	font-weight: 400;
-	position: absolute;
-	right: -10px;
-	top: -10px;
-}*/
 
 .tip table, .tip th, .tip td {
    /*font-size: 0.85em; */
@@ -84,6 +72,59 @@ table.table {
     right:1px;
     border: 1px solid black;
     cursor: pointer;
+}
+
+.level-item.is-active {
+	background-color: purple;
+}
+
+#logo:hover { background-color: transparent; }
+
+.level-item:hover {
+	color: black;
+	background-color: lavender;
+}
+
+.level-item:hover a {
+	color: black !important;
+	background-color: transparent;
+}
+
+.hero-body {
+ text-align: center;
+ padding: 0.2rem;
+}
+
+#searchParks {
+	display: inline-block;
+	margin: 0 auto;
+}
+
+#parkAlerts,
+#neoAlerts {
+	position: relative;
+	display: inline-block;
+	font-size: 1.5rem;
+	margin: 0 1rem;
+	padding-top: 0.5rem;
+	vertical-align: middle;
+}
+
+#parkAlerts span,
+#neoAlerts span {
+	position: absolute;
+	top: 12px;
+	padding: 0 0.4rem;
+	border-radius: 0.2rem;
+	font-size: 0.8rem;
+}
+
+#parkAlerts span {
+	right: -12px;
+}
+
+#neoAlerts span {
+	right: -25px;
 }
 
 @media screen and (min-width: 769px) {

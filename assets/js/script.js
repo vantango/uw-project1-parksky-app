@@ -44,13 +44,19 @@ $("document").ready(function() {
 			$("#searchParksSelect").val(parkCode);
 			$("#visitDate").val(date);
 
+			$(".level-item").removeClass("is-active");
+			$(".navbar-item").addClass("has-text-white");
+
 			if(currentPage.includes("starchart")) {
+				$(".level-item:nth-child(4)").addClass("is-active");
 				displayData(parkCode, date, true, true, false, false);
 
 			} else if(currentPage.includes("parkinfo")) {
+				$(".level-item:nth-child(2)").addClass("is-active");
 				displayData(parkCode, date, false, false, true, true);
 
 			} else {
+				$(".level-item:first-child").addClass("is-active");
 				displayData(parkCode, date, true, false, true, false);
 
 			}
