@@ -476,10 +476,10 @@ function changeLocationsAndTimes(form) {
 }
 
 // *** star charts ***
-function showHide(loc, name) {
+function showHide(loc, name, drawOptions) {
   var locStr = loc.toString();
-  $("#show" + name + locStr).toggleClass("active");
-  starChartLoc(loc);
+  // $("#show" + name + locStr).toggleClass("active");
+  starChartLoc(loc, drawOptions);
 }
 
 // *** Rotate the chart **
@@ -1340,7 +1340,7 @@ function galacticNorthPole(T) {
 function drawConstellationLinesAndSetupTips(Ctx, conLine, stars,
   LST, cosLat, sinLat, gpara, pDraw,
   newStar) {
-  Ctx.strokeStyle = "#1B9722";
+  Ctx.strokeStyle = "#26F0F1"; // "#1B9722"; "#9FD356"
   // Change line color depending on the background color 
   if (pDraw.showDayNight && gpara.altSun < -6) { Ctx.strokeStyle = "#93ff33"; }
   Ctx.setLineDash([]);
@@ -1404,7 +1404,7 @@ function drawConstellationLinesAndSetupTips(Ctx, conLine, stars,
 }
 
 function drawConstellationLabel(Ctx, conLab, LST, cosLat, sinLat, gpara, pDraw) {
-  var fontSize = 12;
+  var fontSize = 14;
   Ctx.font = fontSize.toString() + "px Arial";
   // Blackground and text color based on the altitude of the Sun
   var b = 255,
@@ -1416,17 +1416,21 @@ function drawConstellationLabel(Ctx, conLab, LST, cosLat, sinLat, gpara, pDraw) 
     b1 = Math.round(b * 0.95);
   }
   var textColor = "orange";
-  if (b > 130) { textColor = "#6c3483"; }
+  if (b > 130) { textColor = "#6c3483"; } // #6c3483
   var bgColor = "rgb(" + b1 + "," + b1 + "," + b + ")";
+
+  textColor = "yellow";
+  bgColor = "black";
+
   for (var i = 1; i < conLab.length; i++) {
     var raDec = { ra: conLab[i].ra, dec: conLab[i].dec };
     var coord = ra_dec_to_xy_above(raDec, LST, cosLat, sinLat, gpara);
     if (coord.x > -998) {
-      var w = Ctx.measureText(conLab[i].abbr).width;
-      Ctx.fillStyle = bgColor;
-      Ctx.fillRect(coord.x, coord.y - fontSize, w, fontSize);
+      var w = Ctx.measureText(conLab[i].name).width + 8;
+      Ctx.fillStyle =  bgColor;
+      Ctx.fillRect(coord.x - 2, coord.y - fontSize, w, fontSize + 4);
       Ctx.fillStyle = textColor;
-      Ctx.fillText(conLab[i].abbr, coord.x, coord.y);
+      Ctx.fillText(conLab[i].name, coord.x, coord.y);
     }
 
     if ("ra2" in conLab[i]) {
@@ -1435,9 +1439,9 @@ function drawConstellationLabel(Ctx, conLab, LST, cosLat, sinLat, gpara, pDraw) 
       coord = ra_dec_to_xy_above(raDec, LST, cosLat, sinLat, gpara);
       if (coord.x > -998) {
         Ctx.fillStyle = bgColor;
-        Ctx.fillRect(coord.x, coord.y - fontSize, w, fontSize);
+        Ctx.fillRect(coord.x - 2, coord.y - fontSize, w, fontSize + 4);
         Ctx.fillStyle = textColor;
-        Ctx.fillText(conLab[i].abbr, coord.x, coord.y);
+        Ctx.fillText(conLab[i].name, coord.x, coord.y);
       }
     }
   }
@@ -1690,8 +1694,8 @@ function displayPopup(e, loc) {
       displayPopupPlanet(tip, para);
     }
 
-    $(tipId).css("left", (tip.x - 145) + "px");
-    $(tipId).css("top", (tip.y + 3) + "px");
+    $(tipId).css("left", (tip.x - 87) + "px");
+    $(tipId).css("top", (tip.y + 27) + "px");
     $(tipId).show();
   }
 }

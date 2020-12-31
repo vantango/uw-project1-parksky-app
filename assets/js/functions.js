@@ -1,3 +1,5 @@
+defaultOptions = {showPlanets: true, showEquator: false, showEcliptic: false, showMilkyWay: false, showConLines: false, showConLab: false, showDayNight: false};
+
 function displayData(parkCode, date, displayStarChart = false, displayStarDetails = false, displayParkInfo = true, displayParkDetails = false) {
 
   $.ajax({
@@ -6,19 +8,28 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
   }).then(function (res) {
     var data = res.data[0];
 
-    var saveData = [data.parkCode, data.latitude, data.longitude, $("#visitDate").val()];
-    saveLocalStorage(saveData);
+    var saveData = {
+    	parkCode: data.parkCode,
+    	fullName: data.fullName, 
+    	latitude: data.latitude,
+    	longitude: data.longitude,
+    	date: $("#visitDate").val()
+    };
+    // save to local data immediately so other functions
+    // can use the (correct) data by pulling from local storage
+    saveToLocalStorage(saveData, 'park');
 
     getAlerts(parkCode);
 
-    if (displayStarChart) {
-      getStarChart(data, dayjs(date));
-
+		if(displayStarChart) {
+    	getStarChart('default');
     }
 
     if (displayStarDetails) {
+    	getStarChart('details');
       // display additional details about the sky chart/stars visible/etc.
       // for the starchart page.
+      updateRiseSetData();
     }
 
     if (displayParkInfo) {
@@ -239,8 +250,11 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
   }); // end of .then()
 }
 
-function getStarChart(data, date) {
-
+function getStarChart(options = 'default') {
+	var data = JSON.parse(localStorage.getItem('parksky-park-data'));
+	// if we need DEFAULT options, then nothing is shown
+	var options = options !== 'default' ? JSON.parse(localStorage.getItem('parksky-chart-options')) : defaultOptions;
+	var date = dayjs(data.date);
 
   var startHere = {
     place1in: { value: data.fullName },
@@ -253,18 +267,56 @@ function getStarChart(data, date) {
     minute1in: { value: 0 }, // dayjs().minute()
     second1in: { value: 0 }, // dayjs().second()
     tz1in: { value: parseInt(date.format("Z")) },
-    drawOptions: {
-      showPlanets: true,
-      showEquator: true,
-      showEcliptic: false,
-      showMilkyWay: true,
-      showConLines: true,
-      showConLab: true,
-      showDayNight: false
-    }
+    drawOptions: options
   }
 
   changeLocationsAndTimes(startHere);
+}
+
+function getStarChartOptions() {
+	// get the saved data
+	var parkData = JSON.parse(localStorage.getItem('parksky-park-data'));
+	var savedOptions = JSON.parse(localStorage.getItem('parksky-chart-options'));
+
+	// parse the date into the correct format
+	var date = dayjs(parkData.date);
+
+	// loop through all the buttons
+	$("#starchartOptions .button").each(function(i, b) {
+		// if the button does NOT have the class 'is-light'
+		// then it's ACTIVE and the corresponding drawOption should be TRUE
+		if(!$(this).hasClass('is-light')) {
+			savedOptions[$(this).attr("id")] = true;
+		}
+		// otherwise (if the button 'is-light' / is INactive)
+		// then the drawOption should be FALSE
+		else {
+			savedOptions[$(this).attr("id")] = false;
+		}
+	});
+	saveToLocalStorage(savedOptions, 'options');
+
+	return savedOptions;
+}
+
+function updateRiseSetData() {
+	var savedData = JSON.parse(localStorage.getItem('parksky-park-data'));
+	var date = dayjs(savedData.date);
+
+	var tableData = {
+		fullName: savedData.fullName,
+		latitude: savedData.latitude,
+		longitude: savedData.longitude,
+		date: date,
+		yyyy: date.year(),
+		mm: date.month() + 1,
+		dd: date.date(),
+		dateString: savedData.date,
+		tzString: date.format("Z"),
+		tz: parseInt(date.format("Z")),
+	};
+	// show Rise/Set info
+	riseSetChartPage(tableData);
 }
 
 function getWikipediaExtract(title, desc) {
@@ -297,31 +349,6 @@ function getWikipediaExtract(title, desc) {
     // 	$("#description").
     // }
   });
-}
-
-function saveLocalStorage(data = []) {
-  var localData = JSON.parse(localStorage.getItem('parksky-data'));
-
-  if ((data === null || data.length === 0) || localData === null || localData[0] === "abli") {
-    data = ["acad", "44.409286", "-68.247501", dayjs().format("YYYY-MM-DD")];
-
-  } else if ((localData !== null && localData[0] !== "abli") && (data === null || data.length === 0)) {
-    data = localData;
-  }
-
-  localStorage.setItem('parksky-data', JSON.stringify(data));
-}
-
-// formatPhoneNumber function copy-pasted from:
-// https://stackoverflow.com/a/8358141
-function formatPhoneNumber(phoneNumberString) {
-  var cleaned = ('' + phoneNumberString).replace(/\D/g, '')
-  var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
-  if (match) {
-    var intlCode = (match[1] ? '+1 ' : '')
-    return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('')
-  }
-  return null
 }
 
 function getAlerts(parkCode) {
@@ -392,6 +419,56 @@ function getAlerts(parkCode) {
   })
 }
 
+function saveToLocalStorage(data = null, target = 'park') {
+	var localData;
+
+  if(target.includes("park")) {
+  	localData = JSON.parse(localStorage.getItem('parksky-park-data'));
+
+	  if ((data === null || data.length === 0) || localData === null || localData[0] === "abli") {
+	    data = {
+  	    parkCode: "acad", 
+  	    fullName: "Acadia National Park", 
+  	    latitude: "44.409286",
+  	    longitude: "-68.247501",
+  	    date: dayjs().format("YYYY-MM-DD")
+  	  };
+
+	  } else if (localData !== null && (data === null || data.length === 0)) {
+	    data = localData;
+	  }
+
+	  localStorage.setItem('parksky-park-data', JSON.stringify(data));
+
+  } else {
+  	localData = JSON.parse(localStorage.getItem('parksky-chart-options'));
+  	// console.log(localData);
+
+  	if((data === null || data.length === 0) && localData === null) {
+  		data = defaultOptions;
+
+  	} else if(localData !== null && (data === null || data.length === 0)) {
+  		data = localData;
+  	}
+
+  	localStorage.setItem('parksky-chart-options', JSON.stringify(data));
+  }
+}
+
+// formatPhoneNumber function copy-pasted from:
+// https://stackoverflow.com/a/8358141
+function formatPhoneNumber(phoneNumberString) {
+  var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
+  var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+
+  if (match) {
+    var intlCode = (match[1] ? '+1 ' : '');
+    return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('');
+  }
+
+  return null;
+}
+
 function compareAlertTypes(a, b) {
 	if(
 		(a.type === "Park Closure" && b.type !== "Park Closure") ||
@@ -400,7 +477,6 @@ function compareAlertTypes(a, b) {
 		return -1;
 
 	} else if(a.type === b.type) {
-		console.log(a.title, /\d+/.test(a.title), b.title, /\d+/.test(b.title));
 		// checks a.title for a number - if there is one,
 		// create a variable to hold the number *as an integer*
 		// then create  a variable that holds either the number in b.title
