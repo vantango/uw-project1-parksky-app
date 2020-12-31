@@ -150,7 +150,7 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
         tdAddress.append(data.addresses[i].stateCode, " ");
         tdAddress.append(data.addresses[i].postalCode);
 
-        console.log(tdAddress);
+        // console.log(tdAddress);
 
         row3.append(tdAddress);
         $("#contactInfo").append(row3);
@@ -325,18 +325,29 @@ function formatPhoneNumber(phoneNumberString) {
 }
 
 function getAlerts(parkCode) {
+	// remove modal & alert icons for a "clean slate"
+	$(".modal").remove();
+	$(".fas.fa-exclamation-triangle").remove();
+
   $.ajax({
     url: `https://developer.nps.gov/api/v1/alerts?api_key=0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg&parkCode=${parkCode}`,
     method: "GET"
   }).then(function (res) {
-    console.log(res)
+    // console.log(res);
 
-    $(".fas.fa-exclamation-triangle").remove()
+    // IF we get at least one (1) alert
     if (res.data.length > 0) {
+    	// sort alerts: Park Closure > Caution > Info
+
+    	res.data.sort(compareAlertTypes);
+
+    	// create the alert icon
       var icon = $("<i>", { class: "fas fa-exclamation-triangle" });
       $("#searchParks").after(icon);
 
       // -- ALERTS --
+      // get the modal HTML "template" and load it to the page
+      // at the end of the body element
       fetch("../../templates/alerts.html")
         .then(response => {
           return response.text();
@@ -344,6 +355,7 @@ function getAlerts(parkCode) {
         .then(data => {
           $("body").append(data);
           $(".modal-content").empty();
+
           for (var i in res.data) {
             var alert = res.data[i];
             var message = $("<article>", { class: "message" });
@@ -356,13 +368,13 @@ function getAlerts(parkCode) {
             // applies color to alert depending on type
             if (alert.type === "Park Closure") {
               message.addClass("is-danger");
-              messageHeader.prepend("<i class='fas fa-do-not-enter'></i> ")
+              messageHeader.prepend("<i class='fas fa-do-not-enter'></i>");
             } else if (alert.type === "Caution") {
               message.addClass("is-warning");
-              messageHeader.prepend("<i class='fas fa-hand-paper'></i> ")
+              messageHeader.prepend("<i class='fas fa-hand-paper'></i>");
             } else {
               message.addClass("is-info");
-              messageHeader.prepend("<i class='fas fa-info-circle'></i> ")
+              messageHeader.prepend("<i class='fas fa-info-circle'></i>");
             }
             $(".modal-content").append(message);
           }
@@ -370,12 +382,43 @@ function getAlerts(parkCode) {
           // adds click functionality to modal
           $(icon).click(function () {
             $(".modal").addClass("is-active");
-          })
+          });
 
           $(".modal-close, .modal-background").click(function () {
             $(".modal").removeClass("is-active");
-          })
+          });
         });
     }
   })
+}
+
+function compareAlertTypes(a, b) {
+	if(
+		(a.type === "Park Closure" && b.type !== "Park Closure") ||
+		(a.type === "Caution" && b.type !== "Park Closure" && b.type !== "Caution")
+		) {
+		return -1;
+
+	} else if(a.type === b.type) {
+		console.log(a.title, /\d+/.test(a.title), b.title, /\d+/.test(b.title));
+		// checks a.title for a number - if there is one,
+		// create a variable to hold the number *as an integer*
+		// then create  a variable that holds either the number in b.title
+		// (if there is one) or just 0
+		// then return the results of a - b for sorting
+		if(/\d+/.test(a.title) || /\d+/.test(b.title)) {
+			var aNum = /\d+/.test(a.title) ? parseInt(a.title.match(/\d+/)) : 0;
+			var bNum = /\d+/.test(b.title) ? parseInt(b.title.match(/\d+/)) : 0;
+			console.log(aNum - bNum);
+
+			return aNum - bNum;
+
+		} else {
+			return 0;
+		}
+
+	} else {
+		return 1;
+
+	}
 }
