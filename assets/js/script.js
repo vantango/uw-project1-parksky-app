@@ -55,6 +55,9 @@ $("document").ready(function() {
 
 			}
 
+			// Near Earth Object alerts from NASA
+    	getNEOs();
+
 			// on park change, update both parkInfo and star chart
 			$("#searchParksSelect").change(function() {
 				if(currentPage.includes("starchart")) {
@@ -75,6 +78,8 @@ $("document").ready(function() {
 				prevParkData.date = $(this).val();
 				// save to localStorage
 				saveToLocalStorage(prevParkData, 'park');
+
+				getNEOs();
 				
 				if(!currentPage.includes("parkinfo")) {
 					var chartData = {

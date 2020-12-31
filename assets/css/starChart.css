@@ -85,3 +85,9 @@ table.table {
     border: 1px solid black;
     cursor: pointer;
 }
+
+@media screen and (min-width: 769px) {
+	.modal-content {
+		min-width: 50%;
+	}
+}
