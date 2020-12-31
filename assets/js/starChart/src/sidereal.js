@@ -476,10 +476,10 @@ function changeLocationsAndTimes(form) {
 }
 
 // *** star charts ***
-function showHide(loc, name) {
+function showHide(loc, name, drawOptions) {
   var locStr = loc.toString();
-  $("#show" + name + locStr).toggleClass("active");
-  starChartLoc(loc);
+  // $("#show" + name + locStr).toggleClass("active");
+  starChartLoc(loc, drawOptions);
 }
 
 // *** Rotate the chart **
@@ -1690,8 +1690,8 @@ function displayPopup(e, loc) {
       displayPopupPlanet(tip, para);
     }
 
-    $(tipId).css("left", (tip.x - 145) + "px");
-    $(tipId).css("top", (tip.y + 3) + "px");
+    $(tipId).css("left", (tip.x - 87) + "px");
+    $(tipId).css("top", (tip.y + 27) + "px");
     $(tipId).show();
   }
 }

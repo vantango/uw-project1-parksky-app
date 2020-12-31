@@ -30,6 +30,23 @@ function riseSetPage() {
     riseSetLoc(loc2);
 }
 
+function riseSetChartPage(data) {
+    // $("#starCharts").hide();
+    // $("#riseSetArea").show();
+    
+    var deg_to_rad = Math.PI/180;
+    
+    $("#riseSetPlace1").text(data.fullName);
+    $("#riseSetlong1").html(data.longitude+"&deg;");
+    $("#riseSetlat1").html(data.latitude+"&deg;");
+    $("#riseSetDate1").html(data.dateString);
+    $("#riseSetTtimeZone1").html("GMT"+data.tzString);
+    var loc1 = {locNum:1, long:data.longitude*deg_to_rad, 
+                lat:data.latitude*deg_to_rad, tz:data.tz, 
+                yyyy:data.yyyy, mm:data.mm, dd:data.dd};
+    riseSetLoc(loc1);
+}
+
 function backToStarCharts() {
     $("#RSMultiResult").empty();
     $("#riseSetMultipleDays").slideUp();
@@ -465,9 +482,9 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
         txt = "<p>Upper transit: "+tt.t+" (Altitude = "+tt.alt+"); ";
         txt += "the sun is below the horizon all day.";
     } else {
-        txt = "<p>Sunrise: "+trs.rise+" (Azimuth = "+trs.azRise+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        txt += "Sunset: "+trs.set+" (Azimuth = "+trs.azSet+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        txt += "Upper transit: "+tt.t+" (Altitude = "+tt.alt+")</p>";
+        txt = "<p><strong>Sunrise:</strong> "+trs.rise+" (Azimuth = "+trs.azRise+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        txt += "<strong>Sunset:</strong> "+trs.set+" (Azimuth = "+trs.azSet+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        txt += "<strong>Upper transit:</strong> "+tt.t+" (Altitude = "+tt.alt+")</p>";
     }
     $(locid).append(txt);
     // Civil twilight
@@ -478,7 +495,7 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
     } else if (trs.rise=="below") {
         txt = "<p>No civil twilights. The Sun's altitude is below -6&deg; all day.</p>";
     } else {
-        txt = "<p>Civil twilight: begins at "+trs.rise+", ends at "+trs.set+".</p>";
+        txt = "<p><strong>Civil twilight:</strong> begins at "+trs.rise+", ends at "+trs.set+".</p>";
     }
     $(locid).append(txt);
     // Nautical twilight
@@ -489,7 +506,7 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
     } else if (trs.rise=="below") {
         txt = "<p>No nautical twilights. The Sun's altitude is below -12&deg; all day.</p>";
     } else {
-        txt = "<p>Nautical twilight: begins at "+trs.rise+", ends at "+trs.set+".</p>";
+        txt = "<p><strong>Nautical twilight:</strong> begins at "+trs.rise+", ends at "+trs.set+".</p>";
     }
     $(locid).append(txt);
     // Astronomical twilight
@@ -500,7 +517,7 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
     } else if (trs.rise=="below") {
         txt = "<p>No astronomical twilights. The Sun's altitude is below -18&deg; all day.</p>";
     } else {
-        txt = "<p>Astronomical twilight: begins at "+trs.rise+", ends at "+trs.set+".</p>";
+        txt = "<p><strong>Astronomical twilight:</strong> begins at "+trs.rise+", ends at "+trs.set+".</p>";
     }
     $(locid).append(txt);
     
