@@ -22,6 +22,15 @@ canvas {
 	margin: 0 auto;
 }
 
+table.table {
+	background: transparent;
+	color: inherit;
+}
+
+#rstPlanets th,
+#rstPlanets td,
+#rstStars th,
+#rstStars td,
 #starChartContainer table td {
 	padding: 0.25rem;
 }

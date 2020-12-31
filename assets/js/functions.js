@@ -1,3 +1,5 @@
+defaultOptions = {showPlanets: true, showEquator: false, showEcliptic: false, showMilkyWay: false, showConLines: false, showConLab: false, showDayNight: false};
+
 function displayData(parkCode, date, displayStarChart = false, displayStarDetails = false, displayParkInfo = true, displayParkDetails = false) {
 
   $.ajax({
@@ -19,12 +21,12 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
 
     getAlerts(parkCode);
 
-    if (displayStarChart) {
-      getStarChart(data, dayjs(date));
-
+		if(displayStarChart) {
+    	getStarChart('default');
     }
 
     if (displayStarDetails) {
+    	getStarChart('details');
       // display additional details about the sky chart/stars visible/etc.
       // for the starchart page.
       updateRiseSetData();
@@ -248,9 +250,10 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
   }); // end of .then()
 }
 
-function getStarChart() {
+function getStarChart(options = 'default') {
 	var data = JSON.parse(localStorage.getItem('parksky-park-data'));
-	var options = JSON.parse(localStorage.getItem('parksky-chart-options'));
+	// if we need DEFAULT options, then nothing is shown
+	var options = options !== 'default' ? JSON.parse(localStorage.getItem('parksky-chart-options')) : defaultOptions;
 	var date = dayjs(data.date);
 
   var startHere = {
@@ -442,15 +445,7 @@ function saveToLocalStorage(data = null, target = 'park') {
   	// console.log(localData);
 
   	if((data === null || data.length === 0) && localData === null) {
-  		data = {
-				showPlanets: false,
-		    showEquator: false,
-		    showEcliptic: false,
-		    showMilkyWay: false,
-		    showConLines: false,
-		    showConLab: false,
-		    showDayNight: false
-			};
+  		data = defaultOptions;
 
   	} else if(localData !== null && (data === null || data.length === 0)) {
   		data = localData;
@@ -482,7 +477,6 @@ function compareAlertTypes(a, b) {
 		return -1;
 
 	} else if(a.type === b.type) {
-		console.log(a.title, /\d+/.test(a.title), b.title, /\d+/.test(b.title));
 		// checks a.title for a number - if there is one,
 		// create a variable to hold the number *as an integer*
 		// then create  a variable that holds either the number in b.title

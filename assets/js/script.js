@@ -25,6 +25,10 @@ $("document").ready(function() {
 		prevChartOptions = JSON.parse(localStorage.getItem('parksky-chart-options'));
 	}
 
+	if(!currentPage.includes("starchart") && !currentPage.includes("parkinfo")) {
+		getStarChart('default');
+	}
+
 	// inserting HTML from a file
 // https://css-tricks.com/the-simplest-ways-to-handle-html-includes/
 // -- HEADER --
