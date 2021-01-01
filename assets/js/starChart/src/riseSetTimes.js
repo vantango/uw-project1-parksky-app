@@ -476,15 +476,15 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
     alt = -0.01454441043328608; // -50' in radians
     trs = getRiseSet(alt,LST0,lat,ra,dec);
     if (trs.rise=="above") {
-        txt = "<p>Upper transit: "+tt.t+" (Altitude = "+tt.alt+"); ";
+        txt = "<br><p>Upper transit: "+tt.t+" (Altitude = "+tt.alt+"); ";
         txt += "the sun is above the horizon all day.";
     } else if (trs.rise=="below") {
-        txt = "<p>Upper transit: "+tt.t+" (Altitude = "+tt.alt+"); ";
+        txt = "<br><p>Upper transit: "+tt.t+" (Altitude = "+tt.alt+"); ";
         txt += "the sun is below the horizon all day.";
     } else {
         txt = "<p><strong>Sunrise:</strong> "+trs.rise+" (Azimuth = "+trs.azRise+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
         txt += "<strong>Sunset:</strong> "+trs.set+" (Azimuth = "+trs.azSet+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        txt += "<strong>Upper transit:</strong> "+tt.t+" (Altitude = "+tt.alt+")</p>";
+        txt += "<br><strong>Upper transit:</strong> "+tt.t+" (Altitude = "+tt.alt+")</p>";
     }
     $(locid).append(txt);
     // Civil twilight
@@ -539,7 +539,7 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
     } else {
         txt = "<p><strong>Moonrise:</strong> "+trs.rise+" (Azimuth = "+trs.azRise+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
         txt += "<strong>Moonset:</strong> "+trs.set+" (Azimuth = "+trs.azSet+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        txt += "<strong>Upper transit:</strong> "+tt.t+" (Altitude = "+tt.alt+")</p>";
+        txt += "<br><strong>Upper transit:</strong> "+tt.t+" (Altitude = "+tt.alt+")</p>";
     }
     $(locid).append(txt);
     // Illumination and phase
