@@ -75,14 +75,14 @@ table.table {
 }
 
 .level-item.is-active {
-	background-color: purple;
+	background-color: #757f49;
 }
 
 #logo:hover { background-color: transparent; }
 
 .level-item:hover {
 	color: black;
-	background-color: lavender;
+	background-color: #8f9467;
 }
 
 .level-item:hover a {

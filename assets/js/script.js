@@ -45,7 +45,6 @@ $("document").ready(function() {
 			$("#visitDate").val(date);
 
 			$(".level-item").removeClass("is-active");
-			$(".navbar-item").addClass("has-text-white");
 
 			if(currentPage.includes("starchart")) {
 				$(".level-item:nth-child(4)").addClass("is-active");

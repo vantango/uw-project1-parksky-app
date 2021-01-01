@@ -52,9 +52,8 @@ main.columns:not(:last-child) {
 }
 
 #entranceFees tr:nth-child(2n+1) td,
-#entrancePasses tr:nth-child(1n+2) td,
-#operatingHours tr:nth-child(1n+2) td {
-	background-color:#787472;
+#entrancePasses tr:nth-child(2n+1) td,{
+    background-color:#787472;
 }
 
 input[type="date"] {
@@ -66,14 +65,35 @@ input[type="date"] {
 .level{
 	padding: 10px;
 }
+.canvaswrapper
+.starchart-data{
+align-items: center;
+}
 
-.starcolumn{
-	display: flex;
-	justify-content:center;
+.box{
+    background-color: transparent;
+    color: white;
+    border: solid white 1px;
+    padding: 30px 25px 25px 0px;
 
-	}
+}
 
-.canvaswrapper{
-	padding: 25px 50px 25px 150px;
+.title{
+	font-size: 23px;
+}
+.tabs{
+	font-size: 15px;
+}
 
+.table th {
+	color: white;
+	text-align:justify;
+}
+
+.note{
+	text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6, p, #description{
+	text-align: center;
 }
