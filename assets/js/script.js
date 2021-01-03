@@ -1,10 +1,9 @@
 $("document").ready(function() {
 	var prevParkData, prevChartOptions, parkCode, date, currentPage;
+	currentPage = window.location.pathname;
 
 	prevParkData = JSON.parse(localStorage.getItem('parksky-park-data')) || null;
 	prevChartOptions = JSON.parse(localStorage.getItem('parksky-chart-options')) || null;
-
-	currentPage = window.location.pathname;
 
 	if(prevParkData === null) {
 		parkCode = "acad";
@@ -25,13 +24,9 @@ $("document").ready(function() {
 		prevChartOptions = JSON.parse(localStorage.getItem('parksky-chart-options'));
 	}
 
-	if(!currentPage.includes("starchart") && !currentPage.includes("parkinfo")) {
-		getStarChart('default');
-	}
-
 	// inserting HTML from a file
-// https://css-tricks.com/the-simplest-ways-to-handle-html-includes/
-// -- HEADER --
+	// https://css-tricks.com/the-simplest-ways-to-handle-html-includes/
+	// -- HEADER --
 	fetch("../../templates/header.html")
 		.then(response => {
 			return response.text()
@@ -46,20 +41,6 @@ $("document").ready(function() {
 
 			$(".level-item").removeClass("is-active");
 
-			if(currentPage.includes("starchart")) {
-				$(".level-item:nth-child(4)").addClass("is-active");
-				displayData(parkCode, date, true, true, false, false);
-
-			} else if(currentPage.includes("parkinfo")) {
-				$(".level-item:nth-child(2)").addClass("is-active");
-				displayData(parkCode, date, false, false, true, true);
-
-			} else {
-				$(".level-item:first-child").addClass("is-active");
-				displayData(parkCode, date, true, false, true, false);
-
-			}
-
 			// Near Earth Object alerts from NASA
     	getNEOs();
 
@@ -68,7 +49,7 @@ $("document").ready(function() {
 				if(currentPage.includes("starchart")) {
 					displayData($(this).val(), date, true, true, false, false);
 
-				} else if(currentPage.includes("parkinfo")) {
+				} else if(currentPage.includes("parkdetails")) {
 					displayData($(this).val(), date, false, false, true, true);
 
 				} else {
@@ -86,7 +67,7 @@ $("document").ready(function() {
 
 				getNEOs();
 				
-				if(!currentPage.includes("parkinfo")) {
+				if(!currentPage.includes("parkdetails")) {
 					var chartData = {
 						fullName: prevParkData.fullName,
 						latitude: prevParkData.latitude,
@@ -100,13 +81,56 @@ $("document").ready(function() {
 			});
 		});
 
-	// -- INFOBOXES --
-	fetch("../../templates/infobox-park.html")
+// -- INFOBOXES --
+	// if we're NOT on the starchart page, we need the park infobox
+	if(!currentPage.includes("starchart")) {
+		fetch("../../templates/infobox-park.html")
 		.then(response => {
 			return response.text()
 		})
 		.then(data => {
-			$("#parkInfoContainer").html(data);
+			$("#infobox").html(data);
+			// display park details if on the park details page
+			if(currentPage.includes("parkdetails")) {
+				$(".level-item:nth-child(2)").addClass("is-active");
+				displayData(parkCode, date, false, false, true, true);
+
+			} else if(!currentPage.includes("starchart")) {
+				$(".level-item:first-child").addClass("is-active");
+			}
+		});
+	}
+	// otherwise, we want the stars/astronomy infobox
+	else {
+		fetch("../../templates/infobox-stars.html")
+		.then(response => {
+			return response.text()
+		})
+		.then(data => {
+			$("#infobox").html(data);
+		});
+	}
+
+	// -- STARCHART CANVAS --
+	fetch("../../templates/starchartcanvas.html")
+		.then(response => {
+			return response.text()
+		})
+		.then(data => {
+			if(!currentPage.includes("starchart") && !currentPage.includes("parkdetails")) {
+				$("#starChartContainer").append(data);
+				$(".level-item:first-child").addClass("is-active");
+				displayData(parkCode, date, true, false, true, false);
+			}
+
+			if(currentPage.includes("starchart")) {
+				$("#starChartContainer").prepend(data);
+				$(".level-item:nth-child(4)").addClass("is-active");
+				displayData(parkCode, date, true, true, false, false);
+
+			}
+
+
 		});
 
 	// -- FOOTER --

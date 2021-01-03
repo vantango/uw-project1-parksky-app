@@ -70,12 +70,28 @@ input[type="date"] {
 align-items: center;
 }
 
-.box{
-    background-color: transparent;
-    color: white;
-    border: solid white 1px;
-    padding: 30px 25px 25px 0px;
+#infobox {
+  background-color: transparent;
+  color: white;
+  margin: 30px 25px 25px;
+  box-shadow: none;
+}
 
+#infobox .tab.is-active {
+	background-color: orange;
+}
+
+#infobox .tabs a {
+	border-bottom: 0;
+}
+
+#tabContentContainers {
+	border: 1px solid gainsboro;
+	padding-top: 0;
+}
+
+#tabContentContainers tr:nth-child(1n+2) {
+	border-top: 2px solid gainsboro;
 }
 
 .title{

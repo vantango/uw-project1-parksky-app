@@ -1,40 +1,39 @@
-<div class=box>
-  <section class="hero is-small is-light">
-    <div class="hero-body">
-      <div class="container has-text-centered">
-            <div class="title"><div id="parkName"></div></div>
-        </div>
-    </div> 
-      
-    <div class="hero-foot">
-    <nav class="tabs">
-            <div class="container">
-              <ul>
-                <li class="tab is-active" onclick="openTab(event,'EntFee')"><a >Entrance <br>Fees</a></li>
-                <li class="tab" onclick="openTab(event,'EntPasses')"><a>Entrance<br>Passes</a></li>
-                <li class="tab" onclick="openTab(event,'OpHours')"><a >Operating<br>Hours</a></li>
-                <li class="tab" onclick="openTab(event,'Contact')"><a >Contact<br>Info</a></li>
-                <li class="tab" onclick="openTab(event,'Weather')"><a >Weather</a></li>
-              </ul>
-            </div>
-          </nav>
-      </div>
-    </section>
-    
-    <div class="container section">
-        <div id="EntFee" class="content-tab" >
-          <div id="entranceFees"></div>
-        </div>
-        <div id="EntPasses" class="content-tab" style="display:none">
-          <div id="entrancePasses"></div>
-        </div>
-        <div id="OpHours" class="content-tab" style="display:none">
-          <div id="operatingHours"></div>
-        </div>
-        <div id="Contact" class="content-tab" style="display:none">
-          <div id="contactInfo"></div>
-       </div>
-       <div id="Weather" class="content-tab" style="display:none">
-        <div id="weather"></div>
-  </div>
-  </div>
+<div class="box">
+	<section class="hero is-small is-light">
+	  <div class="hero-body">
+	    <div class="container has-text-centered">
+	    	<h1 class="title" id="parkName"></h1>
+	    </div>
+	  </div>
+	  <div class="hero-foot">
+	    <nav class="tabs">
+	      <div class="container">
+	        <ul>
+	          <li class="tab is-active" onclick="openTab(event,'EntFee')"><a>Entrance <br>Fees</a></li>
+	          <li class="tab" onclick="openTab(event,'EntPasses')"><a>Entrance<br>Passes</a></li>
+	          <li class="tab" onclick="openTab(event,'OpHours')"><a>Operating<br>Hours</a></li>
+	          <li class="tab" onclick="openTab(event,'Contact')"><a>Contact<br>Info</a></li>
+	          <li class="tab" onclick="openTab(event,'Weather')"><a>Weather</a></li>
+	        </ul>
+	      </div>
+	    </nav>
+	  </div>
+	</section>
+	<div id="tabContentContainers" class="container section">
+	  <div id="EntFee" class="content-tab is-active">
+	    <table id="entranceFees"></table>
+	  </div>
+	  <div id="EntPasses" class="content-tab" style="display:none">
+	    <table id="entrancePasses"></table>
+	  </div>
+	  <div id="OpHours" class="content-tab" style="display:none">
+	    <table id="operatingHours"></table>
+	  </div>
+	  <div id="Contact" class="content-tab" style="display:none">
+	    <table id="contactInfo"></table>
+	  </div>
+	  <div id="Weather" class="content-tab" style="display:none">
+	    <table id="weather"></table>
+	  </div>
+	</div>
+</div>

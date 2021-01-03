@@ -254,7 +254,7 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
 function getStarChart(options = 'default') {
 	var data = JSON.parse(localStorage.getItem('parksky-park-data'));
 	// if we need DEFAULT options, then nothing is shown
-	var options = options !== 'default' ? JSON.parse(localStorage.getItem('parksky-chart-options')) : defaultOptions;
+	var options = options === 'default' ? defaultOptions : JSON.parse(localStorage.getItem('parksky-chart-options'));
 	var date = dayjs(data.date);
 
   var startHere = {
