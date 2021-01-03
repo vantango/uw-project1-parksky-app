@@ -141,4 +141,32 @@ $("document").ready(function() {
 		.then(data => {
 			$("#site-footer").html(data);
 		});
+
+	// on resizing the window, resize the star chart canvas appropriately
+	// resize functionality from https://stackoverflow.com/a/15881976
+	// $(window).resize( resizeCanvas );
+
+	// function resizeCanvas() {
+	// 	var canvas = document.getElementById("loc1");
+	// 	var ctx = canvas.getContext("2d");
+	// 	var newsize =  $(window).width() - (8/12);
+
+	// 	var canvasData = canvas.toDataURL();
+
+	// 	$("#loc1").attr('width', newsize);
+	// 	$("#loc1").attr('height', newsize);
+
+	// 	var img = new Image();
+	// 	img.onload = function() {
+	// 		ctx.drawImage(img,0,0,img.width,img.height,0,0,canvas.width,canvas.height);
+	// 	}
+	// 	img.src = canvasData;
+
+	// 	// if(!currentPage.includes("starchart") && !currentPage.includes("parkdetails")) {
+	// 	// 	getStarChart('default');
+	// 	// } else if(currentPage.includes("starchart")) {
+	// 	// 	getStarChart('details');
+
+	// 	// }
+	// }
 });
