@@ -30,6 +30,23 @@ function riseSetPage() {
     riseSetLoc(loc2);
 }
 
+function riseSetChartPage(data) {
+    // $("#starCharts").hide();
+    // $("#riseSetArea").show();
+    
+    var deg_to_rad = Math.PI/180;
+    
+    $("#riseSetPlace1").text(data.fullName);
+    $("#riseSetlong1").html(data.longitude+"&deg;");
+    $("#riseSetlat1").html(data.latitude+"&deg;");
+    $("#riseSetDate1").html(data.dateString);
+    $("#riseSetTtimeZone1").html("GMT"+data.tzString);
+    var loc1 = {locNum:1, long:data.longitude*deg_to_rad, 
+                lat:data.latitude*deg_to_rad, tz:data.tz, 
+                yyyy:data.yyyy, mm:data.mm, dd:data.dd};
+    riseSetLoc(loc1);
+}
+
 function backToStarCharts() {
     $("#RSMultiResult").empty();
     $("#riseSetMultipleDays").slideUp();
@@ -459,15 +476,15 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
     alt = -0.01454441043328608; // -50' in radians
     trs = getRiseSet(alt,LST0,lat,ra,dec);
     if (trs.rise=="above") {
-        txt = "<p>Upper transit: "+tt.t+" (Altitude = "+tt.alt+"); ";
+        txt = "<br><p>Upper transit: "+tt.t+" (Altitude = "+tt.alt+"); ";
         txt += "the sun is above the horizon all day.";
     } else if (trs.rise=="below") {
-        txt = "<p>Upper transit: "+tt.t+" (Altitude = "+tt.alt+"); ";
+        txt = "<br><p>Upper transit: "+tt.t+" (Altitude = "+tt.alt+"); ";
         txt += "the sun is below the horizon all day.";
     } else {
-        txt = "<p>Sunrise: "+trs.rise+" (Azimuth = "+trs.azRise+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        txt += "Sunset: "+trs.set+" (Azimuth = "+trs.azSet+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        txt += "Upper transit: "+tt.t+" (Altitude = "+tt.alt+")</p>";
+        txt = "<p><strong>Sunrise:</strong> "+trs.rise+" (Azimuth = "+trs.azRise+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        txt += "<strong>Sunset:</strong> "+trs.set+" (Azimuth = "+trs.azSet+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        txt += "<br><strong>Upper transit:</strong> "+tt.t+" (Altitude = "+tt.alt+")</p>";
     }
     $(locid).append(txt);
     // Civil twilight
@@ -478,7 +495,7 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
     } else if (trs.rise=="below") {
         txt = "<p>No civil twilights. The Sun's altitude is below -6&deg; all day.</p>";
     } else {
-        txt = "<p>Civil twilight: begins at "+trs.rise+", ends at "+trs.set+".</p>";
+        txt = "<p><strong>Civil twilight:</strong> begins at "+trs.rise+", ends at "+trs.set+".</p>";
     }
     $(locid).append(txt);
     // Nautical twilight
@@ -489,7 +506,7 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
     } else if (trs.rise=="below") {
         txt = "<p>No nautical twilights. The Sun's altitude is below -12&deg; all day.</p>";
     } else {
-        txt = "<p>Nautical twilight: begins at "+trs.rise+", ends at "+trs.set+".</p>";
+        txt = "<p><strong>Nautical twilight:</strong> begins at "+trs.rise+", ends at "+trs.set+".</p>";
     }
     $(locid).append(txt);
     // Astronomical twilight
@@ -500,7 +517,7 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
     } else if (trs.rise=="below") {
         txt = "<p>No astronomical twilights. The Sun's altitude is below -18&deg; all day.</p>";
     } else {
-        txt = "<p>Astronomical twilight: begins at "+trs.rise+", ends at "+trs.set+".</p>";
+        txt = "<p><strong>Astronomical twilight:</strong> begins at "+trs.rise+", ends at "+trs.set+".</p>";
     }
     $(locid).append(txt);
     
@@ -514,15 +531,15 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
     alt = 0.002327105669325773; // 8' in radians
     trs = getRiseSet(alt,LST0,lat,ra,dec);
     if (trs.rise=="above") {
-        txt = "<p>Upper transit: "+tt.t+" (Altitude = "+tt.alt+"); ";
+        txt = "<p><strong>Upper transit:</strong> "+tt.t+" (Altitude = "+tt.alt+"); ";
         txt += "the Moon is above the horizon all day.";
     } else if (trs.rise=="below") {
-        txt = "<p>Upper transit: "+tt.t+" (Altitude = "+tt.alt+"); ";
+        txt = "<p><strong>Upper transit:</strong> "+tt.t+" (Altitude = "+tt.alt+"); ";
         txt += "the Moon is below the horizon all day.";
     } else {
-        txt = "<p>Moonrise: "+trs.rise+" (Azimuth = "+trs.azRise+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        txt += "Moonset: "+trs.set+" (Azimuth = "+trs.azSet+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        txt += "Upper transit: "+tt.t+" (Altitude = "+tt.alt+")</p>";
+        txt = "<p><strong>Moonrise:</strong> "+trs.rise+" (Azimuth = "+trs.azRise+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        txt += "<strong>Moonset:</strong> "+trs.set+" (Azimuth = "+trs.azSet+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        txt += "<br><strong>Upper transit:</strong> "+tt.t+" (Altitude = "+tt.alt+")</p>";
     }
     $(locid).append(txt);
     // Illumination and phase
@@ -537,20 +554,19 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
     var mag = illumPhase.mag.toFixed(1);
     
     txt ="<p>At 12:00 in the given time zone...<br />"
-    txt += "Fraction of Moon illuminated: "+illum.toFixed(2)+",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phase: "+phase+",<br />";
-    txt += "Apparent Magnitude: "+mag+",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solar elongation: "+illumPhase.elongTxt+".</p>";
+    txt += "<strong>Fraction of Moon illuminated:</strong> "+illum.toFixed(2)+",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Phase:</strong> "+phase+",<br />";
+    txt += "<strong>Apparent Magnitude:</strong> "+mag+",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Solar elongation:</strong> "+illumPhase.elongTxt+".</p>";
     $(locid).append(txt);
     
     // Planets
     var names = ["Mercury","Venus","Mars","Jupiter","Saturn","Uranus","Neptune"];
     locid = "#riseSetPlanets"+locNum.toString();
     $(locid).empty();
-    txt = "<p>The elongation is the angular distance between the planet and the Sun. Elongations, fractions illuminated and magnitudes of the planets are given at 12:00 in the given time zone.</p>";
+    txt = "<p class='note'>The elongation is the angular distance between the planet and the Sun. Elongations, fractions illuminated and magnitudes of the planets are given at 12:00 in the given time zone.</p>";
     $(locid).append(txt);
-    $(locid).append("<table>");
-    txt = "<tr><th>Planet</th> <th>Rise (Azimuth)</th> <th>Transit (Alt)</th> ";
-    txt += "<th>Set (Azimuth)</th> <th>Elong.</th> <th>Illum.</th> <th>Mag.</th> </tr>";
-    $(locid).append(txt);
+    var table = $("<table>", {class: 'table', id: 'rstPlanets'});
+    table.append("<tr><th>Planet</th> <th>Rise (Azimuth)</th> <th>Transit (Alt)</th><th>Set (Azimuth)</th> <th>Elong.</th> <th>Illum.</th> <th>Mag.</th> </tr>");
+
     for (var j=2; j<9; j++) {
         for (i=0; i<25; i++) {
             ra[i] = parray[i][j].ra; dec[i] = parray[i][j].dec;
@@ -584,9 +600,9 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
         txt += " <td>"+Elong+"</td>";
         txt += " <td>"+illum+"</td>";
         txt += " <td>"+mag.toFixed(1)+"</td> </tr>";
-        $(locid).append(txt);
+        $(table).append(txt);
     }
-    $(locid).append("</table>");
+    $(locid).append(table);
 }
 
 // Calculate the rise, upper transit and set times of the 
@@ -606,10 +622,10 @@ function riseSetBrightestStars(LST0, locNum, lat, T) {
     // Now compute rise, set and transit times
     var locid = "#riseSetStars"+locNum.toString();
     $(locid).empty();
-    $(locid).append("<table>");
-    var txt = "<tr><th>Star</th> <th>Rise (Azimuth)</th> <th>Transit</th> ";
-    txt += "<th>Set</th> </tr>";
-    $(locid).append(txt);
+    var table = $("<table>", {class: 'table', id: 'rstStars'});
+    table.append("<tr><th>Star</th> <th>Rise (Azimuth)</th> <th>Transit</th><th>Set</th></tr>");
+    var txt;
+    
     // geocentric alt @ rise and set 
     var alt = -0.009890199094634533; // -34' in radians
     for (var i=1; i<bstars.length; i++) {
@@ -627,10 +643,10 @@ function riseSetBrightestStars(LST0, locNum, lat, T) {
         txt +=" <td>"+Rise+"</td>";
         txt += " <td>"+Transit+"</td>";
         txt += " <td>"+t.set+"</td> </tr>";
-        $(locid).append(txt);
+        table.append(txt);
     }
-    $(locid).append("</table>");
-    txt = "<p>Note: For stars, the azimuth at the set time is the negative of its azimuth when it rises.</p>";
+    $(locid).append(table);
+    txt = "<p class='note'>Note: For stars, the azimuth at the set time is the negative of its azimuth when it rises.</p>";
     $(locid).append(txt);
 }
 

@@ -1,52 +1,43 @@
-<table id="parkInfo">
-  <thead>
-    <tr>
-      <th id="parkName"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- Fees -->
-    <tr>
-      <th>Entrance Fees</th>
-    </tr>
-    <tr>
-      <td>
-        <div id="entranceFees"></div>
-      </td>
-    </tr>
-    <!-- Passes -->
-    <tr>
-      <th>Entrance Passes</th>
-    </tr>
-    <tr>
-      <td>
-        <div id="entrancePasses"></div>
-      </td>
-    </tr>
-    <!-- Operating Hours -->
-    <tr>
-      <th>Operating Hours</th>
-    </tr>
-    <tr>
-      <td>
-        <div id="operatingHours"></div>
-      </td>
-    </tr>
-    <!-- Contact Info -->
-    <tr>
-      <th>Contact Information</th>
-    </tr>
-    <tr>
-      <td>
-        <div id="contactInfo"></div>
-      </td>
-    </tr>
-    <!-- Weather -->
-    <tr>
-      <th>Weather Info</th>
-    </tr>
-    <tr>
-      <td id="weather"></td>
-    </tr>
-  </tbody>
-</table>
+<div class="box">
+	<section class="hero is-small is-light">
+	  <div class="hero-body">
+	    <div class="container has-text-centered">
+	    	<h1 class="title" id="parkName"></h1>
+	    </div>
+	  </div>
+	  <div class="hero-foot">
+	    <nav class="tabs">
+	      <div class="container">
+	        <ul>
+	          <li class="tab is-active" onclick="openTab(event,'EntFee')"><a>Entrance <br>Fees</a></li>
+	          <li class="tab" onclick="openTab(event,'EntPasses')"><a>Entrance<br>Passes</a></li>
+	          <li class="tab" onclick="openTab(event,'OpHours')"><a>Operating<br>Hours</a></li>
+	          <li class="tab" onclick="openTab(event,'Contact')"><a>Contact<br>Info</a></li>
+	          <li class="tab" onclick="openTab(event,'WeatherInfo')"><a>Weather</a></li>
+	          <li class="tab" onclick="openTab(event,'ToDo')"><a>Things To Do</a></li>
+	        </ul>
+	      </div>
+	    </nav>
+	  </div>
+	</section>
+	<div id="tabContentContainers" class="container section">
+	  <div id="EntFee" class="content-tab is-active">
+	    <table id="entranceFees"></table>
+	  </div>
+	  <div id="EntPasses" class="content-tab" style="display:none">
+	    <table id="entrancePasses"></table>
+	  </div>
+	  <div id="OpHours" class="content-tab" style="display:none">
+	    <table id="operatingHours"></table>
+	  </div>
+	  <div id="Contact" class="content-tab" style="display:none">
+	    <table id="contactInfo"></table>
+	  </div>
+	  <div id="WeatherInfo" class="content-tab" style="display:none">
+	    <table id="weather"></table>
+	  </div>
+	  <div id="ToDo" class="content-tab" style="display:none">
+	    <article id="thingsToDo" class="pt-4"></article>
+	  </div>
+	</div>
+</div>

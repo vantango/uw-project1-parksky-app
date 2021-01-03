@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="favicon.png" type="image/png">
+	<link rel="shortcut icon" href="assets/img/logo1.png" type="image/png">
 	<title>Park&starf;Sky</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 	<!-- Font Awesome Pro (Angel) -->
@@ -16,11 +16,11 @@
 
 <body>
 	<!-- Site Header -->
-	<header id="site-header"></header>
+	<header id="site-header" ></header>
 	<!-- Main -->
-	<main class="columns">
-		<aside id="parkInfoContainer" class="column is-4"></aside>
-  	<div id="starChartContainer">
+	<main class="columns is-desktop">
+		<aside id="infobox" class="column is-12-tablet is-4-desktop"></aside>
+  	<div id="starChartContainer" class="column is-12-tablet is-8-desktop">
 		  <div class="starchart-data">
 	  		<table class="has-text-white">
 	        <tr>
@@ -40,18 +40,6 @@
 	        </tr>
 		  	</table>
 		  </div>
-	    <div class="canvaswrapper">
-	      <canvas id="loc1" width="800" height="800">
-	        CANVAS NOT SUPPORTED IN THIS BROWSER!
-	      </canvas>
-	      <div id="tip1" class="tip">
-	        <div class="close" onclick="closePopup('tip1')">&#10005;</div>
-	        <div id="tip1text"></div>
-	      </div>
-	    </div>
-	    <canvas id="legend" width="500" height="110">
-	      CANVAS NOT SUPPORTED IN THIS BROWSER!
-	    </canvas>
   	</div>
   </main>
   <!-- Site Footer -->
