@@ -404,26 +404,7 @@ function getNEOs() {
 	var startDate = dayjs($("#visitDate").val()).subtract(3, 'days').format("YYYY-MM-DD");
 	var endDate = dayjs($("#visitDate").val()).add(3, 'days').format("YYYY-MM-DD");
 
-<<<<<<< HEAD
-// formatPhoneNumber function copy-pasted from:
-// https://stackoverflow.com/a/8358141
-function formatPhoneNumber(phoneNumberString) {
-  var cleaned = ('' + phoneNumberString).replace(/\D/g, '')
-  var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
-  if (match) {
-    var intlCode = (match[1] ? '+1 ' : '')
-    return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('')
-  }
-  return null
-}
-
-function getAlerts(parkCode) {
-  // remove modal & alert icons for a "clean slate"
-  $(".modal").remove();
-  $(".fas.fa-exclamation-triangle").remove();
-=======
 	// console.log("getting NEO alerts", startDate, endDate);
->>>>>>> c08f2e0f7d78daf2b636f20f5551f3d7a313f8ec
 
   $.ajax({
     url: `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=N01Hr2ayL4UxV02RoD6VdGP5LdG57n6nRc9hZwfk`,
@@ -431,20 +412,8 @@ function getAlerts(parkCode) {
   }).then(function (res) {
     // console.log(res);
 
-<<<<<<< HEAD
-    // IF we get at least one (1) alert
-    if (res.data.length > 0) {
-      // sort alerts: Park Closure > Caution > Info
-
-      res.data.sort(compareAlertTypes);
-
-      // create the alert icon
-      var icon = $("<i>", { class: "fas fa-exclamation-triangle" });
-      $("#searchParks").after(icon);
-=======
     if(res.element_count > 0) {
     	var neos = res.near_earth_objects;
->>>>>>> c08f2e0f7d78daf2b636f20f5551f3d7a313f8ec
 
     	// -- ALERTS --
       // get the modal HTML "template" and load it to the page
@@ -630,36 +599,6 @@ function formatPhoneNumber(phoneNumberString) {
 }
 
 function compareAlertTypes(a, b) {
-<<<<<<< HEAD
-  if (
-    (a.type === "Park Closure" && b.type !== "Park Closure") ||
-    (a.type === "Caution" && b.type !== "Park Closure" && b.type !== "Caution")
-  ) {
-    return -1;
-
-  } else if (a.type === b.type) {
-    console.log(a.title, /\d+/.test(a.title), b.title, /\d+/.test(b.title));
-    // checks a.title for a number - if there is one,
-    // create a variable to hold the number *as an integer*
-    // then create  a variable that holds either the number in b.title
-    // (if there is one) or just 0
-    // then return the results of a - b for sorting
-    if (/\d+/.test(a.title) || /\d+/.test(b.title)) {
-      var aNum = /\d+/.test(a.title) ? parseInt(a.title.match(/\d+/)) : 0;
-      var bNum = /\d+/.test(b.title) ? parseInt(b.title.match(/\d+/)) : 0;
-      console.log(aNum - bNum);
-
-      return aNum - bNum;
-
-    } else {
-      return 0;
-    }
-
-  } else {
-    return 1;
-
-  }
-=======
 	if(
 		(a.type === "Park Closure" && b.type !== "Park Closure") ||
 		(a.type === "Caution" && b.type !== "Park Closure" && b.type !== "Caution")
@@ -700,5 +639,4 @@ function openTab(evt, tabName) {
   }
   document.getElementById(tabName).style.display = "block";
   evt.currentTarget.className += " is-active";
->>>>>>> c08f2e0f7d78daf2b636f20f5551f3d7a313f8ec
 }
