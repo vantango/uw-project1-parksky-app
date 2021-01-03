@@ -70,12 +70,33 @@ input[type="date"] {
 align-items: center;
 }
 
-.box{
-    background-color: transparent;
-    color: white;
-    border: solid white 1px;
-    padding: 30px 25px 25px 0px;
+#infobox {
+  background-color: transparent;
+  color: white;
+  margin: 30px 25px 25px;
+  box-shadow: none;
+}
 
+#infobox .tab.is-active {
+	background-color: orange;
+}
+
+#infobox .tabs a {
+	border-bottom: 0;
+}
+
+#tabContentContainers {
+	border: 1px solid gainsboro;
+	padding-top: 0;
+}
+
+#tabContentContainers tr:nth-child(1n+2) {
+	border-top: 2px solid gainsboro;
+}
+
+.activity-box h1 {
+	font-weight: bold; 
+	font-size: larger;
 }
 
 .title{
@@ -90,10 +111,10 @@ align-items: center;
 	text-align:justify;
 }
 
-.note{
+.note {
 	text-align: center;
 }
 
-h1, h2, h3, h4, h5, h6, p, #description{
+h1, h2, h3, h4, h5, h6 {
 	text-align: center;
 }
