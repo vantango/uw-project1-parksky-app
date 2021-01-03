@@ -325,9 +325,9 @@ function formatPhoneNumber(phoneNumberString) {
 }
 
 function getAlerts(parkCode) {
-	// remove modal & alert icons for a "clean slate"
-	$(".modal").remove();
-	$(".fas.fa-exclamation-triangle").remove();
+  // remove modal & alert icons for a "clean slate"
+  $(".modal").remove();
+  $(".fas.fa-exclamation-triangle").remove();
 
   $.ajax({
     url: `https://developer.nps.gov/api/v1/alerts?api_key=0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg&parkCode=${parkCode}`,
@@ -337,11 +337,11 @@ function getAlerts(parkCode) {
 
     // IF we get at least one (1) alert
     if (res.data.length > 0) {
-    	// sort alerts: Park Closure > Caution > Info
+      // sort alerts: Park Closure > Caution > Info
 
-    	res.data.sort(compareAlertTypes);
+      res.data.sort(compareAlertTypes);
 
-    	// create the alert icon
+      // create the alert icon
       var icon = $("<i>", { class: "fas fa-exclamation-triangle" });
       $("#searchParks").after(icon);
 
@@ -393,32 +393,32 @@ function getAlerts(parkCode) {
 }
 
 function compareAlertTypes(a, b) {
-	if(
-		(a.type === "Park Closure" && b.type !== "Park Closure") ||
-		(a.type === "Caution" && b.type !== "Park Closure" && b.type !== "Caution")
-		) {
-		return -1;
+  if (
+    (a.type === "Park Closure" && b.type !== "Park Closure") ||
+    (a.type === "Caution" && b.type !== "Park Closure" && b.type !== "Caution")
+  ) {
+    return -1;
 
-	} else if(a.type === b.type) {
-		console.log(a.title, /\d+/.test(a.title), b.title, /\d+/.test(b.title));
-		// checks a.title for a number - if there is one,
-		// create a variable to hold the number *as an integer*
-		// then create  a variable that holds either the number in b.title
-		// (if there is one) or just 0
-		// then return the results of a - b for sorting
-		if(/\d+/.test(a.title) || /\d+/.test(b.title)) {
-			var aNum = /\d+/.test(a.title) ? parseInt(a.title.match(/\d+/)) : 0;
-			var bNum = /\d+/.test(b.title) ? parseInt(b.title.match(/\d+/)) : 0;
-			console.log(aNum - bNum);
+  } else if (a.type === b.type) {
+    console.log(a.title, /\d+/.test(a.title), b.title, /\d+/.test(b.title));
+    // checks a.title for a number - if there is one,
+    // create a variable to hold the number *as an integer*
+    // then create  a variable that holds either the number in b.title
+    // (if there is one) or just 0
+    // then return the results of a - b for sorting
+    if (/\d+/.test(a.title) || /\d+/.test(b.title)) {
+      var aNum = /\d+/.test(a.title) ? parseInt(a.title.match(/\d+/)) : 0;
+      var bNum = /\d+/.test(b.title) ? parseInt(b.title.match(/\d+/)) : 0;
+      console.log(aNum - bNum);
 
-			return aNum - bNum;
+      return aNum - bNum;
 
-		} else {
-			return 0;
-		}
+    } else {
+      return 0;
+    }
 
-	} else {
-		return 1;
+  } else {
+    return 1;
 
-	}
+  }
 }
