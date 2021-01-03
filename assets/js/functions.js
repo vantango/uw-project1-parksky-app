@@ -1,9 +1,10 @@
+parkAPIKey = "0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg";
 defaultOptions = {showPlanets: true, showEquator: false, showEcliptic: false, showMilkyWay: false, showConLines: false, showConLab: false, showDayNight: false};
 
 function displayData(parkCode, date, displayStarChart = false, displayStarDetails = false, displayParkInfo = true, displayParkDetails = false) {
 
   $.ajax({
-    url: `https://developer.nps.gov/api/v1/parks?api_key=0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg&parkCode=${parkCode}`,
+    url: `https://developer.nps.gov/api/v1/parks?api_key=${parkAPIKey}&parkCode=${parkCode}`,
     method: "GET"
   }).then(function (res) {
     var data = res.data[0];
@@ -170,6 +171,9 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
 
       // adds the weather description to the #weather td
       $("#weather").text(data.weatherInfo);
+
+      // get Things To Do list (requires different endpoint)
+      getThingsToDo(parkCode, data.fullName);
     }
 
     if (displayParkDetails) {
@@ -251,114 +255,13 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
   }); // end of .then()
 }
 
-function getStarChart(options = 'default') {
-	var data = JSON.parse(localStorage.getItem('parksky-park-data'));
-	// if we need DEFAULT options, then nothing is shown
-	var options = options === 'default' ? defaultOptions : JSON.parse(localStorage.getItem('parksky-chart-options'));
-	var date = dayjs(data.date);
-
-  var startHere = {
-    place1in: { value: data.fullName },
-    lat1in: { value: data.latitude },
-    long1in: { value: data.longitude },
-    year1in: { value: date.year() },
-    month1in: { value: date.month() + 1 }, // expects 1-12
-    day1in: { value: date.date() }, // .day() == M/T/W/etc.
-    hour1in: { value: 21 }, // dayjs().hour()
-    minute1in: { value: 0 }, // dayjs().minute()
-    second1in: { value: 0 }, // dayjs().second()
-    tz1in: { value: parseInt(date.format("Z")) },
-    drawOptions: options
-  }
-
-  changeLocationsAndTimes(startHere);
-}
-
-function getStarChartOptions() {
-	// get the saved data
-	var parkData = JSON.parse(localStorage.getItem('parksky-park-data'));
-	var savedOptions = JSON.parse(localStorage.getItem('parksky-chart-options'));
-
-	// parse the date into the correct format
-	var date = dayjs(parkData.date);
-
-	// loop through all the buttons
-	$("#starchartOptions .button").each(function(i, b) {
-		// if the button does NOT have the class 'is-light'
-		// then it's ACTIVE and the corresponding drawOption should be TRUE
-		if(!$(this).hasClass('is-light')) {
-			savedOptions[$(this).attr("id")] = true;
-		}
-		// otherwise (if the button 'is-light' / is INactive)
-		// then the drawOption should be FALSE
-		else {
-			savedOptions[$(this).attr("id")] = false;
-		}
-	});
-	saveToLocalStorage(savedOptions, 'options');
-
-	return savedOptions;
-}
-
-function updateRiseSetData() {
-	var savedData = JSON.parse(localStorage.getItem('parksky-park-data'));
-	var date = dayjs(savedData.date);
-
-	var tableData = {
-		fullName: savedData.fullName,
-		latitude: savedData.latitude,
-		longitude: savedData.longitude,
-		date: date,
-		yyyy: date.year(),
-		mm: date.month() + 1,
-		dd: date.date(),
-		dateString: savedData.date,
-		tzString: date.format("Z"),
-		tz: parseInt(date.format("Z")),
-	};
-	// show Rise/Set info
-	riseSetChartPage(tableData);
-}
-
-function getWikipediaExtract(title, desc) {
-  var queryURL = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exintro=&titles=${title}`;
-
-  $.ajax({
-    url: queryURL,
-    method: "GET"
-  }).then(function (res) {
-    // console.log(res);
-    $("#extract").empty();
-
-    if (!res.query.pages.hasOwnProperty("-1")) {
-      var pages = res.query.pages;
-      // console.log(res.query.pages);
-
-      for (var i in res.query.pages) {
-        if (res.query.pages[i].extract !== "") {
-          $("#extract").append(pages[i].extract);
-        }
-      }
-    } else if (!res.query.pages.hasOwnProperty("-1")) {
-      $("#extract").html(desc);
-    }
-
-    $("#description").text(desc);
-    // if($("#extract").is(":empty")) {
-    // 	$("#extract").html(desc);
-    // } else {
-    // 	$("#description").
-    // }
-  });
-}
-
 function getAlerts(parkCode) {
 	// remove modal & alert icons for a "clean slate"
 	$(".alert-modal").remove();
 	// $(".fas.fa-exclamation-triangle").remove();
 
   $.ajax({
-    url: `https://developer.nps.gov/api/v1/alerts?api_key=0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg&parkCode=${parkCode}`,
+    url: `https://developer.nps.gov/api/v1/alerts?api_key=${parkAPIKey}&parkCode=${parkCode}`,
     method: "GET"
   }).then(function (res) {
     // console.log(res);
@@ -423,6 +326,74 @@ function getAlerts(parkCode) {
 
   // spinner!
   $("#parkAlerts span").html("<i class='fal fa-spinner fa-spin'></i>");
+}
+
+function getThingsToDo(parkCode, fullName) {
+	$.ajax({
+    url: `https://developer.nps.gov/api/v1/thingstodo?api_key=${parkAPIKey}&q=stargazing&parkCode=${parkCode}`,
+    method: "GET"
+  }).then(function (res) {
+    console.log(res);
+
+    if(res.data.length > 0) {
+    	$("#thingsToDo").empty();
+    	var data = res.data;
+
+    	for(var i in data) {
+    		var activity = data[i];
+    		var activityBlock = $("<a>", {class: "box activity-box", "href": activity.url});
+    		activityBlock.attr("target", "_blank");
+    		if(activity.images.length > 0) {
+    			activityBlock.css({"background-image": `linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url(${activity.images[0].url})`, "background-color": "#333", "background-position": "center", "background-size": "cover", "color": "white"});
+    		}
+
+    		activityBlock.append(`<h1>${activity.title}</h1>`);
+    		activityBlock.append(`<p class='has-text-left'>${activity.shortDescription}</p>`);
+
+    		$("#thingsToDo").append(activityBlock);
+    	}
+
+    } else {
+    	var row = $("<tr>");
+    	var td = $("<td colspan='2'>");
+    	td.text("The National Parks Service hasn't provided a list of stargazing activities for "+ fullName);
+    	row.html(td);
+
+    	$("#thingsToDo").html(row);
+    }
+  });
+}
+
+function getWikipediaExtract(title, desc) {
+  var queryURL = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exintro=&titles=${title}`;
+
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function (res) {
+    // console.log(res);
+    $("#extract").empty();
+
+    if (!res.query.pages.hasOwnProperty("-1")) {
+      var pages = res.query.pages;
+      // console.log(res.query.pages);
+
+      for (var i in res.query.pages) {
+        if (res.query.pages[i].extract !== "") {
+          $("#extract").append(pages[i].extract);
+        }
+      }
+    } else if (!res.query.pages.hasOwnProperty("-1")) {
+      $("#extract").html(desc);
+    }
+
+    $("#description").text(desc);
+    // if($("#extract").is(":empty")) {
+    // 	$("#extract").html(desc);
+    // } else {
+    // 	$("#description").
+    // }
+  });
 }
 
 function getNEOs() {
@@ -506,6 +477,75 @@ function getNEOs() {
 
   // spinner!
   $("#neoAlerts span").html("<i class='fal fa-spinner fa-spin'></i>");
+}
+
+function getStarChart(options = 'default') {
+	var data = JSON.parse(localStorage.getItem('parksky-park-data'));
+	// if we need DEFAULT options, then nothing is shown
+	var options = options === 'default' ? defaultOptions : JSON.parse(localStorage.getItem('parksky-chart-options'));
+	var date = dayjs(data.date);
+
+  var startHere = {
+    place1in: { value: data.fullName },
+    lat1in: { value: data.latitude },
+    long1in: { value: data.longitude },
+    year1in: { value: date.year() },
+    month1in: { value: date.month() + 1 }, // expects 1-12
+    day1in: { value: date.date() }, // .day() == M/T/W/etc.
+    hour1in: { value: 21 }, // dayjs().hour()
+    minute1in: { value: 0 }, // dayjs().minute()
+    second1in: { value: 0 }, // dayjs().second()
+    tz1in: { value: parseInt(date.format("Z")) },
+    drawOptions: options
+  }
+
+  changeLocationsAndTimes(startHere);
+}
+
+function getStarChartOptions() {
+	// get the saved data
+	var parkData = JSON.parse(localStorage.getItem('parksky-park-data'));
+	var savedOptions = JSON.parse(localStorage.getItem('parksky-chart-options'));
+
+	// parse the date into the correct format
+	var date = dayjs(parkData.date);
+
+	// loop through all the buttons
+	$("#starchartOptions .button").each(function(i, b) {
+		// if the button does NOT have the class 'is-light'
+		// then it's ACTIVE and the corresponding drawOption should be TRUE
+		if(!$(this).hasClass('is-light')) {
+			savedOptions[$(this).attr("id")] = true;
+		}
+		// otherwise (if the button 'is-light' / is INactive)
+		// then the drawOption should be FALSE
+		else {
+			savedOptions[$(this).attr("id")] = false;
+		}
+	});
+	saveToLocalStorage(savedOptions, 'options');
+
+	return savedOptions;
+}
+
+function updateRiseSetData() {
+	var savedData = JSON.parse(localStorage.getItem('parksky-park-data'));
+	var date = dayjs(savedData.date);
+
+	var tableData = {
+		fullName: savedData.fullName,
+		latitude: savedData.latitude,
+		longitude: savedData.longitude,
+		date: date,
+		yyyy: date.year(),
+		mm: date.month() + 1,
+		dd: date.date(),
+		dateString: savedData.date,
+		tzString: date.format("Z"),
+		tz: parseInt(date.format("Z")),
+	};
+	// show Rise/Set info
+	riseSetChartPage(tableData);
 }
 
 function saveToLocalStorage(data = null, target = 'park') {

@@ -94,6 +94,11 @@ align-items: center;
 	border-top: 2px solid gainsboro;
 }
 
+.activity-box h1 {
+	font-weight: bold; 
+	font-size: larger;
+}
+
 .title{
 	font-size: 23px;
 }
@@ -106,10 +111,10 @@ align-items: center;
 	text-align:justify;
 }
 
-.note{
+.note {
 	text-align: center;
 }
 
-h1, h2, h3, h4, h5, h6, p, #description{
+h1, h2, h3, h4, h5, h6 {
 	text-align: center;
 }
