@@ -8,11 +8,13 @@ function riseSetPage() {
     $("#riseSetArea").show();
     
     var deg_to_rad = Math.PI/180;
+
+    var theDate = dayjs($("#visitDate").val()).format("YYYY-MM-DD");
     
     $("#riseSetPlace1").text(place1);
     $("#riseSetlong1").html(long1+"&deg;");
     $("#riseSetlat1").html(lat1+"&deg;");
-    $("#riseSetDate1").html(date1.dateString);
+    $("#riseSetDate1").html(theDate); // date1.dateString
     $("#riseSetTtimeZone1").html("GMT"+tz1.tzString);
     var loc1 = {locNum:1, long:long1*deg_to_rad, 
                 lat:lat1*deg_to_rad, tz:tz1.tz, 
@@ -35,11 +37,13 @@ function riseSetChartPage(data) {
     // $("#riseSetArea").show();
     
     var deg_to_rad = Math.PI/180;
+
+    var theDate = dayjs($("#visitDate").val()).format("YYYY-MM-DD");
     
     $("#riseSetPlace1").text(data.fullName);
     $("#riseSetlong1").html(data.longitude+"&deg;");
     $("#riseSetlat1").html(data.latitude+"&deg;");
-    $("#riseSetDate1").html(data.dateString);
+    $("#riseSetDate1").html(data.dateString); // data.dateString
     $("#riseSetTtimeZone1").html("GMT"+data.tzString);
     var loc1 = {locNum:1, long:data.longitude*deg_to_rad, 
                 lat:data.latitude*deg_to_rad, tz:data.tz, 
@@ -482,9 +486,9 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
         txt = "<br><p>Upper transit: "+tt.t+" (Altitude = "+tt.alt+"); ";
         txt += "the sun is below the horizon all day.";
     } else {
-        txt = "<p><strong>Sunrise:</strong> "+trs.rise+" (Azimuth = "+trs.azRise+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        txt += "<strong>Sunset:</strong> "+trs.set+" (Azimuth = "+trs.azSet+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        txt += "<br><strong>Upper transit:</strong> "+tt.t+" (Altitude = "+tt.alt+")</p>";
+        txt = "<p><strong>Sunrise:</strong> "+trs.rise+" (Azimuth = "+trs.azRise+")</p>";
+        txt += "<p><strong>Sunset:</strong> "+trs.set+" (Azimuth = "+trs.azSet+")</p>";
+        txt += "<p><strong>Upper transit:</strong> "+tt.t+" (Altitude = "+tt.alt+")</p>";
     }
     $(locid).append(txt);
     // Civil twilight
@@ -537,9 +541,9 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
         txt = "<p><strong>Upper transit:</strong> "+tt.t+" (Altitude = "+tt.alt+"); ";
         txt += "the Moon is below the horizon all day.";
     } else {
-        txt = "<p><strong>Moonrise:</strong> "+trs.rise+" (Azimuth = "+trs.azRise+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        txt += "<strong>Moonset:</strong> "+trs.set+" (Azimuth = "+trs.azSet+")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        txt += "<br><strong>Upper transit:</strong> "+tt.t+" (Altitude = "+tt.alt+")</p>";
+        txt = "<p><strong>Moonrise:</strong> "+trs.rise+" (Azimuth = "+trs.azRise+")</p>";
+        txt += "<p><strong>Moonset:</strong> "+trs.set+" (Azimuth = "+trs.azSet+")</p>";
+        txt += "<p><strong>Upper transit:</strong> "+tt.t+" (Altitude = "+tt.alt+")</p>";
     }
     $(locid).append(txt);
     // Illumination and phase
@@ -553,9 +557,9 @@ function riseSetPlanetsTwilights(LST0,locNum,lat,T) {
     var illum = illumPhase.illuminated, phase = illumPhase.phase;
     var mag = illumPhase.mag.toFixed(1);
     
-    txt ="<p>At 12:00 in the given time zone...<br />"
-    txt += "<strong>Fraction of Moon illuminated:</strong> "+illum.toFixed(2)+",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Phase:</strong> "+phase+",<br />";
-    txt += "<strong>Apparent Magnitude:</strong> "+mag+",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Solar elongation:</strong> "+illumPhase.elongTxt+".</p>";
+    txt ="<p><em>At 12:00 in the given time zone...</em></p>"
+    txt += "<p><strong>Fraction of Moon illuminated:</strong> "+illum.toFixed(2)+"</p><p><strong>Phase:</strong> "+phase+"</p>";
+    txt += "<p><strong>Apparent Magnitude:</strong> "+mag+"<p></p><strong>Solar elongation:</strong> "+illumPhase.elongTxt+".</p>";
     $(locid).append(txt);
     
     // Planets

@@ -1,3 +1,34 @@
+body {
+	background-color: #777;
+}
+
+.site-header {
+	background-color: #333;
+}
+
+.site-footer {
+	color: white;
+	background-color: #333;
+	padding: 3rem 1rem 4rem;
+	text-align: center;
+	margin-top: 3rem;
+}
+
+.fotorama {
+	margin: 2rem 0;
+}
+
+.fotorama__wrap {
+	margin: 0 auto;
+}
+
+#searchBar {
+	background-color: #666;
+	text-align: center;
+	margin-bottom: 2rem;
+	padding: 1rem 0;
+}
+
 #searchParks .field.is-grouped {
 	margin: 0 auto;
 	text-align: center;
@@ -92,6 +123,12 @@ align-items: center;
 
 #tabContentContainers tr:nth-child(1n+2) {
 	border-top: 2px solid gainsboro;
+}
+
+.activity-box {
+	display: block;
+	margin: 1rem;
+	padding: 1rem;
 }
 
 .activity-box h1 {
