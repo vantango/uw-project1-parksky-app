@@ -1,4 +1,4 @@
-# Park&starf;Star
+# Park&starf;Sky
 Allows a user to search for any national park for a given visitation date in the US. It not only displays general information and a brief summary for each park, but also presents the user with a star chart of what the night sky will look like at that park on a specific date, and general weather information provided by the National Parks Service. Park-specific and Near-Earth-Object alerts are both displayed via modal.
 
 ## Table of Contents
