@@ -1,0 +1,50 @@
+User searches for Arcadia Nat. park RETURNS
+	> park info (National Parks Service API)
+		-- include basic weather/forecast info (using on lat/lon with OWM API)
+	> starmap (static, based on lat/lon)
+		> clicking on starmap reveals info about brightest stars in the sky
+			star data from NASA API (one of them)
+
+PARK INFO API TEST (successful)
+https://developer.nps.gov/api/v1/parks?api_key=0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg&parkCode=acad
+
+PARK LIST
+acad = Acadia National Park
+yell = Yellowstone National Park
+samo = Santa Monica Mountains National Recreation Area
+arch = Arches National Park
+badl = Badlands National Park
+bisc = Biscayne National Park
+brca = Bryce Canyon
+cany = Canyonlands National Park
+npsa = National Park of American Samoa
+dena = Denali National Park & Preserve
+
+Activity ID | Name
+D37A0003-8317-4F04-8FB0-4CF0A272E195 | Stargazing (doesn't exist anymore)
+13A57703-BB1A-41A2-94B8-53B692EB7238 | Astronomy
+A59947B7-3376-49B4-AD02-C0423E08C5F7 | Camping
+
+** Below are on the Wikipedia List, but I can't figure out code **
+- American Samoa
+- Big Bend
+- Black Canyon of the Gunnison
+
+
+STAR API TEST (?)
+HYPATIA == NO :( requires auth-token
+https://hypatiacatalog.com/hypatia/api/v2/star2c8ecfb029c72e8915190710134e2c39
+
+WIKIPEDIA API == YES :)
+[Infobox] `https://en.wikipedia.org/api/rest_v1/page/segments/${searchTerm}`
+[Intro] `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exintro=&titles=${searchTerm}`
+
+NASA NEOWs (Asteroids)
+https://api.nasa.gov/neo/rest/v1/feed?api_key=N01Hr2ayL4UxV02RoD6VdGP5LdG57n6nRc9hZwfk&start_date=2020-12-20&end_date=2020-12-25
+
+*NOT AN API* but gets us our charts :)
+STAR CHARTS using the star-chart code from https://github.com/ytliu0/starCharts (forked to my repo so we can make edits). Has a GPL-3.0 License, allowing even commercial use so we're "legal" here.
+
+INTERACTION
+* dropdowns - probably at least 2 (regional > park)
+	- regional visible first, parks dropdown appears based on regional selection

@@ -1,0 +1,37 @@
+NATIONAL PARKS API
+
+total, limit, start, data(obj)
+
+data >
+	id, url, fullName, parkCode, description, latitude, longitude, latLong, activities(arr > obj), topics (arr > obj), states, contacts (obj), entranceFees (arr > obj), entrancePasses (arr > obj), fees (arr), directionsInfo, directionsUrl, operatingHours (arr > obj), addresses (arr > obj), images (arr > obj), weatherInfo, name, designation
+
+	activities > {id, name} * N
+	topics > {id, name} * N
+	contacts > phoneNumbers (arr > obj), emailAddresses (arr > obj)
+		phoneNumbers > {phoneNumber, description, extension, type} * N
+		emailAddresses > {description, emailAddress} * N
+	entranceFees > {cost, description, title} * N
+	entrancePasses > {cost, description, title} * N
+	fees > [] (?)
+	operatingHours > {exceptions[], description, standardHours (obj), name}
+		standardHours: wednesday, monday, thursday, sunday, tuesday, friday, saturday
+	addresses > {postalCode, city, stateCode, line1 (street), type, line3 (?), line2 (street 2)} * N
+	images > {credit, title, altText, caption, url} * N
+
+NEOWS API (asteroids)
+links (obj), element_count, near_earth_objects (obj)
+	links > {next, prev, self}
+	near_earth_objects > date (obj)
+		date > {links (obj), id, neo_reference_id, name, nasa_jpl_url, absolute_magnitude_h, estimated_diameter(obj), is_potentially_hazardous_asteroid, close_approach_data (obj), is_sentry_object}
+			links > {self}
+			estimated_diameter > {kilometers (obj), meters (obj), miles (obj), feet (obj)}
+				** each of those have {estimated_diameter_min, estimated_diameter_max}
+			close_approach_data > {close_approach_date, close_approach_date_full [*includes 24hr time*], epoch_date_close_approach, relative_velocity (obj), miss_distance (obj), orbiting_body}
+				relative_velocity > {kilometers_per_second, kilometers_per_hour, miles_per_hour}
+				miss_distance > {astronomical, lunar, kilometers, miles}
+
+WIKIPEDIA API
+* sections can be returned with HMTL formatting already applied (preferred), or "blank" (NOT preferred). The URL determines which section is returned. 
+
+WEATHER API
+(reference homework)
