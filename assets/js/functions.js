@@ -16,6 +16,9 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
       longitude: data.longitude,
       date: $("#visitDate").val()
     };
+
+    $("#parkName").html(`${data.fullName}`);
+
     // save to local data immediately so other functions
     // can use the (correct) data by pulling from local storage
     saveToLocalStorage(saveData, 'park');
@@ -36,7 +39,6 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
 
     if (displayParkInfo) {
       // display park info (box on home page)
-      $("#parkName").html(`${data.fullName} Info`);
       $("#entranceFees").empty();
 
       // generates rows and cells for entrance Fees block (div)
@@ -61,22 +63,26 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
       // generates rows and cells for entrance pass fees
       $("#entrancePasses").empty();
 
-      for (var i in data.entrancePasses) {
-        var row1 = $("<tr>");
-        var row2 = $("<tr>");
-        var tdCost = $("<td>", { id: `cost${i}` });
-        tdCost.text(`$${data.entrancePasses[i].cost}`);
+      if(data.entrancePasses.length > 0) {
+      	for (var i in data.entrancePasses) {
+	        var row1 = $("<tr>");
+	        var row2 = $("<tr>");
+	        var tdCost = $("<td>", { id: `cost${i}` });
+	        tdCost.text(`$${data.entrancePasses[i].cost}`);
 
-        var tdTitle = $("<td>");
-        tdTitle.text(data.entrancePasses[i].title);
+	        var tdTitle = $("<td>");
+	        tdTitle.text(data.entrancePasses[i].title);
 
-        var tdDesc = $("<td>", { colspan: "2" });
-        tdDesc.text(data.entrancePasses[i].description);
+	        var tdDesc = $("<td>", { colspan: "2" });
+	        tdDesc.text(data.entrancePasses[i].description);
 
-        row1.append(tdCost, tdTitle);
-        row2.append(tdDesc);
+	        row1.append(tdCost, tdTitle);
+	        row2.append(tdDesc);
 
-        $("#entrancePasses").append(row1, row2);
+	        $("#entrancePasses").append(row1, row2);
+	      }
+      } else {
+      	$("#entrancePasses").append(`<tr><td>No Entrance Passes available for ${data.fullName}.</td></tr>`);
       }
 
       // generates rows and cells for daily operating hours
@@ -110,7 +116,7 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
 
         for (var dayName in schedule) {
           var hourSpan = $("<p>");
-          hourSpan.text(`${dayName}: ${schedule[dayName]}`);
+          hourSpan.html(`<strong>${dayName}</strong>: ${schedule[dayName]}`);
           tdHours.append(hourSpan);
         }
 
@@ -146,7 +152,12 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
         var phone = formatPhoneNumber(data.contacts.phoneNumbers[i].phoneNumber);
 
         var tdPhone = $("<td>");
-        tdPhone.html(`<strong>${phoneType}:</strong> ${phone}`);
+        tdPhone.html(`<strong>${phoneType}:</strong> `);
+        if(phoneType === "Voice") {
+        	tdPhone.append(`<a href="tel:${data.contacts.phoneNumbers[i].phoneNumber}">${phone}</a>`);
+        } else {
+        	tdPhone.append(phone);
+        }
 
         row2.append(tdPhone);
         $("#contactInfo").append(row2);
@@ -409,7 +420,7 @@ function getNEOs() {
           var time = dayjs(alert.close_approach_data[0].close_approach_date.close_approach_date_full).format("HH:mm");
           var estDiameter = (alert.estimated_diameter.meters.estimated_diameter_min + alert.estimated_diameter.meters.estimated_diameter_max) / 2;
           var messageText = $("<p>", { class: 'neo-message' });
-          messageText.html(`<strong>${link}</strong> @ ${time} | <strong>Magnitude:</strong> ${alert.absolute_magnitude_h} | <strong>Est. Diameter (meters):</strong> ${estDiameter}`);
+          messageText.html(`<strong>${link}</strong> @ ${time}<br><strong style='padding-left: 1.5rem'>Magnitude:</strong> ${alert.absolute_magnitude_h} | <strong>Est. Diameter (meters):</strong> ${estDiameter}`);
 
           if (alert.is_potentially_hazardous_asteroid) {
             messageText.prepend("<i class='fas fa-siren-on has-text-danger'></i>");

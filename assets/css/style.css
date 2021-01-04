@@ -42,6 +42,11 @@ body {
 
 .tabs {
 	border-radius: 4px 4px 0 0;
+	font-size: 1rem;
+}
+
+.tabs-title > a {
+	font-size: 1rem;
 }
 
 .tabs-content {
@@ -82,6 +87,11 @@ main.columns:not(:last-child) {
 	margin-bottom: 0;
 }
 
+main > table {
+	margin: 0 auto;
+	max-width: 90%;
+}
+
 #parkInfo {
 	margin-left: 4rem;
 }
@@ -91,6 +101,17 @@ main.columns:not(:last-child) {
 	color: white;
 	text-align: center;
 }
+
+#operatingHours p {
+	text-transform: capitalize;
+	padding: 0;
+	margin: 0;
+}
+
+#contactInfo td {
+	padding: 0.25rem 0;
+}
+
 .hero-body,
 .columns{
 	background-color: #3E3E3F;
@@ -113,17 +134,61 @@ main.columns:not(:last-child) {
 	padding: 0.30rem 1rem;
 }
 
-#entranceFees tr:nth-child(2n+1),
+/*#entranceFees tr:nth-child(2n+1),
 #entrancePasses tr:nth-child(1n+2),
 #operatingHours tr:nth-child(1n+2) {
 	border-top: 2px solid white;
 	width: 100%;
 
+}*/
+
+#entranceFees tr:first-child,
+#entranceFees tr:nth-child(3),
+#entranceFees tr:nth-child(5),
+#entranceFees tr:nth-child(7),
+#entranceFees tr:nth-child(9),
+#entranceFees tr:nth-child(11),
+#entranceFees tr:nth-child(13),
+#entrancePasses tr:first-child,
+#entrancePasses tr:nth-child(3),
+#entrancePasses tr:nth-child(5),
+#entrancePasses tr:nth-child(7),
+#entrancePasses tr:nth-child(9),
+#entrancePasses tr:nth-child(11),
+#entrancePasses tr:nth-child(13) {
+	font-weight: bold;
 }
 
-#entranceFees tr:nth-child(2n+1) td,
-#entrancePasses tr:nth-child(2n+1) td,{
-    background-color:#787472;
+#entranceFees tr:nth-child(2) td,
+#entranceFees tr:nth-child(4) td,
+#entranceFees tr:nth-child(6) td,
+#entranceFees tr:nth-child(7) td,
+#entranceFees tr:nth-child(10) td,
+#entranceFees tr:nth-child(12) td,
+#entranceFees tr:nth-child(14) td,
+#entrancePasses tr:nth-child(2) td,
+#entrancePasses tr:nth-child(4) td,
+#entrancePasses tr:nth-child(6) td,
+#entrancePasses tr:nth-child(7) td,
+#entrancePasses tr:nth-child(10) td,
+#entrancePasses tr:nth-child(12) td,
+#entrancePasses tr:nth-child(14) td {
+	padding-bottom: 1rem;
+}
+
+#entranceFees tr:nth-child(3),
+#entranceFees tr:nth-child(4),
+#entranceFees tr:nth-child(7),
+#entranceFees tr:nth-child(8),
+#entranceFees tr:nth-child(11),
+#entranceFees tr:nth-child(12),
+#entrancePasses tr:nth-child(3),
+#entrancePasses tr:nth-child(4),
+#entrancePasses tr:nth-child(7),
+#entrancePasses tr:nth-child(8),
+#entrancePasses tr:nth-child(11),
+#entrancePasses tr:nth-child(12) {
+    background-color: gainsboro;
 }
 
 input[type="date"] {
@@ -143,7 +208,7 @@ align-items: center;
 #infobox {
   background-color: transparent;
   color: white;
-  margin: 30px 25px 25px;
+  margin: 0 25px 30px 25px;
   box-shadow: none;
 }
 
@@ -160,9 +225,9 @@ align-items: center;
 	padding-top: 0;
 }
 
-#tabContentContainers tr:nth-child(1n+2) {
+/*#tabContentContainers tr:nth-child(1n+2) {
 	border-top: 2px solid gainsboro;
-}
+}*/
 
 .activity-box {
 	display: block;
@@ -175,22 +240,103 @@ align-items: center;
 	font-size: larger;
 }
 
-.title{
-	font-size: 23px;
-}
-.tabs{
-	font-size: 15px;
-}
-
-.table th {
-	color: white;
-	text-align:justify;
-}
-
 .note {
 	text-align: center;
 }
 
 h1, h2, h3, h4, h5, h6 {
 	text-align: center;
+}
+
+.reveal {
+	border-radius: 4px;
+}
+
+.modal-content {
+	margin-top: 1.5rem;
+}
+
+.message {
+	margin: 0.5rem 0.25rem;
+	border-radius: 6px;
+}
+
+.message + .message {
+	margin-top: 1rem;
+}
+
+.message-header {
+	background-color: black;
+	color: white;
+	padding: 0.25rem;
+	font-size: 1.5rem;
+	border-radius: 4px 4px 0 0;
+}
+
+.message-header i {
+	margin-right: 0.75rem;
+	margin-left: 0.75rem;
+}
+
+.message-body {
+	background-color: darkgrey;
+	font-size: 1rem;
+	padding: 0.5rem;
+	border-radius: 0 0 4px 4px;
+}
+
+.message.is-danger .message-header {
+	background-color: rgb(220, 20, 60);
+}
+
+.message.is-danger .message-body {
+	background-color: rgba(220, 20, 60, 0.25);
+}
+
+.message.is-warning .message-header {
+	background-color: rgb(255, 173, 0);
+}
+
+.message.is-warning .message-body {
+	background-color: rgba(255, 173, 0, 0.25);
+}
+
+.message.is-success .message-header {
+	background-color: forestgreen;
+	padding-left: 1rem;
+}
+
+.message.is-success .message-body {
+	background-color: rgba(34, 139, 34, 0.25);
+}
+
+.message.is-info .message-header {
+	background-color: deepskyblue;
+}
+
+.message.is-info .message-body {
+	background-color: rgba(0, 191, 255, 0.25);
+}
+
+.neo-modal p + p {
+	padding-top: 1rem;
+	border-top: 1px solid;
+	border-image-source: linear-gradient(to right, rgba(34, 97, 34, 0), rgba(34, 97, 34, 1) 30%, rgba(34, 97, 34, 1) 60%, rgba(34, 97, 34, 0));
+	border-image-slice: 1;
+}
+
+
+.fa-siren,
+.fa-siren-on { margin-right: 0.75rem; }
+
+.has-text-danger {
+	color: rgb(220, 20, 60);
+}
+
+.has-text-success {
+	color: forestgreen;
+}
+
+.has-text-info {
+	color: deepskyblue;
 }

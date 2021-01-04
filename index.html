@@ -4,7 +4,8 @@
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="assets/img/logo1.png" type="image/png">
 	<title>Park&starf;Sky</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
 		integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
@@ -106,9 +107,13 @@
 		<div id="parkAlerts" data-open="parkAlertsModal"><i class="fas fa-exclamation-triangle"></i><span>0</span></div>
 		<div id="neoAlerts" data-open="neoAlertsModal"><i class="fas fa-meteor"></i><span>0</span></div>
 	</div>
+	<section class="grid-x">
+		<article class="cell">
+			<h2 id="parkName">Park Name</h2>
+		</article>
+	</section>
 	<div class="grid-x align-center">
 		<aside id="infobox" class="cell small-12 medium-4">
-			<h2 id="parkName">Park Name</h2>
 			<ul class="accordion" data-responsive-accordion-tabs="accordion large-tabs">
 				<li class="accordion-item is-active" data-accordion-item>
 					<a href="#" class="accordion-title">Entrance Fees</a>
@@ -190,16 +195,14 @@
 		<div class="modal-background"></div>
 		<div class="modal-content">
 		</div>
-		<button class="close-button" data-close aria-label="Close Modal" type="button"><span
-				aria-hidden="true">&times;</span></button>
+		<button class="close-button" data-close aria-label="Close Modal" type="button"><span aria-hidden="true">&times;</span></button>
 	</div>
 
 	<div class="reveal neo-modal" id="neoAlertsModal" data-reveal>
 		<div class="modal-background"></div>
 		<div class="modal-content">
 		</div>
-		<button class="close-button" data-close aria-label="Close Modal" type="button"><span
-				aria-hidden="true">&times;</span></button>
+		<button class="close-button" data-close aria-label="Close Modal" type="button"><span aria-hidden="true">&times;</span></button>
 	</div>
 
 	<!-- jQuery -->

@@ -48,7 +48,7 @@ table.table {
 	font-style: italic;
 }
 
-.canvaswrapper {
+#canvaswrapper {
 	position: relative;
 }
 
