@@ -1,17 +1,55 @@
+:root{
+	--grey: #777;
+	--darkgrey: #333;
+}
+
 body {
-	background-color: #777;
+	background-color: var(--grey);
 }
 
 .site-header {
-	background-color: #333;
+	background-color: var(--darkgrey);
 }
 
 .site-footer {
 	color: white;
-	background-color: #333;
+	background-color: var(--darkgrey);
 	padding: 3rem 1rem 4rem;
 	text-align: center;
 	margin-top: 3rem;
+}
+
+.menu a {
+	color: white;
+}
+
+.menu a:hover {
+	color: #3ADB76;
+}
+
+.menu a.is-active {
+	color: #FFAE00;
+}
+
+.accordion, .cell {
+	border-radius: 4px;
+}
+
+.accordion-title, :last-child:not(.is-active)>.accordion-title {
+	border: 0;
+	border-radius: 4px;
+}
+
+.tabs {
+	border-radius: 4px 4px 0 0;
+}
+
+.tabs-content {
+	border-radius: 0 0 4px 4px;
+}
+
+.button.is-light {
+	background-color: #60B3EA;
 }
 
 .fotorama {
@@ -27,6 +65,7 @@ body {
 	text-align: center;
 	margin-bottom: 2rem;
 	padding: 1rem 0;
+	color: white;
 }
 
 #searchParks .field.is-grouped {

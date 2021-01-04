@@ -1,11 +1,11 @@
-$("document").ready(function() {
+$("document").ready(function () {
 	var prevParkData, prevChartOptions, parkCode, date, currentPage;
 	currentPage = window.location.pathname;
 
 	prevParkData = JSON.parse(localStorage.getItem('parksky-park-data')) || null;
 	prevChartOptions = JSON.parse(localStorage.getItem('parksky-chart-options')) || null;
 
-	if(prevParkData === null) {
+	if (prevParkData === null) {
 		parkCode = "acad";
 		date = dayjs().format("YYYY-MM-DD");
 		// save defaults
@@ -17,10 +17,10 @@ $("document").ready(function() {
 	} else {
 		parkCode = prevParkData.parkCode;
 		date = prevParkData.date;
-		
+
 	}
 
-	if(prevChartOptions === null && currentPage.includes('starchart')) {
+	if (prevChartOptions === null && currentPage.includes('starchart')) {
 		saveToLocalStorage(null, 'options');
 		prevChartOptions = JSON.parse(localStorage.getItem('parksky-chart-options'));
 	}
@@ -30,23 +30,25 @@ $("document").ready(function() {
 
 	getNEOs();
 
-	if(currentPage.includes("parkdetails")) {
-		$(".level-item:nth-child(2)").addClass("is-active");
+	if (currentPage.includes("parkdetails")) {
+		$(".menu li:nth-child(2) a").addClass("is-active");
 		displayData(parkCode, date, false, false, true, true);
 
-	} else if(currentPage.includes("starchart")) {
+	} else if (currentPage.includes("starchart")) {
+		$(".menu li:nth-child(4) a").addClass("is-active");
 		displayData(parkCode, date, true, true, false, false);
 
 	} else {
+		$(".menu li:first-child a").addClass("is-active");
 		displayData(parkCode, date, true, false, true, false);
 	}
 
 	// on park change, update both parkInfo and star chart
-	$("#searchParksSelect").change(function() {
-		if(currentPage.includes("starchart")) {
+	$("#searchParksSelect").change(function () {
+		if (currentPage.includes("starchart")) {
 			displayData($(this).val(), date, true, true, false, false);
 
-		} else if(currentPage.includes("parkdetails")) {
+		} else if (currentPage.includes("parkdetails")) {
 			displayData($(this).val(), date, false, false, true, true);
 
 		} else {
@@ -55,7 +57,7 @@ $("document").ready(function() {
 	});
 
 	// on date change, only update the star chart
-	$("#visitDate").change(function() {
+	$("#visitDate").change(function () {
 		date = $(this).val();
 		// relace the prevData date with the new date
 		prevParkData.date = $(this).val();
@@ -63,8 +65,8 @@ $("document").ready(function() {
 		saveToLocalStorage(prevParkData, 'park');
 
 		getNEOs();
-		
-		if(!currentPage.includes("parkdetails")) {
+
+		if (!currentPage.includes("parkdetails")) {
 			var chartData = {
 				fullName: prevParkData.fullName,
 				latitude: prevParkData.latitude,
@@ -76,5 +78,5 @@ $("document").ready(function() {
 			displayData(parkCode, date, false, false, true, false);
 		}
 	});
-	
+
 });
