@@ -1,9 +1,10 @@
+parkAPIKey = "0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg";
 defaultOptions = {showPlanets: true, showEquator: false, showEcliptic: false, showMilkyWay: false, showConLines: false, showConLab: false, showDayNight: false};
 
 function displayData(parkCode, date, displayStarChart = false, displayStarDetails = false, displayParkInfo = true, displayParkDetails = false) {
 
   $.ajax({
-    url: `https://developer.nps.gov/api/v1/parks?api_key=0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg&parkCode=${parkCode}`,
+    url: `https://developer.nps.gov/api/v1/parks?api_key=${parkAPIKey}&parkCode=${parkCode}`,
     method: "GET"
   }).then(function (res) {
     var data = res.data[0];
@@ -170,6 +171,9 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
 
       // adds the weather description to the #weather td
       $("#weather").text(data.weatherInfo);
+
+      // get Things To Do list (requires different endpoint)
+      getThingsToDo(parkCode, data.fullName);
     }
 
     if (displayParkDetails) {
@@ -251,10 +255,201 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
   }); // end of .then()
 }
 
+function getAlerts(parkCode) {
+  $.ajax({
+    url: `https://developer.nps.gov/api/v1/alerts?api_key=${parkAPIKey}&parkCode=${parkCode}`,
+    method: "GET"
+  }).then(function (res) {
+    // console.log(res);
+    $(".alert-modal .modal-content").empty();
+
+    // IF we get at least one (1) alert
+    if (res.data.length > 0) {
+    	$("#parkAlerts span").text(res.data.length).css({"background-color": "crimson"});
+    	// sort alerts: Park Closure > Caution > Info
+    	res.data.sort(compareAlertTypes);
+
+      for (var i in res.data) {
+        var alert = res.data[i];
+        var message = $("<article>", { class: "message" });
+        var messageHeader = $("<div>", { class: "message-header" });
+        var messageBody = $("<div>", { class: "message-body" });
+        messageHeader.text(alert.title);
+        messageBody.text(alert.description);
+        message.append(messageHeader, messageBody);
+
+        // applies color to alert depending on type
+        if (alert.type === "Park Closure") {
+          message.addClass("is-danger");
+          messageHeader.prepend("<i class='fas fa-do-not-enter'></i>");
+        } else if (alert.type === "Caution") {
+          message.addClass("is-warning");
+          messageHeader.prepend("<i class='fas fa-hand-paper'></i>");
+        } else {
+          message.addClass("is-info");
+          messageHeader.prepend("<i class='fas fa-info-circle'></i>");
+        }
+        $(".alert-modal .modal-content").append(message);
+      }
+
+      // adds click functionality to modal
+      $(".fa-exclamation-triangle").click(function () {
+        $(".alert-modal").addClass("is-active");
+      });
+
+      $(".modal-close, .modal-background").click(function () {
+        $(".modal").removeClass("is-active");
+      });
+    } else {
+    	$("#parkAlerts span").text(0).css({"background-color": "grey"});
+    }
+  });
+
+  // spinner!
+  $("#parkAlerts span").html("<i class='fal fa-spinner fa-spin' style='color: white'></i>");
+}
+
+function getThingsToDo(parkCode, fullName) {
+	$.ajax({
+    url: `https://developer.nps.gov/api/v1/thingstodo?api_key=${parkAPIKey}&q=stargazing&parkCode=${parkCode}`,
+    method: "GET"
+  }).then(function (res) {
+    // console.log(res);
+
+    if(res.data.length > 0) {
+    	$("#thingsToDo").empty();
+    	var data = res.data;
+
+    	for(var i in data) {
+    		var activity = data[i];
+    		var activityBlock = $("<a>", {class: "box activity-box", "href": activity.url});
+    		activityBlock.attr("target", "_blank");
+    		if(activity.images.length > 0) {
+    			activityBlock.css({"background-image": `linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url(${activity.images[0].url})`, "background-color": "#333", "background-position": "center", "background-size": "cover", "color": "white"});
+    		}
+
+    		activityBlock.append(`<h1>${activity.title}</h1>`);
+    		activityBlock.append(`<p class='has-text-left'>${activity.shortDescription}</p>`);
+
+    		$("#thingsToDo").append(activityBlock);
+    	}
+
+    } else {
+    	var row = $("<tr>");
+    	var td = $("<td colspan='2'>");
+    	td.text("The National Parks Service hasn't provided a list of stargazing activities for "+ fullName);
+    	row.html(td);
+
+    	$("#thingsToDo").html(row);
+    }
+  });
+}
+
+function getWikipediaExtract(title, desc) {
+  var queryURL = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exintro=&titles=${title}`;
+
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function (res) {
+    // console.log(res);
+    $("#extract").empty();
+
+    if (!res.query.pages.hasOwnProperty("-1")) {
+      var pages = res.query.pages;
+      // console.log(res.query.pages);
+
+      for (var i in res.query.pages) {
+        if (res.query.pages[i].extract !== "") {
+          $("#extract").append(pages[i].extract);
+        }
+      }
+    } else if (!res.query.pages.hasOwnProperty("-1")) {
+      $("#extract").html(desc);
+    }
+
+    $("#description").text(desc);
+    // if($("#extract").is(":empty")) {
+    // 	$("#extract").html(desc);
+    // } else {
+    // 	$("#description").
+    // }
+  });
+}
+
+function getNEOs() {
+	// NEO API limits results to 7 days
+	var startDate = dayjs($("#visitDate").val()).subtract(3, 'days').format("YYYY-MM-DD");
+	var endDate = dayjs($("#visitDate").val()).add(3, 'days').format("YYYY-MM-DD");
+
+  $.ajax({
+    url: `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=N01Hr2ayL4UxV02RoD6VdGP5LdG57n6nRc9hZwfk`,
+    method: "GET"
+  }).then(function (res) {
+    // console.log(res);
+
+    if(res.element_count > 0) {
+    	var neos = res.near_earth_objects;
+
+    	$(".neo-modal .modal-content").empty();
+
+      for(var date in neos) {
+      	var message = $("<article>", { class: "message" });
+      	message.addClass("is-success mx-5");
+        var messageHeader = $("<div>", { class: "message-header" });
+        var messageBody = $("<div>", { class: "message-body" });
+
+        messageHeader.text(`${date}`);
+
+    		for(var i in neos[date]) {
+    			var alert = neos[date][i];
+    			var link = `<a href="${alert.nasa_jpl_url};orb=1;cov=0;log=0;cad=0#orb" target="_blank">${alert.name}</a>`;
+    			// console.log(link);
+
+    			var time = dayjs(alert.close_approach_data[0].close_approach_date.close_approach_date_full).format("HH:mm");
+    			var estDiameter = (alert.estimated_diameter.meters.estimated_diameter_min + alert.estimated_diameter.meters.estimated_diameter_max) / 2;
+    			var messageText = $("<p>", {class: 'neo-message'});
+    			messageText.html(`<strong>${link}</strong> @ ${time} | <strong>Magnitude:</strong> ${alert.absolute_magnitude_h} | <strong>Est. Diameter (meters):</strong> ${estDiameter}`);
+
+          if(alert.is_potentially_hazardous_asteroid) {
+          	messageText.prepend("<i class='fas fa-siren-on has-text-danger'></i>");
+          } else {
+          	messageText.prepend("<i class='fas fa-siren has-text-info'></i>");
+          }
+
+          messageBody.append(messageText);
+    		}
+
+    		message.append(messageHeader, messageBody);
+
+    		$(".neo-modal .modal-content").append(message);
+    	}
+
+      // adds click functionality to modal
+      $(".fa-meteor").click(function () {
+        $(".neo-modal").addClass("is-active");
+      });
+
+      $(".modal-close, .modal-background").click(function () {
+        $(".modal").removeClass("is-active");
+      });
+    }
+
+    $("#neoAlerts span").text(res.element_count).css({"background-color": "grey"});
+    
+    if(res.element_count > 0) {
+    	$("#neoAlerts span").css({"background-color": "crimson"});
+    }
+  });
+
+  // spinner!
+  $("#neoAlerts span").html("<i class='fal fa-spinner fa-spin' style='color: white'></i>");
+}
+
 function getStarChart(options = 'default') {
 	var data = JSON.parse(localStorage.getItem('parksky-park-data'));
 	// if we need DEFAULT options, then nothing is shown
-	var options = options !== 'default' ? JSON.parse(localStorage.getItem('parksky-chart-options')) : defaultOptions;
+	var options = options === 'default' ? defaultOptions : JSON.parse(localStorage.getItem('parksky-chart-options'));
 	var date = dayjs(data.date);
 
   var startHere = {
@@ -312,200 +507,12 @@ function updateRiseSetData() {
 		yyyy: date.year(),
 		mm: date.month() + 1,
 		dd: date.date(),
-		dateString: savedData.date,
+		dateString: dayjs(savedData.date).format("YYYY-MM-DD"),
 		tzString: date.format("Z"),
 		tz: parseInt(date.format("Z")),
 	};
 	// show Rise/Set info
 	riseSetChartPage(tableData);
-}
-
-function getWikipediaExtract(title, desc) {
-  var queryURL = `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exintro=&titles=${title}`;
-
-  $.ajax({
-    url: queryURL,
-    method: "GET"
-  }).then(function (res) {
-    // console.log(res);
-    $("#extract").empty();
-
-    if (!res.query.pages.hasOwnProperty("-1")) {
-      var pages = res.query.pages;
-      // console.log(res.query.pages);
-
-      for (var i in res.query.pages) {
-        if (res.query.pages[i].extract !== "") {
-          $("#extract").append(pages[i].extract);
-        }
-      }
-    } else if (!res.query.pages.hasOwnProperty("-1")) {
-      $("#extract").html(desc);
-    }
-
-    $("#description").text(desc);
-    // if($("#extract").is(":empty")) {
-    // 	$("#extract").html(desc);
-    // } else {
-    // 	$("#description").
-    // }
-  });
-}
-
-function getAlerts(parkCode) {
-	// remove modal & alert icons for a "clean slate"
-	$(".alert-modal").remove();
-	// $(".fas.fa-exclamation-triangle").remove();
-
-  $.ajax({
-    url: `https://developer.nps.gov/api/v1/alerts?api_key=0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg&parkCode=${parkCode}`,
-    method: "GET"
-  }).then(function (res) {
-    // console.log(res);
-
-    // IF we get at least one (1) alert
-    if (res.data.length > 0) {
-    	$("#parkAlerts span").text(res.data.length).css({"background-color": "crimson"});
-    	// sort alerts: Park Closure > Caution > Info
-    	res.data.sort(compareAlertTypes);
-
-    	// create the alert icon
-      // var icon = $("<i>", { class: "fas fa-exclamation-triangle" });
-      // $("#searchParks").after(icon);
-
-      // -- ALERTS --
-      // get the modal HTML "template" and load it to the page
-      // at the end of the body element
-      fetch("../../templates/alerts.html")
-        .then(response => {
-          return response.text();
-        })
-        .then(data => {
-          $("body").append(data);
-          $(".alert-modal .modal-content").empty();
-
-          for (var i in res.data) {
-            var alert = res.data[i];
-            var message = $("<article>", { class: "message" });
-            var messageHeader = $("<div>", { class: "message-header" });
-            var messageBody = $("<div>", { class: "message-body" });
-            messageHeader.text(alert.title);
-            messageBody.text(alert.description);
-            message.append(messageHeader, messageBody);
-
-            // applies color to alert depending on type
-            if (alert.type === "Park Closure") {
-              message.addClass("is-danger");
-              messageHeader.prepend("<i class='fas fa-do-not-enter'></i>");
-            } else if (alert.type === "Caution") {
-              message.addClass("is-warning");
-              messageHeader.prepend("<i class='fas fa-hand-paper'></i>");
-            } else {
-              message.addClass("is-info");
-              messageHeader.prepend("<i class='fas fa-info-circle'></i>");
-            }
-            $(".alert-modal .modal-content").append(message);
-          }
-
-          // adds click functionality to modal
-          $(".fa-exclamation-triangle").click(function () {
-            $(".alert-modal").addClass("is-active");
-          });
-
-          $(".modal-close, .modal-background").click(function () {
-            $(".modal").removeClass("is-active");
-          });
-        });
-    } else {
-    	$("#parkAlerts span").text(0).css({"background-color": "dimgray"});
-    }
-  });
-
-  // spinner!
-  $("#parkAlerts span").html("<i class='fal fa-spinner fa-spin'></i>");
-}
-
-function getNEOs() {
-	// remove modal & alert icons for a "clean slate"
-	$(".neo-modal").remove();
-
-	// NEO API limits results to 7 days
-	var startDate = dayjs($("#visitDate").val()).subtract(3, 'days').format("YYYY-MM-DD");
-	var endDate = dayjs($("#visitDate").val()).add(3, 'days').format("YYYY-MM-DD");
-
-	// console.log("getting NEO alerts", startDate, endDate);
-
-  $.ajax({
-    url: `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=N01Hr2ayL4UxV02RoD6VdGP5LdG57n6nRc9hZwfk`,
-    method: "GET"
-  }).then(function (res) {
-    // console.log(res);
-
-    if(res.element_count > 0) {
-    	var neos = res.near_earth_objects;
-
-    	// -- ALERTS --
-      // get the modal HTML "template" and load it to the page
-      // at the end of the body element
-      fetch("../../templates/neos.html")
-        .then(response => {
-          return response.text();
-        })
-        .then(data => {
-          $("body").append(data);
-          $(".neo-modal .modal-content").empty();
-
-          for(var date in neos) {
-          	var message = $("<article>", { class: "message" });
-          	message.addClass("is-success mx-5");
-	          var messageHeader = $("<div>", { class: "message-header" });
-	          var messageBody = $("<div>", { class: "message-body" });
-
-	          messageHeader.text(`${date}`);
-
-		    		for(var i in neos[date]) {
-		    			var alert = neos[date][i];
-		    			var link = `<a href="${alert.nasa_jpl_url};orb=1;cov=0;log=0;cad=0#orb" target="_blank">${alert.name}</a>`;
-		    			// console.log(link);
-
-		    			var time = dayjs(alert.close_approach_data[0].close_approach_date.close_approach_date_full).format("HH:mm");
-		    			var estDiameter = (alert.estimated_diameter.meters.estimated_diameter_min + alert.estimated_diameter.meters.estimated_diameter_max) / 2;
-		    			var messageText = $("<p>", {class: 'neo-message'});
-		    			messageText.html(`<strong>${link}</strong> @ ${time} | <strong>Magnitude:</strong> ${alert.absolute_magnitude_h} | <strong>Est. Diameter (meters):</strong> ${estDiameter}`);
-
-	            if(alert.is_potentially_hazardous_asteroid) {
-	            	messageText.prepend("<i class='fas fa-siren-on has-text-danger'></i>");
-	            } else {
-	            	messageText.prepend("<i class='fas fa-siren has-text-info'></i>");
-	            }
-
-	            messageBody.append(messageText);
-		    		}
-
-		    		message.append(messageHeader, messageBody);
-
-		    		$(".neo-modal .modal-content").append(message);
-		    	}
-
-          // adds click functionality to modal
-          $(".fa-meteor").click(function () {
-            $(".neo-modal").addClass("is-active");
-          });
-
-          $(".modal-close, .modal-background").click(function () {
-            $(".modal").removeClass("is-active");
-          });
-        });
-    }
-
-    $("#neoAlerts span").text(res.element_count).css({"background-color": "dimgray"});
-    if(res.element_count > 0) {
-    	$("#neoAlerts span").css({"background-color": "crimson"});
-    }
-  });
-
-  // spinner!
-  $("#neoAlerts span").html("<i class='fal fa-spinner fa-spin'></i>");
 }
 
 function saveToLocalStorage(data = null, target = 'park') {
