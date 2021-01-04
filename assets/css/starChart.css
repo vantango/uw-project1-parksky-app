@@ -37,8 +37,9 @@ table.table {
 
 #starchartOptions {
 	width: auto;
-	display: inline-block;
-	margin: 0 auto;
+	display: block;
+	margin: 2rem auto;
+	text-align: center;
 }
 
 .note {
