@@ -11,7 +11,7 @@ Allows a user to search for any national park for a given visitation date in the
 ### Objective
 We were tasked with building an interactive app with a CSS framework other than Bootstrap. It required the use of at least two server-side API's and local storage. The final project then had to be deployed via GitHub pages.
 
-![park-sky-app-screenshot] (https://github.com/vantango/uw-project1-parksky-app/blob/main/assets/img/screencapture.png?raw=true)
+![ParkSky App Screenshot](./assets/img/screencapture.png?raw=true "ParkSky App Screenshot")
 
 ### Technologies Used
 * JavaScript/jQuery/AJAX
