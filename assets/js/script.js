@@ -74,8 +74,11 @@ $("document").ready(function () {
 			}
 			// get the star chart!
 			getStarChart(chartData, dayjs(date));
+			updateRiseSetData();
+
 		} else {
 			displayData(parkCode, date, false, false, true, false);
+
 		}
 	});
 

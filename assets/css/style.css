@@ -1,26 +1,64 @@
 :root{
 	--grey: #777;
 	--darkgrey: #333;
+	--darkblue: #151521;
 }
 
+/* GENERAL */
 body {
-	background-color: var(--grey);
+	position: relative;
+	/*background-color: var(--grey);*/
+	/*background-image: url('https://www.nps.gov/common/uploads/structured_data/3C7A0C49-1DD8-B71B-0B460D58D6E83B40.jpg');*/
+	/*background-image: url('https://www.nps.gov/common/uploads/structured_data/613FFA94-B2F5-FBBF-090B96462B7CAB18.jpg');*/
+	/*background-image: url('https://www.nps.gov/common/uploads/structured_data/3C7AC8F5-1DD8-B71B-0B661B7FF90F5407.jpg');*/
+	/*background-image: url('../img/neida-zarate--unsplash.jpg');*/
+	background-image: url('../img/klemen-vrankar--unsplash.jpg');
+	background-position: bottom center;
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
-.site-header {
-	background-color: var(--darkgrey);
-}
-
-.site-footer {
-	color: white;
-	background-color: var(--darkgrey);
-	padding: 3rem 1rem 4rem;
+h1, h2, h3, h4, h5, h6 {
 	text-align: center;
-	margin-top: 3rem;
+}
+
+.note {
+	font-size: 0.8rem;
+	color: #777;
+	font-style: italic;
+	padding: 0.5rem;
+}
+
+/*.table tbody td {
+	padding: 0;
+}*/
+
+.has-text-white { color: white !important; }
+.has-text-black { color: black !important; }
+.has-text-danger { color: rgb(220, 20, 60); }
+.is-danger { background-color: rgb(220, 20, 60); }
+.has-text-success { color: forestgreen; }
+.is-success { background-color: forestgreen; }
+.has-text-info { color: deepskyblue; }
+.is-info { background-color: deepskyblue; }
+
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mt-3 { margin-top: 3rem; }
+
+.fa-siren,
+.fa-siren-on { margin-right: 0.75rem; }
+
+/* HEADER & NAV */
+.site-header {
+	/*background-color: var(--darkgrey);*/
+	background-color: rgba(21, 21, 33, 0.95);
 }
 
 .menu a {
 	color: white;
+	font-size: 1.5rem;
+	margin: 0 3rem;
 }
 
 .menu a:hover {
@@ -31,11 +69,82 @@ body {
 	color: #FFAE00;
 }
 
+/* SEARCH BAR */
+#searchBar {
+	/*background-color: #666;*/
+	background-color: rgba(43, 43, 79, 1);
+	text-align: center;
+	padding: 1rem 0;
+	color: white;
+}
+
+#searchParks {
+	display: inline-block;
+	margin: 0 auto;
+}
+
+#searchParks .field.is-grouped {
+	margin: 0 auto;
+	text-align: center;
+	justify-content: center;
+}
+
+#searchParks .field > div {
+	display: inline-block;
+}
+
+input[type="date"] {
+	flex: 1;
+	/*height: 100%;*/
+	font-size: 1rem;
+}
+
+/* Alert icons (Park Alerts, NeoWs Alerts) */
+#parkAlerts,
+#neoAlerts {
+	position: relative;
+	display: inline-block;
+	font-size: 1.5rem;
+	margin: 0 1rem;
+	padding-top: 0.5rem;
+	vertical-align: middle;
+}
+
+/* number of alerts, displayed next to icon */
+#parkAlerts span,
+#neoAlerts span {
+	position: absolute;
+	top: 12px;
+	padding: 0 0.4rem;
+	border-radius: 0.2rem;
+	font-size: 0.8rem;
+}
+
+#parkAlerts span {
+	right: -13px;
+}
+
+/* MAIN (star chart / park details) */
+#site-content {
+	padding-top: 3rem;
+	background: linear-gradient(to bottom, rgba(43, 43, 79, 0.75), rgba(0,0,0,0.8) 70%);
+}
+
+main.columns:not(:last-child) {
+	margin-bottom: 0;
+}
+
+main > table {
+	margin: 0 auto;
+	max-width: 90%;
+}
+
+/* ACCORDION & TABS (park / astronomy infoboxes) */
 .accordion, .cell {
 	border-radius: 4px;
 }
 
-.accordion-title, :last-child:not(.is-active)>.accordion-title {
+.accordion-title, :last-child:not(.is-active) > .accordion-title {
 	border: 0;
 	border-radius: 4px;
 }
@@ -49,49 +158,39 @@ body {
 	font-size: 1rem;
 }
 
+.tabs-title:hover > a {
+	background-color: #3ADB76;
+	color: white;
+}
+
 .tabs-content {
 	border-radius: 0 0 4px 4px;
 }
 
-.button.is-light {
-	background-color: #60B3EA;
-}
-
-.fotorama {
-	margin: 2rem 0;
-}
-
-.fotorama__wrap {
-	margin: 0 auto;
-}
-
-#searchBar {
-	background-color: #666;
-	text-align: center;
-	margin-bottom: 2rem;
-	padding: 1rem 0;
+#infobox .tabs-title.is-active a[aria-selected=true] {
+	background-color: orange;
 	color: white;
+	font-weight: bold;
 }
 
-#searchParks .field.is-grouped {
-	margin: 0 auto;
-	text-align: center;
-	justify-content: center;
+#infobox .tabs a {
+	border-bottom: 0;
 }
 
-#searchParks .field > div {
-	display: inline-block;
+#tabContentContainers {
+	border: 1px solid gainsboro;
+	padding-top: 0;
 }
 
-main.columns:not(:last-child) {
-	margin-bottom: 0;
+/* INFOBOX, General (park & astronomy) */
+#infobox {
+  background-color: transparent;
+  color: white;
+  margin: 0 25px 30px 25px;
+  box-shadow: none;
 }
 
-main > table {
-	margin: 0 auto;
-	max-width: 90%;
-}
-
+/* PARK INFOBOX (specifically) */
 #parkInfo {
 	margin-left: 4rem;
 }
@@ -102,30 +201,6 @@ main > table {
 	text-align: center;
 }
 
-#operatingHours p {
-	text-transform: capitalize;
-	padding: 0;
-	margin: 0;
-}
-
-#contactInfo td {
-	padding: 0.25rem 0;
-}
-
-.hero-body,
-.columns{
-	background-color: #3E3E3F;
-	color: white;
-}
-
-.table.has-background-dark.is-striped tr:nth-child(2) {
-	background-color: #4e4e4e;
-}
-
-.table tbody td {
-	padding: 0;
-}
-
 #entranceFees tr td,
 #entrancePasses tr td,
 #operatingHours tr td,
@@ -133,14 +208,6 @@ main > table {
 	border: 0;
 	padding: 0.30rem 1rem;
 }
-
-/*#entranceFees tr:nth-child(2n+1),
-#entrancePasses tr:nth-child(1n+2),
-#operatingHours tr:nth-child(1n+2) {
-	border-top: 2px solid white;
-	width: 100%;
-
-}*/
 
 #entranceFees tr:first-child,
 #entranceFees tr:nth-child(3),
@@ -191,44 +258,17 @@ main > table {
     background-color: gainsboro;
 }
 
-input[type="date"] {
-	flex: 1;
-	height: 100%;
-	font-size: 1rem;
+#operatingHours p {
+	text-transform: capitalize;
+	padding: 0;
+	margin: 0;
 }
 
-.level{
-	padding: 10px;
-}
-.canvaswrapper
-.starchart-data{
-align-items: center;
+#contactInfo td {
+	padding: 0.25rem 0;
 }
 
-#infobox {
-  background-color: transparent;
-  color: white;
-  margin: 0 25px 30px 25px;
-  box-shadow: none;
-}
-
-#infobox .tab.is-active {
-	background-color: orange;
-}
-
-#infobox .tabs a {
-	border-bottom: 0;
-}
-
-#tabContentContainers {
-	border: 1px solid gainsboro;
-	padding-top: 0;
-}
-
-/*#tabContentContainers tr:nth-child(1n+2) {
-	border-top: 2px solid gainsboro;
-}*/
-
+/* NPS stargazing activities ("things to do") */
 .activity-box {
 	display: block;
 	margin: 1rem;
@@ -240,14 +280,39 @@ align-items: center;
 	font-size: larger;
 }
 
-.note {
+/* FOTORAMA (park details gallery) */
+.fotorama {
+	margin: 2rem 0;
+}
+
+.fotorama__wrap {
+	margin: 0 auto;
+}
+
+.fotorama .credit {
+	font-weight: bold;
+	font-style: italic;
+}
+
+/* BUTTONS */
+.button.is-light {
+	background-color: #60B3EA;
+}
+
+/* FOOTER, bg photo credit */
+#bg-photo-credit {
+	margin-top: 3rem;
+	margin-right: 1rem;
+}
+
+.site-footer {
+	color: white;
+	background-color: var(--darkblue);
+	padding: 3rem 1rem 4rem;
 	text-align: center;
 }
 
-h1, h2, h3, h4, h5, h6 {
-	text-align: center;
-}
-
+/* MODALS ("reveal") */
 .reveal {
 	border-radius: 4px;
 }
@@ -268,14 +333,14 @@ h1, h2, h3, h4, h5, h6 {
 .message-header {
 	background-color: black;
 	color: white;
-	padding: 0.25rem;
+	padding: 0.25rem 0.25rem 0.25rem 1rem;
 	font-size: 1.5rem;
 	border-radius: 4px 4px 0 0;
 }
 
 .message-header i {
 	margin-right: 0.75rem;
-	margin-left: 0.75rem;
+	/*margin-left: 0.75rem;*/
 }
 
 .message-body {
@@ -286,19 +351,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .message.is-danger .message-header {
-	background-color: rgb(220, 20, 60);
+	background-color: crimson;
 }
 
 .message.is-danger .message-body {
-	background-color: rgba(220, 20, 60, 0.25);
+	background-color: #fbdee4;
 }
 
 .message.is-warning .message-header {
-	background-color: rgb(255, 173, 0);
+	background-color: #ffad00;
 }
 
 .message.is-warning .message-body {
-	background-color: rgba(255, 173, 0, 0.25);
+	background-color: #fff3dd;
 }
 
 .message.is-success .message-header {
@@ -307,7 +372,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .message.is-success .message-body {
-	background-color: rgba(34, 139, 34, 0.25);
+	background-color: #dcf7dc;
 }
 
 .message.is-info .message-header {
@@ -315,7 +380,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .message.is-info .message-body {
-	background-color: rgba(0, 191, 255, 0.25);
+	background-color: #ddf5ff;
 }
 
 .neo-modal p + p {
@@ -325,18 +390,8 @@ h1, h2, h3, h4, h5, h6 {
 	border-image-slice: 1;
 }
 
-
-.fa-siren,
-.fa-siren-on { margin-right: 0.75rem; }
-
-.has-text-danger {
-	color: rgb(220, 20, 60);
-}
-
-.has-text-success {
-	color: forestgreen;
-}
-
-.has-text-info {
-	color: deepskyblue;
+@media screen and (min-width: 769px) {
+	.modal-content {
+		min-width: 50%;
+	}
 }

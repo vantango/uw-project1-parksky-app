@@ -233,7 +233,7 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
         title = "Sequoia_and_Kings_Canyon_National_Parks";
       }
 
-      getWikipediaExtract(title, data.description);
+      getWikipediaExtract(title, `${data.description} <a href='${data.url}' target='_blank'><em>National Parks Service</em></a>`);
       $(".fotorama").remove()
       $("#galleryContainer #extract").before("<div class='fotorama'></div>")
       // display extra details about parks, incl. Wikipedia "summary"
@@ -256,7 +256,8 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
         data: images,
         nav: "thumbs",
         loop: true,
-        fit: "scaledown",
+        // fit: "scaledown",
+        fit: "cover",
         maxwidth: 1000,
         minwidth: 1000,
       });
@@ -372,19 +373,15 @@ function getWikipediaExtract(title, desc) {
 
       for (var i in res.query.pages) {
         if (res.query.pages[i].extract !== "") {
-          $("#extract").append(pages[i].extract);
+          $("#extract").append(`${pages[i].extract} [ <a href='https://en.wikipedia.org/wiki/${title}' target='_blank'>Wikipedia</a> ]`);
         }
       }
     } else if (!res.query.pages.hasOwnProperty("-1")) {
-      $("#extract").html(desc);
+      // $("#extract").html(desc);
+      $("#extract").html(`Nothing found on Wikipedia for ${title}`);
     }
 
-    $("#description").text(desc);
-    // if($("#extract").is(":empty")) {
-    // 	$("#extract").html(desc);
-    // } else {
-    // 	$("#description").
-    // }
+    $("#description").html(desc);
   });
 }
 
