@@ -1,5 +1,5 @@
 parkAPIKey = "0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg";
-defaultOptions = { showPlanets: true, showEquator: false, showEcliptic: false, showMilkyWay: false, showConLines: false, showConLab: false, showDayNight: false };
+defaultOptions = { showPlanets: true, showEquator: false, showEcliptic: false, showMilkyWay: false, showConLines: true, showConLab: false, showDayNight: false };
 
 function displayData(parkCode, date, displayStarChart = false, displayStarDetails = false, displayParkInfo = true, displayParkDetails = false) {
 
@@ -24,7 +24,7 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
     saveToLocalStorage(saveData, 'park');
 
     // park alerts from NPS
-    getAlerts(parkCode);
+    getAlerts(parkCode, data.fullName);
 
     if (displayStarChart) {
       getStarChart('default');
@@ -267,7 +267,7 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
   }); // end of .then()
 }
 
-function getAlerts(parkCode) {
+function getAlerts(parkCode, parkName) {
   $.ajax({
     url: `https://developer.nps.gov/api/v1/alerts?api_key=${parkAPIKey}&parkCode=${parkCode}`,
     method: "GET"
@@ -314,6 +314,16 @@ function getAlerts(parkCode) {
       });
     } else {
       $("#parkAlerts span").text(0).css({ "background-color": "grey" });
+      var alert = res.data[i];
+      var message = $("<article>", { class: "message" });
+      var messageHeader = $("<div>", { class: "message-header" });
+      var messageBody = $("<div>", { class: "message-body" });
+
+      messageHeader.text("No Alerts");
+      messageBody.text(`No alerts found for ${parkName}.`);
+
+      message.append(messageHeader, messageBody);
+      $(".alert-modal .modal-content").append(message);
     }
   });
 
@@ -447,6 +457,8 @@ function getNEOs() {
 
     if (res.element_count > 0) {
       $("#neoAlerts span").css({ "background-color": "crimson" });
+    } else {
+    	$(".neo-modal .modal-content").text(`No Near-Earth Object Alerts found for ${startDate} - ${endDate}.`);
     }
   });
 

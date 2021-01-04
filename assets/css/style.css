@@ -126,7 +126,7 @@ input[type="date"] {
 
 /* MAIN (star chart / park details) */
 #site-content {
-	padding-top: 3rem;
+	padding-top: 1rem;
 	background: linear-gradient(to bottom, rgba(43, 43, 79, 0.75), rgba(0,0,0,0.8) 70%);
 }
 
@@ -193,6 +193,10 @@ main > table {
 /* PARK INFOBOX (specifically) */
 #parkInfo {
 	margin-left: 4rem;
+}
+
+#parkName {
+	margin-bottom: 2rem;
 }
 
 #parkName,
@@ -305,10 +309,18 @@ main > table {
 	margin-right: 1rem;
 }
 
+#bg-photo-credit span {
+	display: inline-block;
+	width: 100%;
+	text-align: right;
+	margin: 0;
+	padding: 0;
+}
+
 .site-footer {
 	color: white;
 	background-color: var(--darkblue);
-	padding: 3rem 1rem 4rem;
+	padding: 3rem 1rem;
 	text-align: center;
 }
 
