@@ -1,40 +1,40 @@
-body { position: relative; }
-
-strong { color: inherit; }
-
 canvas {
   display: block;
-  margin: 2rem auto 0;
+  margin: 0 auto;
   text-align: center;
   position: relative;
 }
 
-#legend {
-  margin-top: 4rem;
+#canvaswrapper {
+	position: relative;
 }
 
 #starChartContainer {
 	text-align: center;
 }
 
-#starChartContainer table {
-	text-align: left;
-	margin: 0 auto;
+#starchart-table {
+	border-radius: 4px;
+	overflow: hidden;
 }
 
-table.table {
-	background: transparent;
-	color: inherit;
+/*#starchart-table tr:first-child {
+	border-radius: 4px 4px 0 0;
 }
 
-#rstPlanets th,
-#rstPlanets td,
-#rstStars th,
-#rstStars td,
-#starChartContainer table td {
-	padding: 0.25rem;
+#starchart-table tr:last-child {
+	border-radius: 0 0 4px 4px;
+}*/
+
+#legend {
+  margin-top: 2rem;
+  background-color: black;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 4px solid var(--darkblue);
 }
 
+/* (buttons container) toggle planets, equator, ecliptic, milky way, constellation lines, constellation labels */
 #starchartOptions {
 	width: auto;
 	display: block;
@@ -42,22 +42,22 @@ table.table {
 	text-align: center;
 }
 
-.note {
-	font-size: 0.8rem;
-	color: #777;
-	font-style: italic;
-}
-
-.canvaswrapper {
-	position: relative;
-}
-
+/* tip/popup for star info */
 .tip {
-    position:absolute;
-    background-color:black;
-    display:none;
-    padding: 0.5rem;
-    border: 2px solid yellow;
+  position:absolute;
+  background-color:black;
+  display:none;
+  padding: 0.5rem;
+  border: 2px solid yellow;
+}
+
+.tip table tbody {
+	background-color: black;
+	border: 0;
+}
+
+.tip tbody tr:nth-child(even) {
+	background: transparent;
 }
 
 .tip table, .tip th, .tip td {
@@ -65,50 +65,24 @@ table.table {
     margin:0px;
     padding:2px;
     color: white;
+    background: transparent;
 }
 
 .close {
     position:absolute;
-    top:1px;
-    right:1px;
-    border: 1px solid black;
+    top: -4px;
+    right: 8px;
+    /*border: 1px solid black;*/
+    font-size: 2rem;
     cursor: pointer;
+    color: white;
 }
 
-#searchParks {
-	display: inline-block;
-	margin: 0 auto;
-}
-
-#parkAlerts,
-#neoAlerts {
-	position: relative;
-	display: inline-block;
-	font-size: 1.5rem;
-	margin: 0 1rem;
-	padding-top: 0.5rem;
-	vertical-align: middle;
-}
-
-#parkAlerts span,
-#neoAlerts span {
-	position: absolute;
-	top: 12px;
-	padding: 0 0.4rem;
-	border-radius: 0.2rem;
-	font-size: 0.8rem;
-}
-
-#parkAlerts span {
-	right: -12px;
-}
-
-#neoAlerts span {
-	right: -25px;
-}
-
-@media screen and (min-width: 769px) {
-	.modal-content {
-		min-width: 50%;
-	}
+/* star/astronomy infobox */
+#rstPlanets th,
+#rstPlanets td,
+#rstStars th,
+#rstStars td,
+#starChartContainer table td {
+	padding: 0.25rem;
 }

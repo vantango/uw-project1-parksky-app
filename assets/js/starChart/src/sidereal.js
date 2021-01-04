@@ -581,7 +581,8 @@ function starChart(drawOptions = null) {
 		displayPopup(event, 1);
 	});
 
-  var d1String = date1.dateString + "&nbsp;&nbsp;" + date1.timeString + "  GMT" + tz1.tzString;
+	var d1String = dayjs($("#visitDate").val()).format("YYYY-MM-DD 21:00");
+  // var d1String = date1.dateString+ "&nbsp;&nbsp;" + date1.timeString + "  GMT" + tz1.tzString;
   //var d2String = date2.dateString+"&nbsp;&nbsp;"+date2.timeString+" GMT"+tz2.tzString;
 
   // Output location 1 information
@@ -1694,8 +1695,8 @@ function displayPopup(e, loc) {
       displayPopupPlanet(tip, para);
     }
 
-    $(tipId).css("left", (tip.x - 87) + "px");
-    $(tipId).css("top", (tip.y + 27) + "px");
+    $(tipId).css("left", (tip.x - 160) + "px");
+    $(tipId).css("top", (tip.y + 7) + "px");
     $(tipId).show();
   }
 }
