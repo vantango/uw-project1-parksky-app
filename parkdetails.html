@@ -107,7 +107,7 @@
 		<div id="neoAlerts" data-open="neoAlertsModal"><i class="fas fa-meteor"></i><span>0</span></div>
 	</div>
 	<div class="grid-x align-center">
-		<aside id="infobox" class="cell small-12 medium-4">
+		<aside id="infobox" class="cell medium-4">
 			<h2 id="parkName">Park Name</h2>
 			<ul class="accordion" data-responsive-accordion-tabs="accordion large-tabs">
 				<li class="accordion-item is-active" data-accordion-item>
@@ -148,37 +148,10 @@
 				</li>
 			</ul>
 		</aside>
-		<main class="cell small-12 medium-auto">
-			<table class="has-text-white">
-				<tr>
-					<td colspan="2" id="place1" class="has-text-centered is-size-4" style="display: none;"></td>
-				</tr>
-				<tr>
-					<td><strong>Latitude:</strong></td>
-					<td id="lat1"></td>
-					<td><strong>Longitude:</strong></td>
-					<td id="long1"></td>
-				</tr>
-				<tr>
-					<td><strong>Time:</strong></td>
-					<td id="time1"></td>
-					<td><strong>Sidereal Time:</strong></td>
-					<td id="siderealTime1"></td>
-				</tr>
-			</table>
-			<div id="canvaswrapper">
-				<canvas id="loc1" width="800" height="800">
-					CANVAS NOT SUPPORTED IN THIS BROWSER!
-				</canvas>
-				<div id="tip1" class="tip">
-					<div class="close" onclick="closePopup('tip1')">&#10005;</div>
-					<div id="tip1text"></div>
-				</div>
-			</div>
-			<p class="note">Click a star in the chart above to view details.</p>
-			<canvas id="legend" width="500" height="110">
-				CANVAS NOT SUPPORTED IN THIS BROWSER!
-			</canvas>
+		<main id="galleryContainer" class="cell medium-7" style="background: #FFF; padding: 1rem;">
+			<div id="description"></div>
+			<div class="fotorama" data-auto="false"></div>
+			<div id="extract"></div>
 		</main>
 	</div>
 
@@ -215,16 +188,13 @@
 	<!-- dayjs -->
 	<script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
 
-	<!-- starChart -->
-	<script src="assets/js/starChart/core_min.js"></script>
-	<script src="assets/js/starChart/sseph_min.js"></script>
-	<script src="assets/js/starChart/src/brightStars.js"></script>
-	<script src="assets/js/starChart/src/riseSetTimes.js"></script>
-	<script src="assets/js/starChart/src/sidereal.js"></script>
-
 	<!-- Team Scripts	-->
 	<script src="assets/js/functions.js"></script>
 	<script src="assets/js/script.js"></script>
+
+	<!-- Fotorama from CDNJS, 19 KB -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
 </body>
 
 </html>

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 nav ul a,
 nav .brand-logo {
   color: #444;
@@ -9,16 +10,69 @@ body {
 
 .site-header {
 	background-color: #333;
+=======
+:root{
+	--grey: #777;
+	--darkgrey: #333;
+}
+
+body {
+	background-color: var(--grey);
+}
+
+.site-header {
+	background-color: var(--darkgrey);
+>>>>>>> development
 }
 
 .site-footer {
 	color: white;
+<<<<<<< HEAD
 	background-color: #333;
+=======
+	background-color: var(--darkgrey);
+>>>>>>> development
 	padding: 3rem 1rem 4rem;
 	text-align: center;
 	margin-top: 3rem;
 }
 
+<<<<<<< HEAD
+=======
+.menu a {
+	color: white;
+}
+
+.menu a:hover {
+	color: #3ADB76;
+}
+
+.menu a.is-active {
+	color: #FFAE00;
+}
+
+.accordion, .cell {
+	border-radius: 4px;
+}
+
+.accordion-title, :last-child:not(.is-active)>.accordion-title {
+	border: 0;
+	border-radius: 4px;
+}
+
+.tabs {
+	border-radius: 4px 4px 0 0;
+}
+
+.tabs-content {
+	border-radius: 0 0 4px 4px;
+}
+
+.button.is-light {
+	background-color: #60B3EA;
+}
+
+>>>>>>> development
 .fotorama {
 	margin: 2rem 0;
 }
@@ -32,6 +86,10 @@ body {
 	text-align: center;
 	margin-bottom: 2rem;
 	padding: 1rem 0;
+<<<<<<< HEAD
+=======
+	color: white;
+>>>>>>> development
 }
 
 #searchParks .field.is-grouped {
@@ -130,6 +188,7 @@ nav ul a, nav .brand-logo {
 	padding-top: 0;
 }
 
+<<<<<<< HEAD
 #tabContentContainers tr:nth-child(1n+2) {
 	border-top: 2px solid gainsboro;
 }
@@ -138,6 +197,41 @@ nav ul a, nav .brand-logo {
 	display: block;
 	margin: 1rem;
 	padding: 1rem;
+=======
+#infobox {
+  background-color: transparent;
+  color: white;
+  margin: 30px 25px 25px;
+  box-shadow: none;
+}
+
+#infobox .tab.is-active {
+	background-color: orange;
+}
+
+#infobox .tabs a {
+	border-bottom: 0;
+}
+
+#tabContentContainers {
+	border: 1px solid gainsboro;
+	padding-top: 0;
+}
+
+#tabContentContainers tr:nth-child(1n+2) {
+	border-top: 2px solid gainsboro;
+}
+
+.activity-box {
+	display: block;
+	margin: 1rem;
+	padding: 1rem;
+}
+
+.activity-box h1 {
+	font-weight: bold; 
+	font-size: larger;
+>>>>>>> development
 }
 
 .activity-box h1 {
@@ -168,10 +262,13 @@ textarea.materialize-textarea {
   background-color: #3E3E3F;
 }
 
+<<<<<<< HEAD
 .page-footer{
   background-color: #4e4e4e;
 }
 =======
+=======
+>>>>>>> development
 .note {
 	text-align: center;
 }

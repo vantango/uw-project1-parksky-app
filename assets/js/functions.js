@@ -1,5 +1,9 @@
 parkAPIKey = "0tCiHZSCrzRaYEYoMSn3NMBWl6rcnX3Z2HDqaeMg";
+<<<<<<< HEAD
 defaultOptions = {showPlanets: true, showEquator: false, showEcliptic: false, showMilkyWay: false, showConLines: false, showConLab: false, showDayNight: false};
+=======
+defaultOptions = { showPlanets: true, showEquator: false, showEcliptic: false, showMilkyWay: false, showConLines: false, showConLab: false, showDayNight: false };
+>>>>>>> development
 
 function displayData(parkCode, date, displayStarChart = false, displayStarDetails = false, displayParkInfo = true, displayParkDetails = false) {
 
@@ -10,11 +14,11 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
     var data = res.data[0];
 
     var saveData = {
-    	parkCode: data.parkCode,
-    	fullName: data.fullName, 
-    	latitude: data.latitude,
-    	longitude: data.longitude,
-    	date: $("#visitDate").val()
+      parkCode: data.parkCode,
+      fullName: data.fullName,
+      latitude: data.latitude,
+      longitude: data.longitude,
+      date: $("#visitDate").val()
     };
     // save to local data immediately so other functions
     // can use the (correct) data by pulling from local storage
@@ -23,12 +27,12 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
     // park alerts from NPS
     getAlerts(parkCode);
 
-		if(displayStarChart) {
-    	getStarChart('default');
+    if (displayStarChart) {
+      getStarChart('default');
     }
 
     if (displayStarDetails) {
-    	getStarChart('details');
+      getStarChart('details');
       // display additional details about the sky chart/stars visible/etc.
       // for the starchart page.
       updateRiseSetData();
@@ -265,6 +269,7 @@ function getAlerts(parkCode) {
 
     // IF we get at least one (1) alert
     if (res.data.length > 0) {
+<<<<<<< HEAD
     	$("#parkAlerts span").text(res.data.length).css({"background-color": "crimson"});
     	// sort alerts: Park Closure > Caution > Info
     	res.data.sort(compareAlertTypes);
@@ -292,10 +297,40 @@ function getAlerts(parkCode) {
         $(".alert-modal .modal-content").append(message);
       }
 
+=======
+      $("#parkAlerts span").text(res.data.length).css({ "background-color": "crimson" });
+      // sort alerts: Park Closure > Caution > Info
+      res.data.sort(compareAlertTypes);
+
+      for (var i in res.data) {
+        var alert = res.data[i];
+        var message = $("<article>", { class: "message" });
+        var messageHeader = $("<div>", { class: "message-header" });
+        var messageBody = $("<div>", { class: "message-body" });
+        messageHeader.text(alert.title);
+        messageBody.text(alert.description);
+        message.append(messageHeader, messageBody);
+
+        // applies color to alert depending on type
+        if (alert.type === "Park Closure") {
+          message.addClass("is-danger");
+          messageHeader.prepend("<i class='fas fa-do-not-enter'></i>");
+        } else if (alert.type === "Caution") {
+          message.addClass("is-warning");
+          messageHeader.prepend("<i class='fas fa-hand-paper'></i>");
+        } else {
+          message.addClass("is-info");
+          messageHeader.prepend("<i class='fas fa-info-circle'></i>");
+        }
+        $(".alert-modal .modal-content").append(message);
+      }
+
+>>>>>>> development
       // adds click functionality to modal
       $(".fa-exclamation-triangle").click(function () {
         $(".alert-modal").addClass("is-active");
       });
+<<<<<<< HEAD
 
       $(".modal-close, .modal-background").click(function () {
         $(".modal").removeClass("is-active");
@@ -341,6 +376,53 @@ function getThingsToDo(parkCode, fullName) {
     	row.html(td);
 
     	$("#thingsToDo").html(row);
+=======
+
+      $(".modal-close, .modal-background").click(function () {
+        $(".modal").removeClass("is-active");
+      });
+    } else {
+      $("#parkAlerts span").text(0).css({ "background-color": "grey" });
+    }
+  });
+
+  // spinner!
+  $("#parkAlerts span").html("<i class='fal fa-spinner fa-spin' style='color: white'></i>");
+}
+
+function getThingsToDo(parkCode, fullName) {
+  $.ajax({
+    url: `https://developer.nps.gov/api/v1/thingstodo?api_key=${parkAPIKey}&q=stargazing&parkCode=${parkCode}`,
+    method: "GET"
+  }).then(function (res) {
+    // console.log(res);
+
+    if (res.data.length > 0) {
+      $("#thingsToDo").empty();
+      var data = res.data;
+
+      for (var i in data) {
+        var activity = data[i];
+        var activityBlock = $("<a>", { class: "box activity-box", "href": activity.url });
+        activityBlock.attr("target", "_blank");
+        if (activity.images.length > 0) {
+          activityBlock.css({ "background-image": `linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url(${activity.images[0].url})`, "background-color": "#333", "background-position": "center", "background-size": "cover", "color": "white" });
+        }
+
+        activityBlock.append(`<h1>${activity.title}</h1>`);
+        activityBlock.append(`<p class='has-text-left'>${activity.shortDescription}</p>`);
+
+        $("#thingsToDo").append(activityBlock);
+      }
+
+    } else {
+      var row = $("<tr>");
+      var td = $("<td colspan='2'>");
+      td.text("The National Parks Service hasn't provided a list of stargazing activities for " + fullName);
+      row.html(td);
+
+      $("#thingsToDo").html(row);
+>>>>>>> development
     }
   });
 }
@@ -378,9 +460,15 @@ function getWikipediaExtract(title, desc) {
 }
 
 function getNEOs() {
+<<<<<<< HEAD
 	// NEO API limits results to 7 days
 	var startDate = dayjs($("#visitDate").val()).subtract(3, 'days').format("YYYY-MM-DD");
 	var endDate = dayjs($("#visitDate").val()).add(3, 'days').format("YYYY-MM-DD");
+=======
+  // NEO API limits results to 7 days
+  var startDate = dayjs($("#visitDate").val()).subtract(3, 'days').format("YYYY-MM-DD");
+  var endDate = dayjs($("#visitDate").val()).add(3, 'days').format("YYYY-MM-DD");
+>>>>>>> development
 
   $.ajax({
     url: `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=N01Hr2ayL4UxV02RoD6VdGP5LdG57n6nRc9hZwfk`,
@@ -388,6 +476,7 @@ function getNEOs() {
   }).then(function (res) {
     // console.log(res);
 
+<<<<<<< HEAD
     if(res.element_count > 0) {
     	var neos = res.near_earth_objects;
 
@@ -424,6 +513,44 @@ function getNEOs() {
 
     		$(".neo-modal .modal-content").append(message);
     	}
+=======
+    if (res.element_count > 0) {
+      var neos = res.near_earth_objects;
+
+      $(".neo-modal .modal-content").empty();
+
+      for (var date in neos) {
+        var message = $("<article>", { class: "message" });
+        message.addClass("is-success mx-5");
+        var messageHeader = $("<div>", { class: "message-header" });
+        var messageBody = $("<div>", { class: "message-body" });
+
+        messageHeader.text(`${date}`);
+
+        for (var i in neos[date]) {
+          var alert = neos[date][i];
+          var link = `<a href="${alert.nasa_jpl_url};orb=1;cov=0;log=0;cad=0#orb" target="_blank">${alert.name}</a>`;
+          // console.log(link);
+
+          var time = dayjs(alert.close_approach_data[0].close_approach_date.close_approach_date_full).format("HH:mm");
+          var estDiameter = (alert.estimated_diameter.meters.estimated_diameter_min + alert.estimated_diameter.meters.estimated_diameter_max) / 2;
+          var messageText = $("<p>", { class: 'neo-message' });
+          messageText.html(`<strong>${link}</strong> @ ${time} | <strong>Magnitude:</strong> ${alert.absolute_magnitude_h} | <strong>Est. Diameter (meters):</strong> ${estDiameter}`);
+
+          if (alert.is_potentially_hazardous_asteroid) {
+            messageText.prepend("<i class='fas fa-siren-on has-text-danger'></i>");
+          } else {
+            messageText.prepend("<i class='fas fa-siren has-text-info'></i>");
+          }
+
+          messageBody.append(messageText);
+        }
+
+        message.append(messageHeader, messageBody);
+
+        $(".neo-modal .modal-content").append(message);
+      }
+>>>>>>> development
 
       // adds click functionality to modal
       $(".fa-meteor").click(function () {
@@ -435,15 +562,23 @@ function getNEOs() {
       });
     }
 
+<<<<<<< HEAD
     $("#neoAlerts span").text(res.element_count).css({"background-color": "grey"});
     
     if(res.element_count > 0) {
     	$("#neoAlerts span").css({"background-color": "crimson"});
+=======
+    $("#neoAlerts span").text(res.element_count).css({ "background-color": "grey" });
+
+    if (res.element_count > 0) {
+      $("#neoAlerts span").css({ "background-color": "crimson" });
+>>>>>>> development
     }
   });
 
   // spinner!
   $("#neoAlerts span").html("<i class='fal fa-spinner fa-spin' style='color: white'></i>");
+<<<<<<< HEAD
 }
 
 function getStarChart(options = 'default') {
@@ -513,41 +648,112 @@ function updateRiseSetData() {
 	};
 	// show Rise/Set info
 	riseSetChartPage(tableData);
+=======
+>>>>>>> development
+}
+
+function getStarChart(options = 'default') {
+  var data = JSON.parse(localStorage.getItem('parksky-park-data'));
+  // if we need DEFAULT options, then nothing is shown
+  var options = options === 'default' ? defaultOptions : JSON.parse(localStorage.getItem('parksky-chart-options'));
+  var date = dayjs(data.date);
+
+  var startHere = {
+    place1in: { value: data.fullName },
+    lat1in: { value: data.latitude },
+    long1in: { value: data.longitude },
+    year1in: { value: date.year() },
+    month1in: { value: date.month() + 1 }, // expects 1-12
+    day1in: { value: date.date() }, // .day() == M/T/W/etc.
+    hour1in: { value: 21 }, // dayjs().hour()
+    minute1in: { value: 0 }, // dayjs().minute()
+    second1in: { value: 0 }, // dayjs().second()
+    tz1in: { value: parseInt(date.format("Z")) },
+    drawOptions: options
+  }
+
+  changeLocationsAndTimes(startHere);
+}
+
+function getStarChartOptions() {
+  // get the saved data
+  var parkData = JSON.parse(localStorage.getItem('parksky-park-data'));
+  var savedOptions = JSON.parse(localStorage.getItem('parksky-chart-options'));
+
+  // parse the date into the correct format
+  var date = dayjs(parkData.date);
+
+  // loop through all the buttons
+  $("#starchartOptions .button").each(function (i, b) {
+    // if the button does NOT have the class 'is-light'
+    // then it's ACTIVE and the corresponding drawOption should be TRUE
+    if (!$(this).hasClass('is-light')) {
+      savedOptions[$(this).attr("id")] = true;
+    }
+    // otherwise (if the button 'is-light' / is INactive)
+    // then the drawOption should be FALSE
+    else {
+      savedOptions[$(this).attr("id")] = false;
+    }
+  });
+  saveToLocalStorage(savedOptions, 'options');
+
+  return savedOptions;
+}
+
+function updateRiseSetData() {
+  var savedData = JSON.parse(localStorage.getItem('parksky-park-data'));
+  var date = dayjs(savedData.date);
+
+  var tableData = {
+    fullName: savedData.fullName,
+    latitude: savedData.latitude,
+    longitude: savedData.longitude,
+    date: date,
+    yyyy: date.year(),
+    mm: date.month() + 1,
+    dd: date.date(),
+    dateString: dayjs(savedData.date).format("YYYY-MM-DD"),
+    tzString: date.format("Z"),
+    tz: parseInt(date.format("Z")),
+  };
+  // show Rise/Set info
+  riseSetChartPage(tableData);
 }
 
 function saveToLocalStorage(data = null, target = 'park') {
-	var localData;
+  var localData;
 
-  if(target.includes("park")) {
-  	localData = JSON.parse(localStorage.getItem('parksky-park-data'));
+  if (target.includes("park")) {
+    localData = JSON.parse(localStorage.getItem('parksky-park-data'));
 
-	  if ((data === null || data.length === 0) || localData === null || localData[0] === "abli") {
-	    data = {
-  	    parkCode: "acad", 
-  	    fullName: "Acadia National Park", 
-  	    latitude: "44.409286",
-  	    longitude: "-68.247501",
-  	    date: dayjs().format("YYYY-MM-DD")
-  	  };
+    if ((data === null || data.length === 0) || localData === null || localData[0] === "abli") {
+      data = {
+        parkCode: "acad",
+        fullName: "Acadia National Park",
+        latitude: "44.409286",
+        longitude: "-68.247501",
+        date: dayjs().format("YYYY-MM-DD")
+      };
 
-	  } else if (localData !== null && (data === null || data.length === 0)) {
-	    data = localData;
-	  }
+    } else if (localData !== null && (data === null || data.length === 0)) {
+      data = localData;
+    }
 
-	  localStorage.setItem('parksky-park-data', JSON.stringify(data));
+    localStorage.setItem('parksky-park-data', JSON.stringify(data));
 
   } else {
-  	localData = JSON.parse(localStorage.getItem('parksky-chart-options'));
-  	// console.log(localData);
+    localData = JSON.parse(localStorage.getItem('parksky-chart-options'));
+    // console.log(localData);
 
-  	if((data === null || data.length === 0) && localData === null) {
-  		data = defaultOptions;
+    if ((data === null || data.length === 0) && localData === null) {
+      data = defaultOptions;
 
-  	} else if(localData !== null && (data === null || data.length === 0)) {
-  		data = localData;
-  	}
+    } else if (localData !== null && (data === null || data.length === 0)) {
+      data = localData;
+    }
 
-  	localStorage.setItem('parksky-chart-options', JSON.stringify(data));
+    localStorage.setItem('parksky-chart-options', JSON.stringify(data));
   }
 }
 
@@ -566,43 +772,43 @@ function formatPhoneNumber(phoneNumberString) {
 }
 
 function compareAlertTypes(a, b) {
-	if(
-		(a.type === "Park Closure" && b.type !== "Park Closure") ||
-		(a.type === "Caution" && b.type !== "Park Closure" && b.type !== "Caution")
-		) {
-		return -1;
+  if (
+    (a.type === "Park Closure" && b.type !== "Park Closure") ||
+    (a.type === "Caution" && b.type !== "Park Closure" && b.type !== "Caution")
+  ) {
+    return -1;
 
-	} else if(a.type === b.type) {
-		// checks a.title for a number - if there is one,
-		// create a variable to hold the number *as an integer*
-		// then create  a variable that holds either the number in b.title
-		// (if there is one) or just 0
-		// then return the results of a - b for sorting
-		if(/\d+/.test(a.title) || /\d+/.test(b.title)) {
-			var aNum = /\d+/.test(a.title) ? parseInt(a.title.match(/\d+/)) : 0;
-			var bNum = /\d+/.test(b.title) ? parseInt(b.title.match(/\d+/)) : 0;
+  } else if (a.type === b.type) {
+    // checks a.title for a number - if there is one,
+    // create a variable to hold the number *as an integer*
+    // then create  a variable that holds either the number in b.title
+    // (if there is one) or just 0
+    // then return the results of a - b for sorting
+    if (/\d+/.test(a.title) || /\d+/.test(b.title)) {
+      var aNum = /\d+/.test(a.title) ? parseInt(a.title.match(/\d+/)) : 0;
+      var bNum = /\d+/.test(b.title) ? parseInt(b.title.match(/\d+/)) : 0;
 
-			return aNum - bNum;
+      return aNum - bNum;
 
-		} else {
-			return 0;
-		}
+    } else {
+      return 0;
+    }
 
-	} else {
-		return 1;
+  } else {
+    return 1;
 
-	}
+  }
 }
 
 function openTab(evt, tabName) {
   var i, x, tablinks;
   x = document.getElementsByClassName("content-tab");
   for (i = 0; i < x.length; i++) {
-      x[i].style.display = "none";
+    x[i].style.display = "none";
   }
   tablinks = document.getElementsByClassName("tab");
   for (i = 0; i < x.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" is-active", "");
+    tablinks[i].className = tablinks[i].className.replace(" is-active", "");
   }
   document.getElementById(tabName).style.display = "block";
   evt.currentTarget.className += " is-active";

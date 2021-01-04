@@ -3,6 +3,7 @@
 	text-align: center;
 	justify-content: center;
 }
+<<<<<<< HEAD
 
 #searchParks .field > div {
 	display: inline-block;
@@ -16,6 +17,17 @@ main.columns:not(:last-child) {
 	margin-left: 4rem;
 }
 
+=======
+#searchParks .field > div {
+	display: inline-block;
+}
+main.columns:not(:last-child) {
+	margin-bottom: 0;
+}
+#parkInfo {
+	margin-left: 4rem;
+}
+>>>>>>> development
 #parkName,
 #parkInfo tbody tr > th {
 	color: white;
@@ -26,6 +38,7 @@ main.columns:not(:last-child) {
 	background-color: #3E3E3F;
 	color: white;
 }
+<<<<<<< HEAD
 
 .table.has-background-dark.is-striped tr:nth-child(2) {
 	background-color: #4e4e4e;
@@ -35,6 +48,14 @@ main.columns:not(:last-child) {
 	padding: 0;
 }
 
+=======
+.table.has-background-dark.is-striped tr:nth-child(2) {
+	background-color: #4e4e4e;
+}
+.table tbody td {
+	padding: 0;
+}
+>>>>>>> development
 #entranceFees tr td,
 #entrancePasses tr td,
 #operatingHours tr td,
@@ -42,16 +63,28 @@ main.columns:not(:last-child) {
 	border: 0;
 	padding: 0.30rem 1rem;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> development
 #entranceFees tr:nth-child(2n+1),
 #entrancePasses tr:nth-child(1n+2),
 #operatingHours tr:nth-child(1n+2) {
 	border-top: 2px solid white;
 	width: 100%;
+<<<<<<< HEAD
 
 }
 
 #entranceFees tr:nth-child(2n+1) td,
+=======
+}
+
+#entranceFees tr:nth-child(2n+1) td,
+#entrancePasses tr:nth-child(1n+2) td,
+#operatingHours tr:nth-child(1n+2) td {
+	background-color:#787472;
+>>>>>>> development
 #entrancePasses tr:nth-child(2n+1) td,{
     background-color:#787472;
 }
@@ -61,7 +94,10 @@ input[type="date"] {
 	height: 100%;
 	font-size: 1rem;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> development
 .level{
 	padding: 10px;
 }
@@ -78,6 +114,12 @@ align-items: center;
 
 }
 
+<<<<<<< HEAD
+=======
+.starcolumn{
+	display: flex;
+	justify-content:center;
+>>>>>>> development
 .title{
 	font-size: 23px;
 }
@@ -85,15 +127,31 @@ align-items: center;
 	font-size: 15px;
 }
 
+<<<<<<< HEAD
+=======
+	}
+>>>>>>> development
 .table th {
 	color: white;
 	text-align:justify;
 }
 
+<<<<<<< HEAD
+=======
+.canvaswrapper{
+	padding: 25px 50px 25px 150px;
+>>>>>>> development
 .note{
 	text-align: center;
 }
 
+<<<<<<< HEAD
 h1, h2, h3, h4, h5, h6, p, #description{
 	text-align: center;
 }
+=======
+} 
+h1, h2, h3, h4, h5, h6, p, #description{
+	text-align: center;
+}
+>>>>>>> development
