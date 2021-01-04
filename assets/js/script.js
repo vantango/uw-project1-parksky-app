@@ -73,8 +73,18 @@ $("document").ready(function () {
 				longitude: prevParkData.longitude
 			}
 			// get the star chart!
-			getStarChart(chartData, dayjs(date));
-			updateRiseSetData();
+			// if we're on the starchart page, we need to check the drawing options
+			// AND update the rise/set/other astronomy info
+			if(currentPage.includes("starchart")) {
+				getStarChart('details');
+				updateRiseSetData();
+
+			}
+			// otherwise, we're on the index page and just need the 'default' options for the star chart!
+			else {
+				getStarChart('default');
+
+			}
 
 		} else {
 			displayData(parkCode, date, false, false, true, false);
