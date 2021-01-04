@@ -4,7 +4,7 @@ strong { color: inherit; }
 
 canvas {
   display: block;
-  margin: 0 auto;
+  margin: 2rem auto 0;
   text-align: center;
   position: relative;
 }
@@ -15,7 +15,6 @@ canvas {
 
 #starChartContainer {
 	text-align: center;
-	width: 800px;
 }
 
 #starChartContainer table {
@@ -44,7 +43,7 @@ table.table {
 
 .note {
 	font-size: 0.8rem;
-	color: gainsboro;
+	color: #777;
 	font-style: italic;
 }
 
@@ -73,27 +72,6 @@ table.table {
     right:1px;
     border: 1px solid black;
     cursor: pointer;
-}
-
-.level-item.is-active {
-	background-color: #757f49;
-}
-
-#logo:hover { background-color: transparent; }
-
-.level-item:hover {
-	color: black;
-	background-color: #8f9467;
-}
-
-.level-item:hover a {
-	color: black !important;
-	background-color: transparent;
-}
-
-.hero-body {
- text-align: center;
- padding: 0.2rem;
 }
 
 #searchParks {
