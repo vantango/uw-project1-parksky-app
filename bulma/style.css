@@ -1,0 +1,99 @@
+#searchParks .field.is-grouped {
+	margin: 0 auto;
+	text-align: center;
+	justify-content: center;
+}
+
+#searchParks .field > div {
+	display: inline-block;
+}
+
+main.columns:not(:last-child) {
+	margin-bottom: 0;
+}
+
+#parkInfo {
+	margin-left: 4rem;
+}
+
+#parkName,
+#parkInfo tbody tr > th {
+	color: white;
+	text-align: center;
+}
+.hero-body,
+.columns{
+	background-color: #3E3E3F;
+	color: white;
+}
+
+.table.has-background-dark.is-striped tr:nth-child(2) {
+	background-color: #4e4e4e;
+}
+
+.table tbody td {
+	padding: 0;
+}
+
+#entranceFees tr td,
+#entrancePasses tr td,
+#operatingHours tr td,
+#weather {
+	border: 0;
+	padding: 0.30rem 1rem;
+}
+
+#entranceFees tr:nth-child(2n+1),
+#entrancePasses tr:nth-child(1n+2),
+#operatingHours tr:nth-child(1n+2) {
+	border-top: 2px solid white;
+	width: 100%;
+
+}
+
+#entranceFees tr:nth-child(2n+1) td,
+#entrancePasses tr:nth-child(2n+1) td,{
+    background-color:#787472;
+}
+
+input[type="date"] {
+	flex: 1;
+	height: 100%;
+	font-size: 1rem;
+}
+
+.level{
+	padding: 10px;
+}
+.canvaswrapper
+.starchart-data{
+align-items: center;
+}
+
+.box{
+    background-color: transparent;
+    color: white;
+    border: solid white 1px;
+    padding: 30px 25px 25px 0px;
+
+}
+
+.title{
+	font-size: 23px;
+}
+.tabs{
+	font-size: 15px;
+}
+
+.table th {
+	color: white;
+	text-align:justify;
+}
+
+.note{
+	text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6, p, #description{
+	text-align: center;
+}

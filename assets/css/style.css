@@ -1,99 +1,98 @@
-#searchParks .field.is-grouped {
-	margin: 0 auto;
-	text-align: center;
-	justify-content: center;
+nav ul a,
+nav .brand-logo {
+  color: #444;
 }
 
-#searchParks .field > div {
-	display: inline-block;
+p {
+  line-height: 2rem;
 }
 
-main.columns:not(:last-child) {
-	margin-bottom: 0;
+.sidenav-trigger {
+  color: #3E3E3F;
 }
 
-#parkInfo {
-	margin-left: 4rem;
+.parallax-container {
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+}
+  .parallax-container .section {
+    width: 100%;
+  }
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 10%;
+  }
 }
 
-#parkName,
-#parkInfo tbody tr > th {
-	color: white;
-	text-align: center;
-}
-.hero-body,
-.columns{
-	background-color: #3E3E3F;
-	color: white;
+@media only screen and (max-width : 600px) {
+  #index-banner .section {
+    top: 0;
+  }
 }
 
-.table.has-background-dark.is-striped tr:nth-child(2) {
-	background-color: #4e4e4e;
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
 }
 
-.table tbody td {
-	padding: 0;
+footer.page-footer {
+  margin: 0;
 }
 
-#entranceFees tr td,
-#entrancePasses tr td,
-#operatingHours tr td,
-#weather {
-	border: 0;
-	padding: 0.30rem 1rem;
+
+
+.row1{
+  color: white;
+margin: 70px 10px 20px 30px;
+padding: 0px;
 }
 
-#entranceFees tr:nth-child(2n+1),
-#entrancePasses tr:nth-child(1n+2),
-#operatingHours tr:nth-child(1n+2) {
-	border-top: 2px solid white;
-	width: 100%;
 
+.row{
+  background-color: pink
 }
 
-#entranceFees tr:nth-child(2n+1) td,
-#entrancePasses tr:nth-child(2n+1) td,{
-    background-color:#787472;
+.logo {
+    height: 150px;
+    background-color: white;
+    box-shadow: none;
 }
 
-input[type="date"] {
-	flex: 1;
-	height: 100%;
-	font-size: 1rem;
+
+nav ul a, nav .brand-logo {
+  color: black;
 }
 
-.level{
-	padding: 10px;
-}
-.canvaswrapper
-.starchart-data{
-align-items: center;
+
+.select-wrapper input.select-dropdown, input:not([type]),
+input[type=text]:not(.browser-default),
+input[type=password]:not(.browser-default),
+input[type=email]:not(.browser-default),
+input[type=url]:not(.browser-default),
+input[type=time]:not(.browser-default),
+input[type=date]:not(.browser-default),
+input[type=datetime]:not(.browser-default),
+input[type=datetime-local]:not(.browser-default),
+input[type=tel]:not(.browser-default),
+input[type=number]:not(.browser-default),
+input[type=search]:not(.browser-default),
+textarea.materialize-textarea {
+  background-color: white;
 }
 
-.box{
-    background-color: transparent;
-    color: white;
-    border: solid white 1px;
-    padding: 30px 25px 25px 0px;
-
+.page-footer .footer-copyright {
+  background-color: #3E3E3F;
 }
 
-.title{
-	font-size: 23px;
-}
-.tabs{
-	font-size: 15px;
-}
-
-.table th {
-	color: white;
-	text-align:justify;
-}
-
-.note{
-	text-align: center;
-}
-
-h1, h2, h3, h4, h5, h6, p, #description{
-	text-align: center;
+.page-footer{
+  background-color: #4e4e4e;
 }
