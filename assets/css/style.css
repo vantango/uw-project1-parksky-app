@@ -40,7 +40,7 @@ h1, h2, h3, h4, h5, h6 {
 .has-text-white { color: white !important; }
 .has-text-black { color: black !important; }
 .has-text-danger { color: var(--danger); }
-.is-danger { background-color: var(--danger); }
+.is-danger { background-color: var(--danger); color: white; }
 .has-text-success { color: var(--success); }
 .is-success { background-color: var(--success); }
 .has-text-info { color: var(--info); }
