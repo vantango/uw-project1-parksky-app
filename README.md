@@ -33,6 +33,7 @@ We were tasked with building an interactive app with a CSS framework other than 
 - Utilized a multitude of NPS API endpoints to retrieve various data endpoints
 
 ### Future Development
+* Star chart scaling/handling for mobile screens
 * Update font options
 * Regionally-based dropdown menu for parks
 * Interactive map on homepage to search by region or individual park
