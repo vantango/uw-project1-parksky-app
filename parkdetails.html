@@ -16,11 +16,17 @@
 </head>
 
 <body>
-	<header class="site-header">
+	<div class="title-bar" data-responsive-toggle="site-nav" data-hide-for="large">
+		<div class="title-bar-title align-middle align-center">
+			<a href="index.html"><img src="assets/img/logot_invert.png" alt="ParkSky Logo" width="300"></a>
+			<button class="menu-icon" type="button" data-toggle="site-nav"></button>
+		</div>
+	</div>
+	<header class="site-header top-bar" id="site-nav">
 		<ul class="vertical medium-horizontal menu align-center align-middle">
 			<li><a href="index.html"><span>Home</span></a></li>
 			<li><a href="parkdetails.html"><span>Park Details</span></a></li>
-			<li><a href="index.html"><img src="assets/img/logot_invert.png" alt="ParkSky Logo" width="300"></a></li>
+			<li class="show-for-large"><a href="index.html"><img src="assets/img/logot_invert.png" alt="ParkSky Logo" width="300"></a></li>
 			<li><a href="starchart.html"><span>Star Chart</span></a></li>
 			<li><a href="https://github.com/vantango/uw-project1-parksky-app" target="_blank"><span>Github</span></a>
 			</li>
@@ -114,7 +120,7 @@
 			</article>
 		</section>
 		<div class="grid-x align-center">
-			<aside id="infobox" class="cell medium-4">
+			<aside id="infobox" class="cell small-11 large-4">
 				<ul class="accordion" data-responsive-accordion-tabs="accordion large-tabs">
 					<li class="accordion-item is-active" data-accordion-item>
 						<a href="#" class="accordion-title">Entrance Fees</a>
@@ -154,7 +160,7 @@
 					</li>
 				</ul>
 			</aside>
-			<main id="galleryContainer" class="cell medium-7" style="background: #FFF; padding: 1rem;">
+			<main id="galleryContainer" class="cell small-11 large-7" style="background: #FFF; padding: 1rem;">
 				<div id="description"></div>
 				<div class="fotorama" data-auto="false"></div>
 				<div id="extract"></div>

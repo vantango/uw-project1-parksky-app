@@ -2,17 +2,21 @@
 	--grey: #777;
 	--darkgrey: #333;
 	--darkblue: #151521;
+	--danger: rgb(220, 20, 60);
+	--dangerlight: #fbdee4;
+	--warning: #ffad00;
+	--warninglight: #fff3dd;
+	--success: #3ADB76;
+	--info: deepskyblue;
+	--lightblue: #81c2ee;
+	/*--active: #FFAE00;*/
+	--active: #ffdf00;
 }
 
 /* GENERAL */
 body {
 	position: relative;
-	/*background-color: var(--grey);*/
-	/*background-image: url('https://www.nps.gov/common/uploads/structured_data/3C7A0C49-1DD8-B71B-0B460D58D6E83B40.jpg');*/
-	/*background-image: url('https://www.nps.gov/common/uploads/structured_data/613FFA94-B2F5-FBBF-090B96462B7CAB18.jpg');*/
-	/*background-image: url('https://www.nps.gov/common/uploads/structured_data/3C7AC8F5-1DD8-B71B-0B661B7FF90F5407.jpg');*/
-	/*background-image: url('../img/neida-zarate--unsplash.jpg');*/
-	background-image: url('../img/klemen-vrankar--unsplash.jpg');
+	background: url('../img/klemen-vrankar--unsplash.jpg'), var(--grey);
 	background-position: bottom center;
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -24,7 +28,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .note {
 	font-size: 0.8rem;
-	color: #777;
+	color: var(--grey);
 	font-style: italic;
 	padding: 0.5rem;
 }
@@ -35,12 +39,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .has-text-white { color: white !important; }
 .has-text-black { color: black !important; }
-.has-text-danger { color: rgb(220, 20, 60); }
-.is-danger { background-color: rgb(220, 20, 60); }
-.has-text-success { color: forestgreen; }
-.is-success { background-color: forestgreen; }
-.has-text-info { color: deepskyblue; }
-.is-info { background-color: deepskyblue; }
+.has-text-danger { color: var(--danger); }
+.is-danger { background-color: var(--danger); }
+.has-text-success { color: var(--success); }
+.is-success { background-color: var(--success); }
+.has-text-info { color: var(--info); }
+.is-info { background-color: var(--info); }
 
 .mt-1 { margin-top: 1rem; }
 .mt-2 { margin-top: 2rem; }
@@ -50,6 +54,30 @@ h1, h2, h3, h4, h5, h6 {
 .fa-siren-on { margin-right: 0.75rem; }
 
 /* HEADER & NAV */
+.title-bar-title {
+	display: flex;
+	text-align: center;
+	margin: 0 auto;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.title-bar-title a {
+	flex: 1 0 auto;
+}
+
+.title-bar img {
+	position: relative;
+	display: inline-block;
+	max-width: 150px;
+	right: -30px;
+}
+
+.top-bar ul {
+	background-color: transparent;
+	margin: 0 auto;
+}
+
 .site-header {
 	/*background-color: var(--darkgrey);*/
 	background-color: rgba(21, 21, 33, 0.95);
@@ -58,15 +86,20 @@ h1, h2, h3, h4, h5, h6 {
 .menu a {
 	color: white;
 	font-size: 1.5rem;
-	margin: 0 3rem;
+	/*margin: 0 3rem;*/
+	border-bottom: 2px solid transparent;
+	transition: all 0.3s ease-out;
 }
 
-.menu a:hover {
-	color: #3ADB76;
+.menu li:not(:nth-child(3)):hover a,
+.menu li:not(:nth-child(3)):focus a {
+	color: var(--active);
+	border-bottom: 3px solid var(--active);
 }
 
 .menu a.is-active {
-	color: #FFAE00;
+	color: var(--success);
+	border-bottom: 3px solid var(--success);
 }
 
 /* SEARCH BAR */
@@ -156,11 +189,15 @@ main > table {
 
 .tabs-title > a {
 	font-size: 1rem;
+	color: black;
+	font-weight: bold;
+	/*font-size: 1.3rem;*/
 }
 
 .tabs-title:hover > a {
-	background-color: #3ADB76;
-	color: white;
+	background-color: var(--active);
+	color: black;
+	/*color: white;*/
 }
 
 .tabs-content {
@@ -168,7 +205,7 @@ main > table {
 }
 
 #infobox .tabs-title.is-active a[aria-selected=true] {
-	background-color: orange;
+	background-color: var(--success);
 	color: white;
 	font-weight: bold;
 }
@@ -287,6 +324,8 @@ main > table {
 /* FOTORAMA (park details gallery) */
 .fotorama {
 	margin: 2rem 0;
+	padding: 1rem;
+	background-color: black;
 }
 
 .fotorama__wrap {
@@ -299,8 +338,10 @@ main > table {
 }
 
 /* BUTTONS */
+.button { color: black; }
 .button.is-light {
-	background-color: #60B3EA;
+	background-color: var(--lightblue);
+	color: black;
 }
 
 /* FOOTER, bg photo credit */
@@ -363,19 +404,19 @@ main > table {
 }
 
 .message.is-danger .message-header {
-	background-color: crimson;
+	background-color: var(--danger);
 }
 
 .message.is-danger .message-body {
-	background-color: #fbdee4;
+	background-color: var(--dangerlight);
 }
 
 .message.is-warning .message-header {
-	background-color: #ffad00;
+	background-color: var(--warning);
 }
 
 .message.is-warning .message-body {
-	background-color: #fff3dd;
+	background-color: var(--warninglight);
 }
 
 .message.is-success .message-header {
@@ -402,8 +443,32 @@ main > table {
 	border-image-slice: 1;
 }
 
+#starChart {
+	overflow: hidden;
+}
+
 @media screen and (min-width: 769px) {
 	.modal-content {
 		min-width: 50%;
+	}
+}
+
+@media all and (max-width: 670px) {
+	#searchParks {
+		width: 100%;
+		display: black;
+	}
+}
+
+@media all and (max-width: 799px) {
+	#starChart {
+		position: relative;
+		overflow: hidden;
+	}
+}
+
+@media all and (min-width: 800px) {
+	#toggleStarChartContainer {
+		display: none;
 	}
 }

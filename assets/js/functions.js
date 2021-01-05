@@ -256,10 +256,10 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
         data: images,
         nav: "thumbs",
         loop: true,
-        // fit: "scaledown",
-        fit: "cover",
-        maxwidth: 1000,
-        minwidth: 1000,
+        fit: "scaledown",
+        // fit: "cover",
+        maxwidth: window.width,
+        minwidth: window.width / 2,
       });
 
     }
