@@ -423,9 +423,17 @@ function getNEOs() {
           var alert = neos[date][i];
           var link = `<a href="${alert.nasa_jpl_url};orb=1;cov=0;log=0;cad=0#orb" target="_blank">${alert.name}</a>`;
           // console.log(link);
-
-          var time = dayjs(alert.close_approach_data[0].close_approach_date.close_approach_date_full).format("HH:mm");
+          // console.log(alert.close_approach_data[0].close_approach_date_full);
+          var time = dayjs(alert.close_approach_data[0].close_approach_date_full).format("HH:mm");
+          var hour = parseInt(dayjs(alert.close_approach_data[0].close_approach_date_full).format("H"));
+          console.log(hour);
+          if(hour > 7 && hour < 19) {
+          	time += "&nbsp;&nbsp;<i class='fas fa-sun' style='color: coral'></i>";
+          } else {
+          	time += "&nbsp;&nbsp;<i class='fas fa-moon' style='color: thistle'></i>";
+          }
           var estDiameter = (alert.estimated_diameter.meters.estimated_diameter_min + alert.estimated_diameter.meters.estimated_diameter_max) / 2;
+
           var messageText = $("<p>", { class: 'neo-message' });
           messageText.html(`<strong>${link}</strong> @ ${time}<br><strong style='padding-left: 1.5rem'>Magnitude:</strong> ${alert.absolute_magnitude_h} | <strong>Est. Diameter (meters):</strong> ${estDiameter}`);
 
