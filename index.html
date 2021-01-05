@@ -178,21 +178,27 @@
 					</li>
 				</ul>
 			</aside>
-			<main class="cell small-10 large-auto">
-				<div id="canvaswrapper">
-					<canvas id="loc1" width="800" height="800">
+			<main class="cell small-10 large-auto text-center">
+				<div id="toggleStarChartContainer">
+					<button id="toggleStarChartMobile" class="button is-danger has-text-white">toggle Star Chart</button>
+					<p class="note">Star Chart is 800px square - mobile size not yet available.</p>
+				</div>
+				<div id="starChart">
+					<div id="canvaswrapper">
+						<canvas id="loc1" width="800" height="800">
+							CANVAS NOT SUPPORTED IN THIS BROWSER!
+						</canvas>
+						<div id="tip1" class="tip">
+							<div class="close" onclick="closePopup('tip1')">&times;<!-- &#10005; --></div>
+							<div id="tip1text"></div>
+						</div>
+					</div>
+					<br>
+					<p class="note text-center has-text-white">Click a star in the chart above to view details.</p>
+					<canvas id="legend" width="500" height="110">
 						CANVAS NOT SUPPORTED IN THIS BROWSER!
 					</canvas>
-					<div id="tip1" class="tip">
-						<div class="close" onclick="closePopup('tip1')">&#10005;</div>
-						<div id="tip1text"></div>
-					</div>
 				</div>
-				<br>
-				<p class="note text-center has-text-white">Click a star in the chart above to view details.</p>
-				<canvas id="legend" width="500" height="110">
-					CANVAS NOT SUPPORTED IN THIS BROWSER!
-				</canvas>
 			</main>
 		</div>
 		<section id="bg-photo-credit" class="grid-x">
