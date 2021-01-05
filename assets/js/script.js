@@ -59,10 +59,10 @@ $("document").ready(function () {
 	// on date change, only update the star chart
 	$("#visitDate").change(function () {
 		date = $(this).val();
-		// relace the prevData date with the new date
-		prevParkData.date = $(this).val();
-		// save to localStorage
-		saveToLocalStorage(prevParkData, 'park');
+		prevData = JSON.parse(localStorage.getItem('parksky-park-data'));
+		prevData.date = date;
+
+		saveToLocalStorage(prevData, 'park');
 
 		getNEOs();
 

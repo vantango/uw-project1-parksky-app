@@ -17,11 +17,11 @@ function displayData(parkCode, date, displayStarChart = false, displayStarDetail
       date: $("#visitDate").val()
     };
 
-    $("#parkName").html(`${data.fullName}`);
-
     // save to local data immediately so other functions
     // can use the (correct) data by pulling from local storage
     saveToLocalStorage(saveData, 'park');
+
+    $("#parkName").html(`${data.fullName}`);
 
     // park alerts from NPS
     getAlerts(parkCode, data.fullName);
