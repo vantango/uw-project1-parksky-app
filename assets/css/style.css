@@ -7,6 +7,7 @@
 	--warning: #ffad00;
 	--warninglight: #fff3dd;
 	--success: #3ADB76;
+	--successdark: #015123;
 	--info: deepskyblue;
 	--lightblue: #81c2ee;
 	/*--active: #FFAE00;*/
@@ -24,6 +25,13 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
 	text-align: center;
+}
+
+[aria-haspopup="true"]:focus,
+i:focus, i.fas:focus,
+a:focus, .button:focus {
+	outline: none;
+	border: none; 
 }
 
 .note {
@@ -338,10 +346,20 @@ main > table {
 }
 
 /* BUTTONS */
-.button { color: black; }
+.button {
+	color: black;
+	border-radius: 4px;
+}
+
 .button.is-light {
 	background-color: var(--lightblue);
 	color: black;
+}
+
+.button:hover,
+.button:focus {
+	background-color: var(--successdark);
+	color: white;
 }
 
 /* FOOTER, bg photo credit */
@@ -409,6 +427,7 @@ main > table {
 
 .message.is-danger .message-body {
 	background-color: var(--dangerlight);
+	color: black;
 }
 
 .message.is-warning .message-header {
