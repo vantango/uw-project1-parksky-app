@@ -92,4 +92,26 @@ $("document").ready(function () {
 		}
 	});
 
+	if($(window).width() < 800) {
+		$("#starChart").addClass("hide");
+
+	} else {
+		$("#starChart").removeClass("hide");
+
+	}
+
+	$(window).resize(function() {
+		if($(window).width() < 800) {
+			$("#starChart").addClass("hide");
+
+		} else {
+			$("#starChart").removeClass("hide");
+
+		}
+	});
+
+	$("#toggleStarChartMobile").click(function() {
+		$("#starChart").toggleClass("hide");
+	});
+
 });

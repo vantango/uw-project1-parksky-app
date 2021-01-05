@@ -16,11 +16,17 @@
 </head>
 
 <body>
-	<header class="site-header">
+	<div class="title-bar" data-responsive-toggle="site-nav" data-hide-for="large">
+		<div class="title-bar-title align-middle align-center">
+			<a href="index.html"><img src="assets/img/logot_invert.png" alt="ParkSky Logo" width="300"></a>
+			<button class="menu-icon" type="button" data-toggle="site-nav"></button>
+		</div>
+	</div>
+	<header class="site-header top-bar" id="site-nav">
 		<ul class="vertical medium-horizontal menu align-center align-middle">
 			<li><a href="index.html"><span>Home</span></a></li>
 			<li><a href="parkdetails.html"><span>Park Details</span></a></li>
-			<li><a href="index.html"><img src="assets/img/logot_invert.png" alt="ParkSky Logo" width="300"></a></li>
+			<li class="show-for-large"><a href="index.html"><img src="assets/img/logot_invert.png" alt="ParkSky Logo" width="300"></a></li>
 			<li><a href="starchart.html"><span>Star Chart</span></a></li>
 			<li><a href="https://github.com/vantango/uw-project1-parksky-app" target="_blank"><span>Github</span></a>
 			</li>
@@ -114,7 +120,7 @@
 			</article>
 		</section>
 		<div class="grid-x align-center">
-			<aside id="infobox" class="cell small-12 medium-4">
+			<aside id="infobox" class="cell small-10 large-4">
 				<ul class="accordion" data-accordion>
 					<li class="accordion-item is-active" data-accordion-item>
 						<a href="#" class="accordion-title">Rise and Set Times of Celestial Objects</a>
@@ -153,30 +159,36 @@
 					</li>
 				</ul>
 			</aside>
-			<main class="cell small-12 medium-auto">
-				<div id="canvaswrapper">
-					<canvas id="loc1" width="800" height="800">
+			<main class="cell small-12 large-auto text-center">
+				<div id="toggleStarChartContainer" di>
+					<button id="toggleStarChartMobile" class="button is-danger">toggle Star Chart</button>
+					<p class="note">Star Chart is 800px square - mobile size not yet available.</p>
+				</div>
+				<div id="starChart">
+					<div id="canvaswrapper">
+						<canvas id="loc1" width="800" height="800">
+							CANVAS NOT SUPPORTED IN THIS BROWSER!
+						</canvas>
+						<div id="tip1" class="tip">
+							<div class="close" onclick="closePopup('tip1')">&times;<!-- &#10005; --></div>
+							<div id="tip1text"></div>
+						</div>
+					</div>
+					<br>
+					<p class="note text-center has-text-white">Click a star in the chart above to view details.</p>
+					<canvas id="legend" width="500" height="110">
 						CANVAS NOT SUPPORTED IN THIS BROWSER!
 					</canvas>
-					<div id="tip1" class="tip">
-						<div class="close" onclick="closePopup('tip1')">&times;<!-- &#10005; --></div>
-						<div id="tip1text"></div>
+					<div id="starchartOptions">
+						<button id="showPlanets" data-toggle="Planets" class="button is-success is-light mx-2">Planets</button>
+						<button id="showEquator" data-toggle="Equator" class="button is-success is-light mx-2">Equator</button>
+						<button id="showEcliptic" data-toggle="Ecliptic" class="button is-success is-light mx-2">Ecliptic</button>
+						<button id="showMilkyWay" data-toggle="MilkyWay" class="button is-success is-light mx-2">Milky Way</button>
+						<button id="showConLines" data-toggle="ConLines" class="button is-success is-light mx-2">Constellation
+							Lines</button>
+						<button id="showConLab" data-toggle="ConLab" class="button is-success is-light mx-2">Constellation
+							Labels</button>
 					</div>
-				</div>
-				<br>
-				<p class="note text-center has-text-white">Click a star in the chart above to view details.</p>
-				<canvas id="legend" width="500" height="110">
-					CANVAS NOT SUPPORTED IN THIS BROWSER!
-				</canvas>
-				<div id="starchartOptions">
-					<button id="showPlanets" data-toggle="Planets" class="button is-success is-light mx-2">Planets</button>
-					<button id="showEquator" data-toggle="Equator" class="button is-success is-light mx-2">Equator</button>
-					<button id="showEcliptic" data-toggle="Ecliptic" class="button is-success is-light mx-2">Ecliptic</button>
-					<button id="showMilkyWay" data-toggle="MilkyWay" class="button is-success is-light mx-2">Milky Way</button>
-					<button id="showConLines" data-toggle="ConLines" class="button is-success is-light mx-2">Constellation
-						Lines</button>
-					<button id="showConLab" data-toggle="ConLab" class="button is-success is-light mx-2">Constellation
-						Labels</button>
 				</div>
 			</main>
 		</div>

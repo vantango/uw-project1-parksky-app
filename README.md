@@ -11,6 +11,7 @@ Allows a user to search for any national park for a given visitation date in the
 ### Objective
 We were tasked with building an interactive app with a CSS framework other than Bootstrap. It required the use of at least two server-side API's and local storage. The final project then had to be deployed via GitHub pages.
 
+
 ![ParkSky App Screenshot](./assets/img/screencapture.png?raw=true "ParkSky App Screenshot")
 
 ### Technologies Used
@@ -32,6 +33,7 @@ We were tasked with building an interactive app with a CSS framework other than 
 - Utilized a multitude of NPS API endpoints to retrieve various data endpoints
 
 ### Future Development
+* Star chart scaling/handling for mobile screens
 * Update font options
 * Regionally-based dropdown menu for parks
 * Interactive map on homepage to search by region or individual park
